@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+const authRedirectTo = () => {
+  const isAuthenticated = false;
+
+  return isAuthenticated ? 'today' : 'sign-in';
+};
+
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: authRedirectTo(),
     pathMatch: 'full'
   },
   {
