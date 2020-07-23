@@ -230,3 +230,24 @@
     --ion-card-background: #1e1e1e;
   }
 }
+
+/** Keper Variables **/
+:root {
+  --keper-color-primary: #6bbbcb;
+  --keper-color-primary-contrast: #0c8c94;
+  --keper-color-secondary: #d2b258;
+  --keper-color-black: #202020;
+  --keper-color-dark-gray: #282828;
+  --keper-color-white: #f5f5f5;
+
+  --keper-padding-body: 1em;
+  --keper-padding-button: 1.2em;
+  --keper-padding-input: 0.3em 0.4em;
+
+  --keper-font-large: 1.4rem;
+  --keper-font-normal: 1rem;
+  --keper-font-reader: 0.8rem;
+
+  --keper-border-radius-large: 1em;
+  --keper-border-radius-normal: 0.4em;
+}
