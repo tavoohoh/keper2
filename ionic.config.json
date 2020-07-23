@@ -1,0 +1,7 @@
+{
+  "name": "keper",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
