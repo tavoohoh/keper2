@@ -1,7 +1,63 @@
 {
+  "CANCEL": "Cancelar",
+  "DONE": "Listo",
+  "EDIT": "Editar",
+  "DELETE": "Eliminar",
   "AUTH": {
-    "SIGN_IN": "Ingresar",
+    "SIGN_IN": "Ingresa",
     "SIGN_UP": "Regístrate",
-    "SUBTITLE": "Mantenga su grupo familiar y tareas organizadas"
+    "SUBTITLE": "Mantenga su grupo familiar y tareas organizadas",
+    "RECOVER_PASSWORD": "Recuperar contraseña",
+    "RECOVER_PASSWORD_INSTRUCTIONS": "Le enviaremos un enlace con instrucciones para restablecer su contraseña",
+    "RECOVER_PASSWORD_SUBMIT": "Envíame instrucciones",
+    "CHANGE_PASSWORD": "Cambiar contraseña",
+    "LOGOUT": "Salir"
+  },
+  "DAYS": {
+    "MON": "LUN",
+    "TUE": "MAR",
+    "WEN": "MIE",
+    "THU": "JUE",
+    "FRI": "VIE",
+    "SAT": "SAB",
+    "SUN": "DOM"
+  },
+  "TODAY": {
+    "TITLE": "Hoy"
+  },
+  "SETTING": {
+    "TITLE": "Configuraciones"
+  },
+  "PROFILE": {
+    "TITLE": "Perfil"
+  },
+  "TASKS": {
+    "TITLE": "Tareas",
+    "SINGULAR": "Tarea",
+    "SUBTITLE": "Mantenga su grupo organizado creando tareas. Keper será responsable de notificar y mostrar a los usuarios sus tareas asignadas",
+    "NEW": "Nueva tarea"
+  },
+  "USERS": {
+    "TITLE": "Los usuarios",
+    "SINGULAR": "Usuario",
+    "SUBTITLE": "Mantenga su grupo organizado agregando usuarios responsables de las tareas",
+    "USER_WAS_FOUND": "Encontramos un usuario con este correo electrónico. Si este no es el usuario que está intentando agregar, asegúrese de que el correo electrónico sea correcto",
+    "YOU": "tú",
+    "NEW": "Nuevo Usuario"
+  },
+  "FORM": {
+    "EMAIL": "Email",
+    "EMAIL_P": "¿Cuál es la dirección de correo electrónico del usuario?",
+    "NAME": "Nombre",
+    "NAME_P": "¿Cuál es el nombre del usuario?",
+    "PASSWORD": "Contraseña",
+    "PHONE": "Teléfono",
+    "PHONE_P": "¿Cuál es el número de teléfono del usuario?",
+    "TASK_NAME": "Nombre de la tarea",
+    "TASK_NAME_P": "¿Cuál es el nombre de esta tarea?",
+    "TASK_SCHEDULE": "Horario",
+    "TASK_SCHEDULE_P": "¿A qué hora debe ocurrir esta tarea?",
+    "TASK_DAYS": "Días",
+    "TASK_USERS": "Usuarios"
   }
 }

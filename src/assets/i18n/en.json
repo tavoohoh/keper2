@@ -1,7 +1,63 @@
 {
+  "CANCEL": "Cancel",
+  "DONE": "Done",
+  "EDIT": "Edit",
+  "DELETE": "Delete",
   "AUTH": {
     "SIGN_IN": "Sign In",
     "SIGN_UP": "Sign Up",
-    "SUBTITLE": "Keep your family group and tasks organized"
+    "SUBTITLE": "Keep your family group and tasks organized",
+    "RECOVER_PASSWORD": "Recover password",
+    "RECOVER_PASSWORD_INSTRUCTIONS": "We will send you a link with instructions to reset your password",
+    "RECOVER_PASSWORD_SUBMIT": "Send me instructions",
+    "CHANGE_PASSWORD": "Change password",
+    "LOGOUT": "Logout"
+  },
+  "DAYS": {
+    "MON": "MON",
+    "TUE": "TUE",
+    "WEN": "WEN",
+    "THU": "THU",
+    "FRI": "FRI",
+    "SAT": "SAT",
+    "SUN": "SUN"
+  },
+  "TODAY": {
+    "TITLE": "Today"
+  },
+  "SETTING": {
+    "TITLE": "Settings"
+  },
+  "PROFILE": {
+    "TITLE": "Profile"
+  },
+  "TASKS": {
+    "TITLE": "Tasks",
+    "SINGULAR": "Task",
+    "SUBTITLE": "Keep your group organized by creating tasks. Keper will be responsible for notifying and showing users their assigned tasks",
+    "NEW": "New task"
+  },
+  "USERS": {
+    "TITLE": "Users",
+    "SINGULAR": "User",
+    "SUBTITLE": "Keep your group organized by adding users responsible for tasks",
+    "USER_WAS_FOUND": "We found a user with this email. If this is not the user you are trying to add then make sure the email is correct",
+    "YOU": "you",
+    "NEW": "New user"
+  },
+  "FORM": {
+    "EMAIL": "Email",
+    "EMAIL_P": "What is the user's email address?",
+    "NAME": "Name",
+    "NAME_P": "What is the user's name?",
+    "PASSWORD": "Password",
+    "PHONE": "Phone",
+    "PHONE_P": "What is the user's phone number?",
+    "TASK_NAME": "Task name",
+    "TASK_NAME_P": "What is the name of this task?",
+    "TASK_SCHEDULE": "Timetable",
+    "TASK_SCHEDULE_P": "At what time should this task occur?",
+    "TASK_DAYS": "Days",
+    "TASK_USERS": "Users"
   }
 }
