@@ -4,16 +4,15 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TodayPageRoutingModule } from './today-routing.module';
-
 import { TodayPage } from './today.page';
+import { TodayRoutingModule } from './today-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TodayPageRoutingModule
+    TodayRoutingModule
   ],
   declarations: [TodayPage]
 })

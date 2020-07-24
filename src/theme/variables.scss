@@ -236,18 +236,48 @@
   --keper-color-primary: #6bbbcb;
   --keper-color-primary-contrast: #0c8c94;
   --keper-color-secondary: #d2b258;
-  --keper-color-black: #202020;
+  --keper-color-black: #181818;
   --keper-color-dark-gray: #282828;
   --keper-color-white: #f5f5f5;
 
   --keper-padding-body: 1em;
+  --keper-padding-large: 3em;
   --keper-padding-button: 1.2em;
   --keper-padding-input: 0.3em 0.4em;
 
-  --keper-font-large: 1.4rem;
-  --keper-font-normal: 1rem;
-  --keper-font-reader: 0.8rem;
+  --keper-font-large: 2rem;
+  --keper-font-normal: 0.8rem;
+  --keper-font-reader: 0.6rem;
 
-  --keper-border-radius-large: 1em;
-  --keper-border-radius-normal: 0.4em;
+  --keper-border-radius-large: 3em;
+  --keper-border-radius-normal: 0.7em;
+}
+
+/** keper Mixins **/
+@mixin keper-mixin-transition($time: 0.3s) {
+  transition: $time ease-in-out;
+}
+
+@mixin keper-mixin-background-image($image) {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: $image;
+}
+
+@mixin keper-mixin-clean-button() {
+  outline: none;
+  box-shadow: none;
+  border: none;
+  text-decoration: none;
+  padding: 0;
+  width: max-content;
+  transition: ease-in-out;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:focus,
+  *:focus {
+    outline: none;
+  }
 }

@@ -1,0 +1,38 @@
+@import "../../../../theme/variables.scss";
+
+.keper-button {
+  @include keper-mixin-clean-button();
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-size: var(--keper-font-normal);
+  padding: var(--keper-padding-button);
+}
+
+.keper-button-LINK,
+.keper-button-BUTTON_SIMPLE {
+  color: var(--keper-color-secondary);
+}
+
+.keper-button-LINK {
+  padding: 0;
+}
+
+.keper-button-BUTTON_PRIMARY,
+.keper-button-BUTTON_SECONDARY {
+  color: var(--keper-color-black);
+}
+
+.keper-button-BUTTON_PRIMARY,
+.keper-button-BUTTON_SECONDARY,
+.keper-button-BUTTON_SIMPLE {
+  border-radius: var(--keper-border-radius-normal);
+}
+
+.keper-button-BUTTON_PRIMARY {
+  background-color: var(--keper-color-primary);
+}
+
+.keper-button-BUTTON_SECONDARY {
+  background-color: var(--keper-color-secondary);
+}

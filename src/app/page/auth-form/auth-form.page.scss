@@ -1,0 +1,54 @@
+@import "../../../theme/variables.scss";
+
+$logoSize: 140px;
+
+.auth-container {
+  display: grid;
+  grid-template-rows: auto max-content;
+
+  .auth-header {
+    @include keper-mixin-transition();
+    display: grid;
+    gap: var(--keper-padding-body);
+    grid-template-rows: $logoSize auto auto auto;
+    padding: var(--keper-padding-large) 0;
+    background-color: var(--keper-color-black);
+    border-radius: 0 0 var(--keper-border-radius-large) var(--keper-border-radius-large);
+    height: 350px;
+
+    &.auth-header-full {
+      height: 100vh;
+      border-radius: 0;
+    }
+
+    .auth-header-logo {
+      height: $logoSize;
+      width: $logoSize;
+      margin: 0 auto;
+      @include keper-mixin-background-image($image: url("src/assets/logo.png"));
+    }
+
+    .auth-header-title {
+      text-align: center;
+      color: var(--keper-color-white);
+      font-size: var(--keper-font-large);
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    .auth-header-subtitle {
+      text-align: center;
+      color: var(--keper-color-white);
+      line-height: 1;
+    }
+
+    .auth-header-actions {
+
+    }
+  }
+
+  .auth-form {
+    //height: 50vh;
+
+  }
+}

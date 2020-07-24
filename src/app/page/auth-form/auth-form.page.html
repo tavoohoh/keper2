@@ -1,0 +1,20 @@
+<div class="auth-container">
+  <div class="auth-header" [class.auth-header-full]="loading">
+    <div class="auth-header-logo"></div>
+    <div class="auth-header-title">
+      Keper
+    </div>
+    <div class="auth-header-subtitle" *ngIf="!loading">
+      Keep your family group and tasks organized
+    </div>
+    <div class="auth-header-actions" *ngIf="!loading">
+      <app-button
+        (buttonClick)="toggleForm()"
+        [buttonType]="buttonType.BUTTON_SIMPLE"
+        [buttonText]="isSignIn ? 'AUTH.SIGN_IN' : 'AUTH_SIGN_UP'">
+      </app-button>
+    </div>
+  </div>
+
+  <div class="auth-form"></div>
+</div>

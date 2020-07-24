@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const authRedirectTo = () => {
   const isAuthenticated = false;
 
-  return isAuthenticated ? 'today' : 'sign-in';
+  return isAuthenticated ? 'today' : 'sign';
 };
 
 const routes: Routes = [
@@ -14,12 +14,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'sign-in',
-    loadChildren: () => import('./page/sign-in/sign-in.module').then( m => m.SignInPageModule)
-  },
-  {
-    path: 'sign-up',
-    loadChildren: () => import('./page/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+    path: 'sign',
+    loadChildren: () => import('./page/auth-form/auth-form.module').then( m => m.AuthFormPageModule)
   },
   {
     path: 'today',
