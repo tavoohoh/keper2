@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthFormPage } from './auth-form.page';
 import { AuthFormRoutingModule } from './auth-form-routing.module';
@@ -14,7 +15,8 @@ import { WidgetModule } from '../../component/widget/widget.module';
     FormsModule,
     IonicModule,
     AuthFormRoutingModule,
-    WidgetModule
+    WidgetModule,
+    TranslateModule.forChild()
   ],
   declarations: [AuthFormPage]
 })

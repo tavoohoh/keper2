@@ -5,13 +5,13 @@
       Keper
     </div>
     <div class="auth-header-subtitle" *ngIf="!loading">
-      Keep your family group and tasks organized
+      {{ "AUTH.SUBTITLE" | translate }}
     </div>
     <div class="auth-header-actions" *ngIf="!loading">
       <app-button
         (buttonClick)="toggleForm()"
         [buttonType]="buttonType.BUTTON_SIMPLE"
-        [buttonText]="isSignIn ? 'AUTH.SIGN_IN' : 'AUTH_SIGN_UP'">
+        [buttonText]="isSignIn ? 'AUTH.SIGN_IN' : 'AUTH.SIGN_UP'">
       </app-button>
     </div>
   </div>

@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ButtonComponent } from './button/button.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ItemCardComponent } from './item-card/item-card.component';
@@ -19,7 +21,7 @@ const widgets = [
 
 @NgModule({
   declarations: [widgets],
-  // entryComponents: [widgets],
+  imports: [TranslateModule.forChild()],
   exports: [widgets]
 })
 export class WidgetModule {}
