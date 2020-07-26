@@ -67,5 +67,9 @@
     "TASK_SCHEDULE_P": "¿A qué hora debe ocurrir esta tarea?",
     "TASK_DAYS": "Días",
     "TASK_USERS": "Usuarios"
+  },
+  "TOAST": {
+    "SIGN_IN_ERROR": "No se pudo ingresar con estas credenciales. Por favor, vuelva a intentarlo.",
+    "SIGN_UP_ERROR": "Algo salió mal. Por favor, vuelva a intentarlo."
   }
 }

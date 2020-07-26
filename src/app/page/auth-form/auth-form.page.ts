@@ -1,11 +1,12 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ButtonTypeEnum } from '../../_enum';
 import { AuthService } from '../../service/auth/auth.service';
-import {TranslateService} from "@ngx-translate/core";
+import { LoaderService } from '../../service/loader/loader.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -27,7 +28,8 @@ export class AuthFormPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private toastController: ToastController,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private loader: LoaderService
   ) { }
 
   ngOnInit(): void {
@@ -74,27 +76,29 @@ export class AuthFormPage implements OnInit {
       })
       .catch(async () => {
         const toast = await this.toastController.create({
-          // message: await this.translateService.,
+          message: await this.translateService.get('TOAST.SIGN_IN_ERROR').toPromise(),
           duration: 3000,
           position: 'top',
           color: 'danger'
         });
-        // this.loading.toggleLoading();
+        this.loader.toggleLoading();
         toast.present();
       });
   }
 
   private submitSignUp(): void {
     this.authService.registerUser(this.form.value)
-      .then(() => this.submitSignIn())
+      .then(() => {
+        this.submitSignIn();
+      })
       .catch(async () => {
         const toast = await this.toastController.create({
-          message: 'Credentials are invalid',
+          message: await this.translateService.get('TOAST.SIGN_UP_ERROR').toPromise(),
           duration: 3000,
           position: 'top',
           color: 'danger'
         });
-        // this.loading.toggleLoading();
+        this.loader.toggleLoading();
         toast.present();
       });
   }

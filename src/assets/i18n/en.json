@@ -69,7 +69,7 @@
     "TASK_USERS": "Users"
   },
   "TOAST": {
-    "SIGNIN": "Could not sign in with this credentials",
-    "SIGNUP": "Something went wrong, please try again"
+    "SIGN_IN_ERROR": "Could not sign in with this credentials, please try again.",
+    "SIGN_UP_ERROR": "Something went wrong, please try again."
   }
 }
