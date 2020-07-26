@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthFormPage } from './auth-form.page';
 import { AuthFormRoutingModule } from './auth-form-routing.module';
@@ -16,7 +17,8 @@ import { WidgetModule } from '../../component/widget/widget.module';
     IonicModule,
     AuthFormRoutingModule,
     WidgetModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    ReactiveFormsModule
   ],
   declarations: [AuthFormPage]
 })

@@ -47,10 +47,18 @@
   },
   "FORM": {
     "EMAIL": "Email",
-    "EMAIL_P": "What is the user's email address?",
+    "EMAIL_P": "What is your email address?",
+    "EMAIL_P_ALT": "What is the user's email address?",
+    "EMAIL_E": "Email must be a valid email address",
+    "EMAIL_R": "Email is required",
     "NAME": "Name",
-    "NAME_P": "What is the user's name?",
+    "NAME_P": "What is your name?",
+    "NAME_P_ALT": "What is the user's name?",
+    "NAME_R": "Name is required",
     "PASSWORD": "Password",
+    "PASSWORD_P": "What is your password?",
+    "PASSWORD_E": "Password must be at least 6 characters",
+    "PASSWORD_R": "Password is required",
     "PHONE": "Phone",
     "PHONE_P": "What is the user's phone number?",
     "TASK_NAME": "Task name",
@@ -59,5 +67,9 @@
     "TASK_SCHEDULE_P": "At what time should this task occur?",
     "TASK_DAYS": "Days",
     "TASK_USERS": "Users"
+  },
+  "TOAST": {
+    "SIGNIN": "Could not sign in with this credentials",
+    "SIGNUP": "Something went wrong, please try again"
   }
 }

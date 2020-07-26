@@ -25,7 +25,66 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@import "theme/variables.scss";
+
 body {
   font-size: var(--keper-font-reader);
   line-height: 1.4;
+  background-color: var(--keper-color-dark-gray);
+}
+
+/**
+  Forms
+ */
+
+.keper-form {
+  display: grid;
+  gap: var(--keper-padding-body);
+  padding: var(--keper-padding-body);
+}
+
+.keper-field {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  padding: var(--keper-padding-input);
+  background-color: var(--keper-color-black);
+  grid-template-rows: 14px 30px;
+  border-radius: var(--keper-border-radius-normal);
+  cursor: pointer;
+
+  label {
+    color: var(--keper-color-white);
+  }
+
+  input {
+    @include keper-mixin-clean-button();
+    color: var(--keper-color-white);
+    font-weight: bold;
+    font-size: var(--keper-font-medium);
+    width: 100%;
+
+    &::placeholder {
+      font-weight: normal;
+    }
+  }
+
+  .keper-field-icon {
+    position: absolute;
+    top: 2.2em;
+    right: 1.25em;
+
+    svg {
+      fill: var(--keper-color-white);
+      width: 2em;
+      height: 2em;
+    }
+  }
+
+  .keper-field-errors {
+    color: var(--keper-color-error);
+    div {
+      display: inline-block;
+    }
+  }
 }

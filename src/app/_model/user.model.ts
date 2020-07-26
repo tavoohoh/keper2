@@ -4,17 +4,17 @@ export class UserModel {
   phone: string;
 
   constructor(response: UserBackendModel) {
-    this.name = response.display_name;
+    this.name = response.displayName;
     this.email = response.email;
-    this.phone = response.phone_number;
+    this.phone = response.phoneNumber;
   }
 }
 
 export interface UserBackendModel {
-  display_name: string;
-  email: string;
-  phone_number: string;
-  photo_url: string;
-  provider_id: string;
   uid: string;
+  email: string;
+  displayName: string;
+  photoURL: string;
+  phoneNumber: string;
+  emailVerified: boolean;
 }
