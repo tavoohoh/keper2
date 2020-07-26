@@ -72,8 +72,7 @@ export class AuthFormPage implements OnInit {
 
   private submitSignIn(): void {
     this.authService.signIn(this.form.value)
-      .then(() => {
-      })
+      .then(() => this.loader.toggleLoading())
       .catch(async () => {
         const toast = await this.toastController.create({
           message: await this.translateService.get('TOAST.SIGN_IN_ERROR').toPromise(),
@@ -111,6 +110,8 @@ export class AuthFormPage implements OnInit {
     if (this.form.invalid) {
       return;
     }
+
+    this.loader.toggleLoading();
 
     if (this.isSignIn) {
       this.submitSignIn();

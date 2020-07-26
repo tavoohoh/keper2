@@ -1,9 +1,7 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { ToastController } from '@ionic/angular';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserBackendModel } from '../../_model/user.model';
 
@@ -19,9 +17,7 @@ export class AuthService {
   constructor(
     private afStore: AngularFirestore,
     private ngFireAuth: AngularFireAuth,
-    private router: Router,
-    private ngZone: NgZone,
-    private toastController: ToastController
+    private router: Router
   ) {
     this.ngFireAuth.authState.subscribe(user => {
       if (user) {
@@ -37,6 +33,15 @@ export class AuthService {
     });
   }
 
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user !== null);
+  }
+
+  get user(): UserBackendModel {
+    return this.userData;
+  }
+
   public signIn(user: { email: string, password: string }) {
     return this.ngFireAuth.signInWithEmailAndPassword(user.email, user.password);
   }
@@ -45,34 +50,8 @@ export class AuthService {
     return this.ngFireAuth.createUserWithEmailAndPassword(user.email, user.password);
   }
 
-  public async passwordRecover(passwordResetEmail: string) {
-    try {
-      await this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail);
-      const toast = await this.toastController.create({
-        message: 'Credentials are invalid',
-        duration: 3000,
-        position: 'top',
-        color: 'success'
-      });
-      toast.present();
-    }
-    catch (error) {
-      this.errorToast(error.message || error);
-    }
-  }
-
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null);
-  }
-
-  get isEmailVerified(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user.emailVerified !== false);
-  }
-
-  get user(): UserBackendModel {
-    return this.userData;
+  public passwordRecover(passwordResetEmail: string) {
+    return this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail);
   }
 
   public userDataAsObservable(): Observable<UserBackendModel> {
@@ -83,46 +62,10 @@ export class AuthService {
     return this.$userDataAsObservable.asObservable();
   }
 
-  public googleAuth() {
-    return this.authLogin(new auth.GoogleAuthProvider());
-  }
-
-  public async authLogin(provider: auth.AuthProvider) {
-    try {
-      const result = await this.ngFireAuth.signInWithPopup(provider);
-      this.ngZone.run(() => {
-        this.router.navigate(['tabs']);
-      });
-      this.setUserData(result.user);
-    }
-    catch (error) {
-      this.errorToast(error.message || error);
-    }
-  }
-
-  public setUserData(userData: UserBackendModel) {
-    const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${userData.uid}`);
-
-    return userRef.set(userData, {
-      merge: true
-    });
-  }
-
   public async signOut() {
     this.$userDataAsObservable.next(null);
     await this.ngFireAuth.signOut();
     localStorage.removeItem('user');
-    this.router.navigate(['login']);
+    this.router.navigate(['sign/in']);
   }
-
-  private async errorToast(message: string) {
-    const toast = await this.toastController.create({
-      message: 'Credentials are invalid',
-      duration: 3000,
-      position: 'top',
-      color: 'danger'
-    });
-    toast.present();
-  }
-
 }
