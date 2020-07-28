@@ -13,8 +13,8 @@ export class UserModel {
 export interface UserBackendModel {
   uid: string;
   email: string;
-  displayName: string;
-  photoURL: string;
-  phoneNumber: string;
-  emailVerified: boolean;
+  displayName?: string;
+  photoURL?: string;
+  phoneNumber?: string;
+  emailVerified?: boolean;
 }

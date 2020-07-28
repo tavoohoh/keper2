@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserBackendModel } from '../../_model/user.model';
+import { User } from 'firebase';
 
 // https://www.positronx.io/ionic-firebase-authentication-tutorial-with-examples/
 
@@ -11,7 +12,7 @@ import { UserBackendModel } from '../../_model/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private userData: UserBackendModel;
+  private userData: User;
   private $userDataAsObservable: BehaviorSubject<UserBackendModel> = new BehaviorSubject<UserBackendModel>(null);
 
   constructor(
@@ -22,8 +23,8 @@ export class AuthService {
     this.ngFireAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
-        this.$userDataAsObservable.next(user);
-        localStorage.setItem('user', JSON.stringify(user));
+        this.$userDataAsObservable.next(user as UserBackendModel);
+        localStorage.setItem('user', JSON.stringify(user as UserBackendModel));
         JSON.parse(localStorage.getItem('user'));
         this.router.navigateByUrl('today');
       } else {
@@ -38,7 +39,7 @@ export class AuthService {
     return (user !== null);
   }
 
-  get user(): UserBackendModel {
+  get user(): User {
     return this.userData;
   }
 
@@ -48,6 +49,12 @@ export class AuthService {
 
   public registerUser(user: { email: string, password: string }) {
     return this.ngFireAuth.createUserWithEmailAndPassword(user.email, user.password);
+  }
+
+  public updateUserProfile(user: User, name: string) {
+    return user.updateProfile({
+      displayName: name
+    });
   }
 
   public passwordRecover(passwordResetEmail: string) {

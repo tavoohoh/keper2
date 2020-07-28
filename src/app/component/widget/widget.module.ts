@@ -6,8 +6,8 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ItemCardComponent } from './item-card/item-card.component';
 import { ItemPickerComponent } from './item-picker/item-picker.component';
 import { ModalComponent } from './modal/modal.component';
-import { TextFieldComponent } from './text-field/text-field.component';
 import { WeekdayPickerComponent } from './weekday-picker/weekday-picker.component';
+import { HeaderComponent } from './header/header.component';
 
 const widgets = [
   ButtonComponent,
@@ -15,8 +15,8 @@ const widgets = [
   ItemCardComponent,
   ItemPickerComponent,
   ModalComponent,
-  TextFieldComponent,
-  WeekdayPickerComponent
+  WeekdayPickerComponent,
+  HeaderComponent
 ];
 
 @NgModule({

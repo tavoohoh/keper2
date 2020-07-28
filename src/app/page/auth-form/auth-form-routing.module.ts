@@ -6,15 +6,6 @@ import { AuthFormPage } from './auth-form.page';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'up',
-    pathMatch: 'full'
-  },
-  {
-    path: 'up',
-    component: AuthFormPage
-  },
-  {
-    path: 'in',
     component: AuthFormPage
   }
 ];

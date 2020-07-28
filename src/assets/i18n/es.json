@@ -70,6 +70,7 @@
   },
   "TOAST": {
     "SIGN_IN_ERROR": "No se pudo ingresar con estas credenciales. Por favor, vuelva a intentarlo.",
-    "SIGN_UP_ERROR": "Algo salió mal. Por favor, vuelva a intentarlo."
+    "SIGN_UP_ERROR": "Algo salió mal. Por favor, vuelva a intentarlo.",
+    "CREATE_PROFILE_ERROR": "No fue posible completar tu perfil. Para completar tu informacion completa el formulario en tu perfil."
   }
 }

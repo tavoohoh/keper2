@@ -70,6 +70,21 @@ export class AuthFormPage implements OnInit {
     });
   }
 
+  private updateUserProfile(): void {
+    this.authService.updateUserProfile(this.authService.user, this.form.value.name)
+      .then(() => this.loader.toggleLoading())
+      .catch(async () => {
+      const toast = await this.toastController.create({
+        message: await this.translateService.get('TOAST.CREATE_PROFILE').toPromise(),
+        duration: 3000,
+        position: 'top',
+        color: 'danger'
+      });
+      this.loader.toggleLoading();
+      toast.present();
+    });
+  }
+
   private submitSignIn(): void {
     this.authService.signIn(this.form.value)
       .then(() => this.loader.toggleLoading())
@@ -87,9 +102,7 @@ export class AuthFormPage implements OnInit {
 
   private submitSignUp(): void {
     this.authService.registerUser(this.form.value)
-      .then(() => {
-        this.submitSignIn();
-      })
+      .then(() => this.authService.signIn(this.form.value).then(() => this.updateUserProfile()))
       .catch(async () => {
         const toast = await this.toastController.create({
           message: await this.translateService.get('TOAST.SIGN_UP_ERROR').toPromise(),

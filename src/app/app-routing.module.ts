@@ -2,20 +2,9 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './_guard/auth/auth.guard';
 
-const authRedirectTo = () => {
-  const isAuthenticated = false;
-
-  return isAuthenticated ? 'today' : 'sign';
-};
-
 const routes: Routes = [
   {
     path: '',
-    redirectTo: authRedirectTo(),
-    pathMatch: 'full'
-  },
-  {
-    path: 'sign',
     canActivate: [AuthGuard],
     loadChildren: () => import('./page/auth-form/auth-form.module').then( m => m.AuthFormPageModule)
   },

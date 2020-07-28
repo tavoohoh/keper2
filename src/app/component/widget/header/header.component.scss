@@ -1,0 +1,17 @@
+.keper-header {
+  display: grid;
+  grid-template-columns: auto 64px;
+  gap: var(--keper-padding-small);
+  padding: var(--keper-padding-large) var(--keper-padding-body) var(--keper-padding-body);
+
+  .keper-header-title {
+    line-height: 1;
+    color: var(--keper-color-white);
+    font-size: var(--keper-font-large);
+    font-weight: bold;
+  }
+
+  .keper-header-profile {}
+
+  .keper-header-description {}
+}
