@@ -39,7 +39,6 @@ body {
 .keper-view-box {
   background-color: var(--keper-color-black);
   height: calc(100vh - 100px);
-  overflow-y: auto;
   border-radius: 0 0 var(--keper-border-radius-large) var(--keper-border-radius-large);
 }
 

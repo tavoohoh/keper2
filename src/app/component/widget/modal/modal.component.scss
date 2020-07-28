@@ -1,0 +1,44 @@
+@import "../../../../theme/variables.scss";
+
+.keper-modal {
+  @include keper-mixin-transition();
+  @include keper-mixin-soft-shadow();
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  padding: 0;
+  background-color: var(--keper-color-dark-gray);
+  border-radius: var(--keper-border-radius-large) var(--keper-border-radius-large) 0 0;
+  height: 0;
+
+  &.keper-show-modal {
+    height: calc(100vh - var(--keper-padding-body));
+    padding: var(--keper-padding-body);
+  }
+
+  &.keper-modal-small {}
+
+  .keper-modal-header {
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+    gap: var(--keper-padding-small);
+    margin-bottom: var(--keper-padding-large);
+
+    .keper-modal-header-button {
+      align-self: center;
+      color: var(--keper-color-secondary);
+      cursor: pointer;
+    }
+  }
+
+  .keper-modal-content {
+    .keper-modal-title {
+      align-self: center;
+      line-height: 1;
+      color: var(--keper-color-white);
+      font-size: var(--keper-font-large);
+      font-weight: bold;
+    }
+  }
+}
+

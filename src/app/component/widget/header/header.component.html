@@ -1,13 +1,15 @@
 <div class="keper-header">
   <div class="keper-header-title">
-    {{ title }}
+    {{ title | translate }}
   </div>
 
-  <div class="keper-header-profile-button" *ngIf="showProfileBtn && user">
+  <div class="keper-header-profile-button" *ngIf="showProfileBtn && user" (click)="toggleProfile()">
     <div>{{ user.nameFirstLetter }}</div>
   </div>
 
   <div class="keper-header-description" *ngIf="description">
-    {{ description }}
+    {{ description | translate }}
   </div>
 </div>
+
+<app-profile [show]="showProfile" (closeProfile)="toggleProfile()"></app-profile>

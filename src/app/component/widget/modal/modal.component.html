@@ -1,3 +1,20 @@
-<p>
-  modal works!
-</p>
+<div class="keper-modal" [class.keper-small-modal]="smallModal" [class.keper-show-modal]="openModal">
+  <div class="keper-modal-header">
+    <div class="keper-modal-header-button" (click)="close()">
+      {{ 'CANCEL' | translate }}
+    </div>
+
+    <span></span>
+
+    <div class="keper-modal-header-button" (click)="confirm()">
+      {{ 'DONE' | translate }}
+    </div>
+  </div>
+
+  <div class="keper-modal-content">
+    <div class="keper-modal-title">
+      {{ title | translate }}
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>

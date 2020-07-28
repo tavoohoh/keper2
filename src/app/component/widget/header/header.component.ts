@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   @Input() public showProfileBtn: boolean;
 
   public user: UserModel;
+  public showProfile: boolean;
 
   constructor(
     private authService: AuthService
@@ -24,6 +25,10 @@ export class HeaderComponent implements OnInit {
         this.user = new UserModel(user);
       }
     });
+  }
+
+  public toggleProfile(): void {
+    this.showProfile = !this.showProfile;
   }
 
 }

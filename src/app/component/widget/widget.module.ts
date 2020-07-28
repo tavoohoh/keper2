@@ -8,7 +8,8 @@ import { ItemPickerComponent } from './item-picker/item-picker.component';
 import { ModalComponent } from './modal/modal.component';
 import { WeekdayPickerComponent } from './weekday-picker/weekday-picker.component';
 import { HeaderComponent } from './header/header.component';
-import {CommonModule} from "@angular/common";
+import { CommonModule } from '@angular/common';
+import {ProfileComponent} from "./profile/profile.component";
 
 const widgets = [
   ButtonComponent,
@@ -17,7 +18,8 @@ const widgets = [
   ItemPickerComponent,
   ModalComponent,
   WeekdayPickerComponent,
-  HeaderComponent
+  HeaderComponent,
+  ProfileComponent
 ];
 
 @NgModule({
