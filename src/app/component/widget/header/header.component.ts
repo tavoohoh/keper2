@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../../service/auth/auth.service';
-import {UserBackendModel} from "../../../_model/user.model";
+import { UserModel } from '../../../_model/user.model';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   @Input() public description: string;
   @Input() public showProfileBtn: boolean;
 
-  public user: UserBackendModel;
+  public user: UserModel;
 
   constructor(
     private authService: AuthService
@@ -20,7 +20,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.authService.userDataAsObservable().subscribe(user => {
-      this.user = user;
+      if (user) {
+        this.user = new UserModel(user);
+      }
     });
   }
 

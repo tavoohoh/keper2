@@ -3,8 +3,8 @@
     {{ title }}
   </div>
 
-  <div class="keper-header-profile" *ngIf="showProfileBtn">
-
+  <div class="keper-header-profile-button" *ngIf="showProfileBtn && user">
+    <div>{{ user.nameFirstLetter }}</div>
   </div>
 
   <div class="keper-header-description" *ngIf="description">
