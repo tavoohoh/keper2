@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ToastController} from '@ionic/angular';
+import {TranslateService} from '@ngx-translate/core';
 
-import { ButtonTypeEnum } from '../../_enum';
-import { AuthService } from '../../service/auth/auth.service';
-import { LoaderService } from '../../service/loader/loader.service';
-import { ChangePasswordMethods } from '../../_shared/password-input.methods';
+import {ButtonTypeEnum} from '../../_enum';
+import {AuthService} from '../../service/auth/auth.service';
+import {LoaderService} from '../../service/loader/loader.service';
+import {ChangePasswordMethods} from '../../_shared/password-input.methods';
+import {ModalService} from '../../service/common/modal.service';
+import {ModalEnum} from '../../_enum/modal.enum';
 
 @Component({
   selector: 'app-sign-in',
@@ -27,7 +29,8 @@ export class AuthFormPage extends ChangePasswordMethods implements OnInit {
     private router: Router,
     private toastController: ToastController,
     private translateService: TranslateService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private modalService: ModalService
   ) {
     super();
   }
@@ -131,5 +134,9 @@ export class AuthFormPage extends ChangePasswordMethods implements OnInit {
     } else {
       this.submitSignUp();
     }
+  }
+
+  public toggleRecoverPassword(): void {
+    this.modalService.currentModalValue = ModalEnum.RESET_PASSWORD;
   }
 }

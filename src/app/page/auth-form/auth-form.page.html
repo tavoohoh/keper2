@@ -80,6 +80,16 @@
         [buttonType]="buttonType.BUTTON_PRIMARY"
         [buttonText]="isSignIn ? 'AUTH.SIGN_IN' : 'AUTH.SIGN_UP'">
       </app-button>
+
+      <app-button
+        *ngIf="isSignIn"
+        (buttonClick)="toggleRecoverPassword()"
+        [buttonType]="buttonType.LINK"
+        [buttonText]="'AUTH.RECOVER_PASSWORD'">
+      </app-button>
     </form>
   </div>
 </div>
+
+<!-- modals -->
+<app-recover-password></app-recover-password>

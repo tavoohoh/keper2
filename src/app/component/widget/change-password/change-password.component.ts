@@ -23,10 +23,10 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
 
   constructor(
     private formBuilder: FormBuilder,
-    private loader: LoaderService,
     private authService: AuthService,
     private toastController: ToastController,
     private translateService: TranslateService,
+    private loader: LoaderService,
     public modalService: ModalService
   ) {
     super(modalService, ModalEnum.CHANGE_PASSWORD);
@@ -40,13 +40,13 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
       .subscribe(user => {
         if (user) {
           this.user = this.authService.user;
-          this.form = this.setProfileForm();
+          this.form = this.setForm();
           this.loader.toggleLoading();
         }
     });
   }
 
-  private setProfileForm(): FormGroup {
+  private setForm(): FormGroup {
     return this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(6)]]
     });

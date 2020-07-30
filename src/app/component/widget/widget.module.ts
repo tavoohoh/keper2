@@ -12,6 +12,7 @@ import { WeekdayPickerComponent } from './weekday-picker/weekday-picker.componen
 import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 
 const widgets = [
   ButtonComponent,
@@ -22,7 +23,8 @@ const widgets = [
   WeekdayPickerComponent,
   HeaderComponent,
   ProfileComponent,
-  ChangePasswordComponent
+  ChangePasswordComponent,
+  RecoverPasswordComponent
 ];
 
 @NgModule({
