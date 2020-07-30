@@ -2,7 +2,7 @@
   [smallModal]="false"
   [openModal]="show"
   [disabledConfirm]="noEdited"
-  (modalClose)="close()"
+  (modalClose)="onModalClose()"
   (modalConfirm)="onSubmitForm()"
   [title]="'PROFILE.TITLE'">
 
@@ -48,7 +48,7 @@
     <div></div>
 
     <app-button
-      (buttonClick)="onSubmitForm()"
+      (buttonClick)="toggleChangePassword()"
       [buttonType]="buttonType.BUTTON_PRIMARY"
       [buttonText]="'AUTH.CHANGE_PASSWORD'">
     </app-button>

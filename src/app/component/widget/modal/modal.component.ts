@@ -13,8 +13,8 @@ export class ModalComponent implements OnInit {
   @Input() public title: string;
   @Input() public disabledCancel: boolean;
   @Input() public disabledConfirm: boolean;
-  @Output() private modalClose = new EventEmitter<void>();
-  @Output() private modalConfirm = new EventEmitter<void>();
+  @Output() public modalClose = new EventEmitter<void>();
+  @Output() public modalConfirm = new EventEmitter<void>();
 
   ngOnInit(): void {
     // TODO: Add gesture to close the modal

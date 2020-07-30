@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
@@ -7,21 +7,19 @@ import { TranslateService } from '@ngx-translate/core';
 import { ButtonTypeEnum } from '../../_enum';
 import { AuthService } from '../../service/auth/auth.service';
 import { LoaderService } from '../../service/loader/loader.service';
+import { ChangePasswordMethods } from '../../_shared/password-input.methods';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './auth-form.page.html',
   styleUrls: ['./auth-form.page.scss'],
 })
-export class AuthFormPage implements OnInit {
+export class AuthFormPage extends ChangePasswordMethods implements OnInit {
   public loading: boolean;
   public submitted: boolean;
   public isSignIn: boolean;
   public buttonType = ButtonTypeEnum;
   public form: FormGroup;
-  public formFieldSetting = {
-    passwordType: 'password'
-  };
 
   constructor(
     private authService: AuthService,
@@ -30,17 +28,15 @@ export class AuthFormPage implements OnInit {
     private toastController: ToastController,
     private translateService: TranslateService,
     private loader: LoaderService
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.loading = true;
     this.form = this.setSignUpForm();
 
     setTimeout(() => this.loading = false, 1000);
-  }
-
-  public togglePassword() {
-    this.formFieldSetting.passwordType = this.formFieldSetting.passwordType === 'text' ? 'password' : 'text';
   }
 
   public toggleForm() {

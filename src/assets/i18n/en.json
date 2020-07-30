@@ -57,6 +57,7 @@
     "NAME_R": "Name is required",
     "PASSWORD": "Password",
     "PASSWORD_P": "What is your password?",
+    "PASSWORD_P_NEW": "Your new password",
     "PASSWORD_E": "Password must be at least 6 characters",
     "PASSWORD_R": "Password is required",
     "PHONE": "Phone",

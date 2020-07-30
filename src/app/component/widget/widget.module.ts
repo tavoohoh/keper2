@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ButtonComponent } from './button/button.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -8,9 +10,8 @@ import { ItemPickerComponent } from './item-picker/item-picker.component';
 import { ModalComponent } from './modal/modal.component';
 import { WeekdayPickerComponent } from './weekday-picker/weekday-picker.component';
 import { HeaderComponent } from './header/header.component';
-import { CommonModule } from '@angular/common';
-import {ProfileComponent} from "./profile/profile.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import { ProfileComponent } from './profile/profile.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const widgets = [
   ButtonComponent,
@@ -20,7 +21,8 @@ const widgets = [
   ModalComponent,
   WeekdayPickerComponent,
   HeaderComponent,
-  ProfileComponent
+  ProfileComponent,
+  ChangePasswordComponent
 ];
 
 @NgModule({

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../../service/auth/auth.service';
 import { UserModel } from '../../../_model/user.model';
+import { ModalService } from '../../../service/common/modal.service';
+import { ModalEnum } from '../../../_enum/modal.enum';
 
 @Component({
   selector: 'app-header',
@@ -13,10 +15,10 @@ export class HeaderComponent implements OnInit {
   @Input() public showProfileBtn: boolean;
 
   public user: UserModel;
-  public showProfile: boolean;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private modalService: ModalService
   ) { }
 
   ngOnInit() {
@@ -28,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public toggleProfile(): void {
-    this.showProfile = !this.showProfile;
+    this.modalService.currentModalValue = ModalEnum.PROFILE;
   }
 
 }

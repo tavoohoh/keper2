@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+
+import { ModalEnum } from '../../_enum/modal.enum';
 
 @Component({
   selector: 'app-today',
@@ -6,10 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./today.page.scss'],
 })
 export class TodayPage implements OnInit {
-
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit(): void {}
 
 }
