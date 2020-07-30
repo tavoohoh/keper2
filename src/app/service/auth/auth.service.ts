@@ -57,6 +57,14 @@ export class AuthService {
     });
   }
 
+  public changeUserEmail(user: User, email: string) {
+    return user.updateEmail(email);
+  }
+
+  public changeUserPassword(user: User, password: string) {
+    return user.updatePassword(password);
+  }
+
   public passwordRecover(passwordResetEmail: string) {
     return this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail);
   }
@@ -73,6 +81,6 @@ export class AuthService {
     this.$userDataAsObservable.next(null);
     await this.ngFireAuth.signOut();
     localStorage.removeItem('user');
-    this.router.navigate(['sign/in']);
+    this.router.navigate(['']);
   }
 }

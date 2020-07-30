@@ -70,7 +70,10 @@
   },
   "TOAST": {
     "SIGN_IN_ERROR": "No se pudo ingresar con estas credenciales. Por favor, vuelva a intentarlo.",
-    "SIGN_UP_ERROR": "Algo salió mal. Por favor, vuelva a intentarlo.",
-    "CREATE_PROFILE_ERROR": "No fue posible completar tu perfil. Para completar tu informacion completa el formulario en tu perfil."
+    "SIGN_UP_ERROR": "Algo salió mal. Por favor, vuelve a intentarlo.",
+    "CREATE_PROFILE_ERROR": "No fue posible completar tu perfil. Para completar tu informacion completa el formulario en tu perfil.",
+    "UNABLE_TO_SAVE_NAME": "Algo salió mal y tu nombre no pudo ser guardado. Por favor, vuelve a intentarlo.",
+    "UNABLE_TO_SAVE_EMAIL": "Algo salió mal y tu correo no pudo ser guardado. Por favor, vuelve a intentarlo.",
+    "INFO_WAS_SAVED": "Tu información fue guardada"
   }
 }

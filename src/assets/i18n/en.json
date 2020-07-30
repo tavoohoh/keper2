@@ -71,6 +71,9 @@
   "TOAST": {
     "SIGN_IN_ERROR": "Could not sign in with this credentials, please try again.",
     "SIGN_UP_ERROR": "Something went wrong, please try again.",
-    "CREATE_PROFILE_ERROR": "It was not possible to complete your profile. To complete your information complete the form in your profile."
+    "CREATE_PROFILE_ERROR": "It was not possible to complete your profile. To complete your information complete the form in your profile.",
+    "UNABLE_TO_SAVE_NAME": "Something went wrong and your name wasn't saved. Please try again.",
+    "UNABLE_TO_SAVE_EMAIL": "Something went wrong and your email wasn't saved. Please try again.",
+    "INFO_WAS_SAVED": "Your info was saved"
   }
 }

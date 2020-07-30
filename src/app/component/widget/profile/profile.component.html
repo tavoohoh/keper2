@@ -1,7 +1,62 @@
 <app-modal
   [smallModal]="false"
   [openModal]="show"
+  [disabledConfirm]="noEdited"
   (modalClose)="close()"
-  (modalConfirm)="close()"
+  (modalConfirm)="onSubmitForm()"
   [title]="'PROFILE.TITLE'">
+
+  <div class="keper-profile" *ngIf="form && userInfo">
+    <form class="keper-form keper-no-padding" [formGroup]="form" (ngSubmit)="onSubmitForm()">
+      <!-- email field -->
+      <div class="keper-field" [class.keper-field-invalid]="submitted && f.email.errors">
+        <label for="email">{{ 'FORM.EMAIL' | translate }}</label>
+        <input
+          (keyup)="fieldChanged()"
+          type="text"
+          id="email"
+          [placeholder]="'FORM.EMAIL_P' | translate"
+          formControlName="email"/>
+        <div *ngIf="submitted && f.email.errors" class="keper-field-errors">
+          <div *ngIf="f.email.errors.required">
+            {{ 'FORM.EMAIL_R' | translate }}
+          </div>
+          <div *ngIf="f.email.errors.email">
+            {{ 'FORM.EMAIL_E' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <!-- name field -->
+      <div class="keper-field" [class.keper-field-invalid]="submitted && f.name.errors">
+        <label for="name">{{ 'FORM.NAME' | translate }}</label>
+        <input
+          (keyup)="fieldChanged()"
+          type="text"
+          id="name"
+          [placeholder]="'FORM.NAME_P' | translate"
+          formControlName="name"/>
+        <div *ngIf="submitted && f.name.errors" class="keper-field-errors">
+          <div *ngIf="f.name.errors.required">
+            {{ 'FORM.NAME_R' | translate }}
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- space between -->
+    <div></div>
+
+    <app-button
+      (buttonClick)="onSubmitForm()"
+      [buttonType]="buttonType.BUTTON_PRIMARY"
+      [buttonText]="'AUTH.CHANGE_PASSWORD'">
+    </app-button>
+
+    <app-button
+      (buttonClick)="signOut()"
+      [buttonType]="buttonType.BUTTON_DARK"
+      [buttonText]="'AUTH.LOGOUT'">
+    </app-button>
+  </div>
 </app-modal>

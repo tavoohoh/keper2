@@ -34,6 +34,18 @@ body {
 }
 
 /**
+  Layout
+ */
+.keper-no-padding {
+  padding: 0!important;
+}
+
+.keper-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/**
   Views
  */
 .keper-view-box {

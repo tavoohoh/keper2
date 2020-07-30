@@ -1,12 +1,12 @@
 <div class="keper-modal" [class.keper-small-modal]="smallModal" [class.keper-show-modal]="openModal">
   <div class="keper-modal-header">
-    <div class="keper-modal-header-button" (click)="close()">
+    <div class="keper-modal-header-button" (click)="close()" [class.keper-disabled]="disabledCancel">
       {{ 'CANCEL' | translate }}
     </div>
 
     <span></span>
 
-    <div class="keper-modal-header-button" (click)="confirm()">
+    <div class="keper-modal-header-button" (click)="confirm()" [class.keper-disabled]="disabledConfirm">
       {{ 'DONE' | translate }}
     </div>
   </div>

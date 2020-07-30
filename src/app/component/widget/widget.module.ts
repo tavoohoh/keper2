@@ -10,6 +10,7 @@ import { WeekdayPickerComponent } from './weekday-picker/weekday-picker.componen
 import { HeaderComponent } from './header/header.component';
 import { CommonModule } from '@angular/common';
 import {ProfileComponent} from "./profile/profile.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 const widgets = [
   ButtonComponent,
@@ -24,7 +25,7 @@ const widgets = [
 
 @NgModule({
   declarations: [widgets],
-  imports: [TranslateModule.forChild(), CommonModule],
+  imports: [TranslateModule.forChild(), CommonModule, ReactiveFormsModule],
   exports: [widgets]
 })
 export class WidgetModule {}

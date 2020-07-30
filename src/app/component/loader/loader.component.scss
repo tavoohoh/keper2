@@ -1,4 +1,11 @@
-.kp-loader-container {
+@import "../../../theme/variables.scss";
+
+$kp-animation-duration: 2s;
+$kp-defa-size: 100px;
+$kp-navi-size: 36px;
+$kp-load-size: 140px;
+
+.keper-loader-container {
   display: grid;
   position: absolute;
   height: 100vh;
@@ -12,5 +19,67 @@
 
   * {
     align-self: center;
+  }
+}
+
+.keper-logo {
+  height: $kp-load-size;
+  width: $kp-load-size;
+  padding: var(--keper-padding-body);
+  margin: 0 auto;
+  background-color: transparent;
+  align-self: center;
+
+  svg {
+    .keper-logo-color-gold {
+      fill: var(--keper-color-secondary);
+      animation: $kp-animation-duration ease infinite kpLogoAnimationGold;
+    }
+
+    .keper-logo-color-gold-var {
+      fill: var(--keper-color-secondary-var);
+      animation: $kp-animation-duration ease infinite kpLogoAnimationgoldVar;
+    }
+
+    .keper-logo-color-blue {
+      fill: var(--keper-color-primary);
+      animation: $kp-animation-duration ease infinite kpLogoAnimationBlue;
+    }
+  }
+}
+
+@keyframes kpLogoAnimationGold {
+  0% {
+    fill: var(--keper-color-secondary);
+  }
+  50% {
+    fill: var(--keper-color-secondary-contrast);
+  }
+  100% {
+    fill: var(--keper-color-secondary);
+  }
+}
+
+@keyframes kpLogoAnimationgoldVar {
+  0% {
+    fill: var(--keper-color-secondary-var);
+  }
+  50% {
+    fill: var(--keper-color-secondary-var-contrast)
+  }
+  100% {
+    fill: var(--keper-color-secondary-var)
+  }
+}
+
+@keyframes kpLogoAnimationBlue {
+  0% {
+    fill: var(--keper-color-primary);
+  }
+  50% {
+    fill: var(--keper-color-primary-contrast);
+  }
+  100% {
+    fill: var(--keper-color-primary);
   }
 }

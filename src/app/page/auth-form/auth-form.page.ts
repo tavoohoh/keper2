@@ -86,6 +86,8 @@ export class AuthFormPage implements OnInit {
   }
 
   private submitSignIn(): void {
+    this.loader.toggleLoading(true);
+
     this.authService.signIn(this.form.value)
       .then(() => this.loader.toggleLoading())
       .catch(async () => {
@@ -101,6 +103,8 @@ export class AuthFormPage implements OnInit {
   }
 
   private submitSignUp(): void {
+    this.loader.toggleLoading(true);
+
     this.authService.registerUser(this.form.value)
       .then(() => this.authService.signIn(this.form.value).then(() => this.updateUserProfile()))
       .catch(async () => {

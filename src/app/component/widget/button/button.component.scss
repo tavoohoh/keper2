@@ -9,6 +9,11 @@
   padding: var(--keper-padding-button);
 }
 
+.keper-button-BUTTON_DARK {
+  color: var(--keper-color-white);
+  background-color: var(--keper-color-black);
+}
+
 .keper-button-LINK,
 .keper-button-BUTTON_SIMPLE {
   color: var(--keper-color-secondary);
@@ -25,7 +30,8 @@
 
 .keper-button-BUTTON_PRIMARY,
 .keper-button-BUTTON_SECONDARY,
-.keper-button-BUTTON_SIMPLE {
+.keper-button-BUTTON_SIMPLE,
+.keper-button-BUTTON_DARK {
   border-radius: var(--keper-border-radius-normal);
 }
 
