@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { ButtonComponent } from './button/button.component';
-import { CalendarComponent } from './calendar/calendar.component';
+import { WeekdaysComponent } from './weekdays/weekdays.component';
 import { ItemCardComponent } from './item-card/item-card.component';
 import { ItemPickerComponent } from './item-picker/item-picker.component';
 import { ModalComponent } from './modal/modal.component';
@@ -16,7 +16,7 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
 
 const widgets = [
   ButtonComponent,
-  CalendarComponent,
+  WeekdaysComponent,
   ItemCardComponent,
   ItemPickerComponent,
   ModalComponent,

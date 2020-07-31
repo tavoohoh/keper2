@@ -32,5 +32,5 @@ export class HeaderComponent implements OnInit {
   public toggleProfile(): void {
     this.modalService.currentModalValue = ModalEnum.PROFILE;
   }
-
 }
+
