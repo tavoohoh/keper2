@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ToastController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs/operators';
 import {User} from 'firebase';
 
+import {ChangePasswordAndModalMethods} from '../../../_shared/password-input.methods';
 import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
 import {ModalService} from '../../../service/common/modal.service';
-import {ModalEnum} from '../../../_enum/modal.enum';
-import {ChangePasswordAndModalMethods} from '../../../_shared/password-input.methods';
+import {ModalEnum} from '../../../_enum';
+import {ToastService} from '../../../service/common/toast.service';
 
 @Component({
   selector: 'app-change-password',
@@ -24,16 +23,15 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private toastController: ToastController,
-    private translateService: TranslateService,
-    private loader: LoaderService,
-    public modalService: ModalService
+    private loaderService: LoaderService,
+    public modalService: ModalService,
+    private toastService: ToastService
   ) {
     super(modalService, ModalEnum.CHANGE_PASSWORD);
   }
 
   ngOnInit(): void {
-    this.loader.toggleLoading(true);
+    this.loaderService.toggleLoading(true);
     this.formFieldSetting.passwordType = 'password';
     this.authService.userDataAsObservable()
       .pipe(takeUntil(this.$destroyed))
@@ -41,7 +39,7 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
         if (user) {
           this.user = this.authService.user;
           this.form = this.setForm();
-          this.loader.toggleLoading();
+          this.loaderService.toggleLoading();
         }
     });
   }
@@ -59,30 +57,28 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
       return;
     }
 
-    this.loader.toggleLoading(true);
+    this.loaderService.toggleLoading(true);
 
-    const toast = await this.toastController.create({
-      message: '',
-      duration: 3000,
-      position: 'top',
-      color: 'success'
-    });
-
-    toast.message = await this.translateService.get('TOAST.INFO_WAS_SAVED').toPromise();
+    const toast = {
+      message: 'TOAST.INFO_WAS_SAVED',
+      error: null
+    };
 
     this.authService.changeUserPassword(this.user, this.form.value.password)
       .then(async () => {
-        await toast.present();
         this.submitted = false;
-        this.loader.toggleLoading();
         this.onModalClose();
       })
-      .catch(async () => {
-        toast.message = await this.translateService.get('TOAST.SIGN_UP_ERROR').toPromise();
-        toast.color = 'danger';
-        await toast.present();
-        this.loader.toggleLoading();
-    });
+      .catch(error => {
+        toast.message = 'TOAST.SIGN_UP_ERROR';
+        toast.error = {
+          message: error,
+          origin: 'ChangePasswordComponent.onSubmitForm'
+        };
+      }).finally(async () => {
+        this.loaderService.toggleLoading();
+        await this.toastService.show(toast.message, toast.error);
+      });
   }
 
   get f() { return this.form.controls; }

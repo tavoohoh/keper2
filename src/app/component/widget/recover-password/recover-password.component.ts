@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
-import {ToastController} from '@ionic/angular';
-import {TranslateService} from '@ngx-translate/core';
 import {ModalService} from '../../../service/common/modal.service';
-import {ModalEnum} from '../../../_enum/modal.enum';
+import {ModalEnum} from '../../../_enum';
 import {ChangePasswordAndModalMethods} from '../../../_shared/password-input.methods';
+import {ToastService} from '../../../service/common/toast.service';
 
 @Component({
   selector: 'app-recover-password',
@@ -19,11 +18,10 @@ export class RecoverPasswordComponent extends ChangePasswordAndModalMethods impl
 
   constructor(
     private formBuilder: FormBuilder,
-    private loader: LoaderService,
+    private loaderService: LoaderService,
     private authService: AuthService,
-    private toastController: ToastController,
-    private translateService: TranslateService,
-    public modalService: ModalService
+    public modalService: ModalService,
+    private toastService: ToastService
   ) {
     super(modalService, ModalEnum.RESET_PASSWORD);
   }
@@ -46,29 +44,27 @@ export class RecoverPasswordComponent extends ChangePasswordAndModalMethods impl
       return;
     }
 
-    this.loader.toggleLoading(true);
+    this.loaderService.toggleLoading(true);
 
-    const toast = await this.toastController.create({
-      message: '',
-      duration: 3000,
-      position: 'top',
-      color: 'success'
-    });
-
-    toast.message = await this.translateService.get('TOAST.PASSWORD_RECOVER_EMAIL').toPromise();
+    const toast = {
+      message: 'TOAST.PASSWORD_RECOVER_EMAIL',
+      error: null
+    };
 
     this.authService.passwordRecover(this.form.value.email)
       .then(async () => {
-        await toast.present();
         this.submitted = false;
-        this.loader.toggleLoading();
         this.onModalClose();
       })
-      .catch(async () => {
-        toast.message = await this.translateService.get('TOAST.SIGN_UP_ERROR').toPromise();
-        toast.color = 'danger';
-        await toast.present();
-        this.loader.toggleLoading();
+      .catch(error => {
+        toast.message = 'TOAST.SIGN_UP_ERROR';
+        toast.error = {
+          message: error,
+          origin: 'RecoverPasswordComponent.onSubmitForm'
+        };
+      }).finally(async () => {
+        this.loaderService.toggleLoading();
+        await this.toastService.show(toast.message, toast.error);
       });
   }
 

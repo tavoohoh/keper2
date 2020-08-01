@@ -1,17 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {ToastController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
 import {User} from 'firebase';
+import {takeUntil} from 'rxjs/operators';
 
-import {ButtonTypeEnum} from '../../../_enum';
+import {ButtonTypeEnum, ModalEnum} from '../../../_enum';
 import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
 import {UserModel} from '../../../_model/user.model';
 import {ModalMethods} from '../../../_shared/modal.methods';
 import {ModalService} from '../../../service/common/modal.service';
-import {ModalEnum} from '../../../_enum/modal.enum';
-import {takeUntil} from 'rxjs/operators';
+import {ToastService} from '../../../service/common/toast.service';
 
 @Component({
   selector: 'app-profile',
@@ -28,17 +26,16 @@ export class ProfileComponent extends ModalMethods implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private loader: LoaderService,
+    private loaderService: LoaderService,
     private authService: AuthService,
-    private toastController: ToastController,
-    private translateService: TranslateService,
-    public modalService: ModalService
+    private toastService: ToastService,
+    public modalService: ModalService,
   ) {
     super(modalService, ModalEnum.PROFILE);
   }
 
   ngOnInit(): void {
-    this.loader.toggleLoading(true);
+    this.loaderService.toggleLoading(true);
     this.authService.userDataAsObservable()
       .pipe(takeUntil(this.$destroyed))
       .subscribe(user => {
@@ -46,7 +43,7 @@ export class ProfileComponent extends ModalMethods implements OnInit {
           this.user = this.authService.user;
           this.userInfo = new UserModel(user);
           this.form = this.setProfileForm();
-          this.loader.toggleLoading();
+          this.loaderService.toggleLoading();
         }
     });
   }
@@ -65,30 +62,33 @@ export class ProfileComponent extends ModalMethods implements OnInit {
       return;
     }
 
-    this.loader.toggleLoading(true);
+    this.loaderService.toggleLoading(true);
 
-    const toast = await this.toastController.create({
-      message: '',
-      duration: 3000,
-      position: 'top',
-      color: 'success'
-    });
-
-    toast.message = await this.translateService.get('TOAST.INFO_WAS_SAVED').toPromise();
+    const toast = {
+      message: 'TOAST.INFO_WAS_SAVED',
+      error: null
+    };
 
     await this.authService.updateUserProfile(this.user, this.form.value.name)
-      .catch(async () => {
-        toast.message = await this.translateService.get('TOAST.UNABLE_TO_SAVE_NAME').toPromise();
-        toast.color = 'danger';
+      .catch(error => {
+        toast.message = 'TOAST.UNABLE_TO_SAVE_NAME';
+        toast.error = {
+          message: error,
+          origin: 'ProfileComponent.onSubmitForm.updateUserProfile'
+        };
     });
 
     await this.authService.changeUserEmail(this.user, this.form.value.email)
-      .catch(async () => {
-        toast.message = await this.translateService.get('TOAST.UNABLE_TO_SAVE_EMAIL').toPromise();
-        toast.color = 'danger';
+      .catch(error => {
+        toast.message = 'TOAST.UNABLE_TO_SAVE_EMAIL';
+        toast.error = {
+          message: error,
+          origin: 'ProfileComponent.onSubmitForm.changeUserEmail'
+        };
     });
 
-    await toast.present();
+    await this.toastService.show(toast.message, toast.error);
+    this.loaderService.toggleLoading();
     this.noEdited = true;
     this.submitted = false;
     this.ngOnInit();
@@ -102,9 +102,9 @@ export class ProfileComponent extends ModalMethods implements OnInit {
     this.modalService.currentModalValue = ModalEnum.CHANGE_PASSWORD;
   }
 
-  public signOut(): void {
+  public async signOut(): Promise<void> {
     this.onModalClose();
-    this.authService.signOut();
+    await this.authService.signOut();
   }
 
   get f() { return this.form.controls; }

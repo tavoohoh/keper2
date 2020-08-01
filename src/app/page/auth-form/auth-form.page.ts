@@ -1,15 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ToastController} from '@ionic/angular';
-import {TranslateService} from '@ngx-translate/core';
 
-import {ButtonTypeEnum} from '../../_enum';
+import {ButtonTypeEnum, ModalEnum} from '../../_enum';
 import {AuthService} from '../../service/auth/auth.service';
 import {LoaderService} from '../../service/loader/loader.service';
 import {ChangePasswordMethods} from '../../_shared/password-input.methods';
 import {ModalService} from '../../service/common/modal.service';
-import {ModalEnum} from '../../_enum/modal.enum';
+import {ToastService} from '../../service/common/toast.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -27,8 +25,7 @@ export class AuthFormPage extends ChangePasswordMethods implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private toastController: ToastController,
-    private translateService: TranslateService,
+    private toastService: ToastService,
     private loader: LoaderService,
     private modalService: ModalService
   ) {
@@ -71,51 +68,23 @@ export class AuthFormPage extends ChangePasswordMethods implements OnInit {
 
   private updateUserProfile(): void {
     this.authService.updateUserProfile(this.authService.user, this.form.value.name)
-      .then(() => this.loader.toggleLoading())
-      .catch(async () => {
-      const toast = await this.toastController.create({
-        message: await this.translateService.get('TOAST.CREATE_PROFILE').toPromise(),
-        duration: 3000,
-        position: 'top',
-        color: 'danger'
-      });
-      this.loader.toggleLoading();
-      toast.present();
-    });
+      .then(() => null)
+      .catch(error => this.toastService.show('TOAST.CREATE_PROFILE', { message: error, origin: 'AuthFormPage.updateUserProfile' })
+      .finally(() => this.loader.toggleLoading()));
   }
 
   private submitSignIn(): void {
-    this.loader.toggleLoading(true);
-
     this.authService.signIn(this.form.value)
-      .then(() => this.loader.toggleLoading())
-      .catch(async () => {
-        const toast = await this.toastController.create({
-          message: await this.translateService.get('TOAST.SIGN_IN_ERROR').toPromise(),
-          duration: 3000,
-          position: 'top',
-          color: 'danger'
-        });
-        this.loader.toggleLoading();
-        toast.present();
-      });
+      .then(() => null)
+      .catch(error => this.toastService.show('TOAST.SIGN_IN_ERROR', { message: error, origin: 'AuthFormPage.submitSignIn' })
+      .finally(() => this.loader.toggleLoading()));
   }
 
   private submitSignUp(): void {
-    this.loader.toggleLoading(true);
-
     this.authService.registerUser(this.form.value)
       .then(() => this.authService.signIn(this.form.value).then(() => this.updateUserProfile()))
-      .catch(async () => {
-        const toast = await this.toastController.create({
-          message: await this.translateService.get('TOAST.SIGN_UP_ERROR').toPromise(),
-          duration: 3000,
-          position: 'top',
-          color: 'danger'
-        });
-        this.loader.toggleLoading();
-        toast.present();
-      });
+      .catch(error => this.toastService.show('TOAST.SIGN_UP_ERROR', { message: error, origin: 'AuthFormPage.submitSignUp' })
+      .finally(() => this.loader.toggleLoading()));
   }
 
   get f() { return this.form.controls; }
@@ -127,7 +96,7 @@ export class AuthFormPage extends ChangePasswordMethods implements OnInit {
       return;
     }
 
-    this.loader.toggleLoading();
+    this.loader.toggleLoading(true);
 
     if (this.isSignIn) {
       this.submitSignIn();

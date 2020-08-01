@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserBackendModel } from '../../_model/user.model';
 import { User } from 'firebase';
@@ -43,29 +43,29 @@ export class AuthService {
     return this.userData;
   }
 
-  public signIn(user: { email: string, password: string }) {
+  public signIn(user: { email: string, password: string }): Promise<any>  {
     return this.ngFireAuth.signInWithEmailAndPassword(user.email, user.password);
   }
 
-  public registerUser(user: { email: string, password: string }) {
+  public registerUser(user: { email: string, password: string }): Promise<any>  {
     return this.ngFireAuth.createUserWithEmailAndPassword(user.email, user.password);
   }
 
-  public updateUserProfile(user: User, name: string) {
+  public updateUserProfile(user: User, name: string): Promise<any>  {
     return user.updateProfile({
       displayName: name
     });
   }
 
-  public changeUserEmail(user: User, email: string) {
+  public changeUserEmail(user: User, email: string): Promise<any>  {
     return user.updateEmail(email);
   }
 
-  public changeUserPassword(user: User, password: string) {
+  public changeUserPassword(user: User, password: string): Promise<any>  {
     return user.updatePassword(password);
   }
 
-  public passwordRecover(passwordResetEmail: string) {
+  public passwordRecover(passwordResetEmail: string): Promise<any> {
     return this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail);
   }
 
@@ -77,10 +77,10 @@ export class AuthService {
     return this.$userDataAsObservable.asObservable();
   }
 
-  public async signOut() {
+  public async signOut(): Promise<void> {
     this.$userDataAsObservable.next(null);
     await this.ngFireAuth.signOut();
     localStorage.removeItem('user');
-    this.router.navigate(['']);
+    await this.router.navigate(['']);
   }
 }
