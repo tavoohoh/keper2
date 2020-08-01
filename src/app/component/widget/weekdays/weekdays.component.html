@@ -1,3 +1,6 @@
-<p>
-  calendar works!
-</p>
+<div class="keper-weekdays" *ngIf="weekdays">
+  <div class="keper-weekdays-day" *ngFor="let weekday of weekdays" (click)="onSelectDay(weekday)" [class.keper-selected]="selectedDay.monthDay === weekday.monthDay">
+    <div>{{ weekday.weekday  | lowercase }}</div>
+    <div>{{ weekday.monthDay }}</div>
+  </div>
+</div>

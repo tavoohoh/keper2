@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DayModel} from '../../../_model/day.model';
 import {WeekDayConst} from '../../../_constant/weekday.const';
 
@@ -9,16 +9,22 @@ import {WeekDayConst} from '../../../_constant/weekday.const';
 })
 export class WeekdaysComponent implements OnInit {
   public weekdays: Array<DayModel>;
+  public selectedDay: DayModel;
+  @Output() private selectedDayEvent = new EventEmitter<DayModel>(null);
 
   constructor() { }
 
   ngOnInit(): void {
     this.weekdays = this.setWeek();
-    console.log('this.weekdays', this.weekdays);
+  }
+
+  public onSelectDay($selectedDay: DayModel): void {
+    this.selectedDay = $selectedDay;
+    this.selectedDayEvent.emit($selectedDay);
   }
 
   private setWeek(): Array<DayModel> {
-    const today = new Date();
+    const todayDate = new Date();
 
     const setDay = (date: Date | string, dayDifference: number, isSubtracting = false): DayModel => {
       const day = new Date(date);
@@ -30,14 +36,17 @@ export class WeekdaysComponent implements OnInit {
       };
     };
 
+    const today = setDay(todayDate, 0);
+    this.selectedDay = today;
+
     return [
-      setDay(today, 3, true),
-      setDay(today, 2, true),
-      setDay(today, 1, true),
-      setDay(today, 0),
-      setDay(today, 1),
-      setDay(today, 2),
-      setDay(today, 3)
+      setDay(todayDate, 3, true),
+      setDay(todayDate, 2, true),
+      setDay(todayDate, 1, true),
+      today,
+      setDay(todayDate, 1),
+      setDay(todayDate, 2),
+      setDay(todayDate, 3)
     ];
   }
 
