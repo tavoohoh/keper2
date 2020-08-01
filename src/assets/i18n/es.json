@@ -23,7 +23,8 @@
     "SUN": "DOM"
   },
   "TODAY": {
-    "TITLE": "Hoy"
+    "TITLE": "Hoy",
+    "NO_TASKS": "Aún no tiene tareas, ve a Configuraciones y crea algunas."
   },
   "SETTING": {
     "TITLE": "Configuraciones"
@@ -76,6 +77,7 @@
     "UNABLE_TO_SAVE_NAME": "Algo salió mal y tu nombre no pudo ser guardado. Por favor, vuelve a intentarlo.",
     "UNABLE_TO_SAVE_EMAIL": "Algo salió mal y tu correo no pudo ser guardado. Por favor, vuelve a intentarlo.",
     "INFO_WAS_SAVED": "Tu información fue guardada",
-    "PASSWORD_RECOVER_EMAIL": "Te hemos enviado un correo con instrucciones para restablecer tu contraseña."
+    "PASSWORD_RECOVER_EMAIL": "Te hemos enviado un correo con instrucciones para restablecer tu contraseña.",
+    "LIST_TASKS_ERROR": "Algo salió mal y no podemos recuperar sus tareas. Por favor, vuelve a intentarlo."
   }
 }

@@ -1,0 +1,43 @@
+@import "../../../../theme/variables.scss";
+
+$keper-card-option-size: 16px;
+
+.keper-item-card {
+  display: grid;
+  grid-template-columns: auto $keper-card-option-size;
+  gap: var(--keper-padding-xsmall);
+  padding: var(--keper-padding-xsmall) var(--keper-padding-body);
+  background-color: var(--keper-color-dark-gray);
+  border-radius: var(--keper-border-radius-medium);
+  margin-bottom: var(--keper-padding-body);
+
+  .keper-item-card-title,
+  .keper-item-card-content {
+    color: var(--keper-color-white);
+  }
+
+  .keper-item-card-title {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: var(--keper-font-medium);
+    font-weight: bold;
+  }
+
+  .keper-item-card-content {
+    grid-column: 1 / 2;
+    grid-row: 2;
+
+    span {
+        display: inline-block;
+      }
+    }
+
+  .keper-item-card-content span:first-child {
+    font-size: var(--keper-font-normal);
+    margin-right: var(--keper-padding-xxsmall);
+  }
+
+  .keper-item-card-content span:last-child {
+    font-size: var(--keper-font-small);
+  }
+}

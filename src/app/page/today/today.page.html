@@ -2,7 +2,23 @@
   <app-header
     [showProfileBtn]="true"
     [title]="'TODAY.TITLE'"></app-header>
-  <app-weekdays></app-weekdays>
-  <app-item-card *ngFor=""></app-item-card>
+  <app-weekdays (selectedDayEvent)="getTasks($event)"></app-weekdays>
+
+  <ng-container *ngIf="userId && todayTasks">
+    <div class="keper-padding-body" *ngIf="todayTasks.length > 0; else noTasksTemplate;">
+      <app-item-card
+        *ngFor="let task of todayTasks"
+        [title]="task.name"
+        [content1]="task.users[0].name + (task.users[0].id === userId ? (' (' + ('USERS.YOU' | translate) + ')') : '')"
+        [content2]="task.schedule[0]"
+        (optionsEvent)="onTaskOptionEvent(task)">
+      </app-item-card>
+    </div>
+  </ng-container>
 </div>
 
+<ng-template #noTasksTemplate>
+  <div class="keper-empty-list">
+    {{ 'TODAY.NO_TASKS' | translate }}
+  </div>
+</ng-template>

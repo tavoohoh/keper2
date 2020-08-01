@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
 import {TaskModel} from '../../_model';
 
 @Injectable({
@@ -7,16 +6,16 @@ import {TaskModel} from '../../_model';
 })
 export class CoreService {
 
-  constructor() { }
+  public async getTodayTasks(date: Date): Promise<Array<TaskModel>> {
+    await setTimeout(null, 1000);
 
-  public getTodayTasks(): Observable<Array<TaskModel>> {
-    return of([
+    return [
       {
         name: 'Cooking',
         schedule: ['12:30 P.M.'],
         users: [
           {
-            id: '1',
+            id: 'uVn3URVzCKXYd1BB84GACilUNet1',
             name: 'Gustavo',
           }
         ]
@@ -41,6 +40,6 @@ export class CoreService {
           }
         ]
       }
-    ]);
+    ];
   }
 }

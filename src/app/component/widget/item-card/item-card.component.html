@@ -1,3 +1,12 @@
-<p>
-  item-card works!
-</p>
+<div class="keper-item-card" [class.keper-small]="isSmall">
+  <div class="keper-item-card-title">
+    {{ title }}
+  </div>
+
+  <div class="keper-item-card-content">
+    <span>{{ content1 }}</span>
+    <span>{{ content2 }}</span>
+  </div>
+
+  <div class="keper-item-card-options" (click)="onOption()" *ngIf="hasOpts"></div>
+</div>

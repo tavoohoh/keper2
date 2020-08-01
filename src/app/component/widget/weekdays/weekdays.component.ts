@@ -32,7 +32,8 @@ export class WeekdaysComponent implements OnInit {
 
       return {
         monthDay: day.getDate(),
-        weekday: WeekDayConst[day.getDay()]
+        weekday: WeekDayConst[day.getDay()],
+        date: new Date(day)
       };
     };
 

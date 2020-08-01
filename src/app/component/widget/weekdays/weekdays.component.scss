@@ -3,15 +3,15 @@
 .keper-weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: var(--keper-padding-xxsmall);
   padding: var(--keper-padding-body);
 
   .keper-weekdays-day {
     @include keper-mixin-transition(0.4s);
     display: grid;
     grid-template-rows: min-content auto;
-    gap: 3px;
-    padding: 8px 3px;
+    gap: var(--keper-padding-xxsmall);
+    padding: 8px var(--keper-padding-xxsmall);
     color: var(--keper-color-light-gray);
     font-weight: bold;
     text-align: center;
@@ -25,7 +25,7 @@
 
     div:first-child {
       text-transform: capitalize;
-      font-size: 0.7rem;
+      font-size: var(--keper-font-small);
     }
 
     &.keper-selected {

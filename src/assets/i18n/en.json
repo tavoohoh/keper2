@@ -23,7 +23,8 @@
     "SUN": "SUN"
   },
   "TODAY": {
-    "TITLE": "Today"
+    "TITLE": "Today",
+    "NO_TASKS": "You don't have tasks yet, go to settings and create some."
   },
   "SETTING": {
     "TITLE": "Settings"
@@ -76,6 +77,7 @@
     "UNABLE_TO_SAVE_NAME": "Something went wrong and your name wasn't saved. Please try again.",
     "UNABLE_TO_SAVE_EMAIL": "Something went wrong and your email wasn't saved. Please try again.",
     "INFO_WAS_SAVED": "Your info was saved",
-    "PASSWORD_RECOVER_EMAIL": "We have sent you an email with instructions to reset your password."
+    "PASSWORD_RECOVER_EMAIL": "We have sent you an email with instructions to reset your password.",
+    "LIST_TASKS_ERROR": "Something went wrong, and we can't fetch your tasks. Please try again."
   }
 }

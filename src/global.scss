@@ -40,9 +40,22 @@ body {
   padding: 0!important;
 }
 
+.keper-padding-body {
+  padding: var(--keper-padding-body);
+}
+
 .keper-disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+
+.keper-empty-list {
+  background-color: var(--keper-color-light-gray);
+  margin: 0 var(--keper-padding-large);
+  padding: 4px;
+  color: var(--keper-color-black);
+  border-radius: var(--keper-border-radius-normal);
+  text-align: center;
 }
 
 /**

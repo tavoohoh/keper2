@@ -245,9 +245,11 @@
   --keper-color-white: #f5f5f5;
   --keper-color-error: #eb445a;
 
+  --keper-padding-large: 3em;
   --keper-padding-body: 1.5em;
   --keper-padding-small: 1em;
-  --keper-padding-large: 3em;
+  --keper-padding-xsmall: 0.6em;
+  --keper-padding-xxsmall: 3px;
   --keper-padding-button: 1.7em 1.25em;
   --keper-padding-input: 1.1em 1.25em;
 
@@ -255,8 +257,10 @@
   --keper-font-medium: 1.4rem;
   --keper-font-normal: 1rem;
   --keper-font-reader: 0.8rem;
+  --keper-font-small: 0.65rem;
 
   --keper-border-radius-large: 3em;
+  --keper-border-radius-medium: 1.1em;
   --keper-border-radius-normal: 0.7em;
 }
 

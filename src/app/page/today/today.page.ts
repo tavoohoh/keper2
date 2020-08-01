@@ -6,6 +6,8 @@ import {TaskModel} from '../../_model';
 import {takeUntil} from 'rxjs/operators';
 import {ToastService} from '../../service/common/toast.service';
 import {LoaderService} from '../../service/loader/loader.service';
+import {AuthService} from '../../service/auth/auth.service';
+import {User} from "firebase";
 
 @Component({
   selector: 'app-today',
@@ -15,30 +17,46 @@ import {LoaderService} from '../../service/loader/loader.service';
 export class TodayPage implements OnInit, OnDestroy {
   private $destroyed = new Subject();
   public todayTasks: Array<TaskModel>;
+  public userId: string;
 
   constructor(
     private coreService: CoreService,
+    private authService: AuthService,
     private toastService: ToastService,
     private loaderService: LoaderService
   ) { }
 
   ngOnDestroy(): void {
-    this.$destroyed.next();
+    this.$destroyed.next(null);
     this.$destroyed.complete();
   }
 
   ngOnInit(): void {
-    this.getTasks();
+    this.authService.userDataAsObservable()
+      .pipe(takeUntil(this.$destroyed))
+      .subscribe((user: User) => {
+        if (user) {
+          this.userId = user.uid;
+          this.getTasks();
+        }
+      });
   }
 
-  private getTasks(): void {
+  public getTasks(day = { date: new Date() }): void {
     this.loaderService.toggleLoading(true);
-    this.coreService.getTodayTasks()
-      .pipe(takeUntil(this.$destroyed))
-      .subscribe(
-        tasks => this.todayTasks = tasks,
-        error => this.toastService.show('LIST_TASKS_ERROR', { message: error, origin: 'TodayPage.getTasks' }),
-        () => this.loaderService.toggleLoading());
+    this.coreService.getTodayTasks(day.date)
+      .then(tasks => {
+        this.todayTasks = tasks;
+        this.loaderService.toggleLoading();
+      })
+      .catch(async error => {
+        await this.toastService.show('TOAST.LIST_TASKS_ERROR', { message: error, origin: 'TodayPage.getTasks' });
+        this.loaderService.toggleLoading();
+      });
+  }
+
+  public onTaskOptionEvent(task: TaskModel): void {
+
   }
 
 }
