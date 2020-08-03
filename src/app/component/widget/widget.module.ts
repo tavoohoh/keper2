@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { TabsComponent } from './tabs/tabs.component';
 import { ButtonComponent } from './button/button.component';
 import { WeekdaysComponent } from './weekdays/weekdays.component';
 import { ItemCardComponent } from './item-card/item-card.component';
@@ -15,6 +16,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 
 const widgets = [
+  TabsComponent,
   ButtonComponent,
   WeekdaysComponent,
   ItemCardComponent,

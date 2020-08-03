@@ -8,6 +8,7 @@ import {ToastService} from '../../service/common/toast.service';
 import {LoaderService} from '../../service/loader/loader.service';
 import {AuthService} from '../../service/auth/auth.service';
 import {User} from "firebase";
+import {DayModel} from "../../_model/day.model";
 
 @Component({
   selector: 'app-today',
@@ -42,7 +43,7 @@ export class TodayPage implements OnInit, OnDestroy {
       });
   }
 
-  public getTasks(day = { date: new Date() }): void {
+  public getTasks(day: DayModel = { weekday: null, monthDay: null, date: new Date() }): void {
     this.loaderService.toggleLoading(true);
     this.coreService.getTodayTasks(day.date)
       .then(tasks => {

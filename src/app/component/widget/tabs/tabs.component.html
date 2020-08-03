@@ -1,3 +1,19 @@
-<p>
-  tabs works!
-</p>
+<div class="keper-app">
+  <div class="keper-app-view">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="keper-app-footer">
+    <!-- tabs goes here -->
+    <div class="keper-tabs" *ngIf="tabs">
+      <div *ngFor="let tab of tabs" class="keper-tab keper-tab-{{ tab.type }} keper-tab-name-{{ tab.name }}">
+
+        <!-- if tab is "TODAY" -->
+        <ng-container *ngIf="tab.type === tabType.TODAY && tab.context">
+          <div *ngIf="tab.context.todayWeekday">{{ tab.context.todayWeekday }}</div>
+          <div *ngIf="tab.context.today">{{ tab.context.today }}</div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

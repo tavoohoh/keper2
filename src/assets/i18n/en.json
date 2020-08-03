@@ -79,5 +79,14 @@
     "INFO_WAS_SAVED": "Your info was saved",
     "PASSWORD_RECOVER_EMAIL": "We have sent you an email with instructions to reset your password.",
     "LIST_TASKS_ERROR": "Something went wrong, and we can't fetch your tasks. Please try again."
+  },
+  "WEEKDAY": {
+    "MON": "Mon",
+    "TUE": "Tue",
+    "WEN": "Wen",
+    "THU": "Thu",
+    "FRI": "Fri",
+    "SAT": "Sat",
+    "SUN": "Sun"
   }
 }

@@ -79,5 +79,14 @@
     "INFO_WAS_SAVED": "Tu información fue guardada",
     "PASSWORD_RECOVER_EMAIL": "Te hemos enviado un correo con instrucciones para restablecer tu contraseña.",
     "LIST_TASKS_ERROR": "Algo salió mal y no podemos recuperar sus tareas. Por favor, vuelve a intentarlo."
+  },
+  "WEEKDAY": {
+    "MON": "Lun",
+    "TUE": "Mar",
+    "WEN": "Mié",
+    "THU": "Jue",
+    "FRI": "Vie",
+    "SAT": "Sáb",
+    "SUN": "Dom"
   }
 }
