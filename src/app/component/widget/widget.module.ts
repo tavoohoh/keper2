@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { TabsComponent } from './tabs/tabs.component';
 import { ButtonComponent } from './button/button.component';
@@ -31,7 +32,7 @@ const widgets = [
 
 @NgModule({
   declarations: [widgets],
-  imports: [TranslateModule.forChild(), CommonModule, ReactiveFormsModule],
+  imports: [TranslateModule.forChild(), CommonModule, ReactiveFormsModule, RouterModule],
   exports: [widgets]
 })
 export class WidgetModule {}

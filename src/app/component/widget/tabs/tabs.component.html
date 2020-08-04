@@ -6,14 +6,20 @@
   <div class="keper-app-footer">
     <!-- tabs goes here -->
     <div class="keper-tabs" *ngIf="tabs">
-      <div *ngFor="let tab of tabs" class="keper-tab keper-tab-{{ tab.type }} keper-tab-name-{{ tab.name }}">
+      <a *ngFor="let tab of tabs"
+        class="keper-tab keper-tab-{{ tab.type }} keper-tab-name-{{ tab.name }}"
+        routerLinkActive="keper-tab-active"
+        [routerLink]="tab.route">
 
         <!-- if tab is "TODAY" -->
         <ng-container *ngIf="tab.type === tabType.TODAY && tab.context">
-          <div *ngIf="tab.context.todayWeekday">{{ tab.context.todayWeekday }}</div>
-          <div *ngIf="tab.context.today">{{ tab.context.today }}</div>
+          <div class="keper-tab-TODAY-top" *ngIf="tab.context.todayWeekday">{{ 'WEEKDAY.' + tab.context.todayWeekday | translate }}</div>
+          <div class="keper-tab-TODAY-bottom" *ngIf="tab.context.today">{{ tab.context.today }}</div>
         </ng-container>
-      </div>
+
+        <!-- if tab is "CONFIG" -->
+        <div></div>
+      </a>
     </div>
   </div>
 </div>

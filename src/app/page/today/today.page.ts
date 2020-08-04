@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { Subject } from 'rxjs';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {User} from 'firebase';
 
 import {CoreService} from '../../service/core/core.service';
 import {TaskModel} from '../../_model';
-import {takeUntil} from 'rxjs/operators';
 import {ToastService} from '../../service/common/toast.service';
 import {LoaderService} from '../../service/loader/loader.service';
 import {AuthService} from '../../service/auth/auth.service';
-import {User} from "firebase";
-import {DayModel} from "../../_model/day.model";
+import {DayModel} from '../../_model/day.model';
 
 @Component({
   selector: 'app-today',
@@ -19,6 +19,7 @@ export class TodayPage implements OnInit, OnDestroy {
   private $destroyed = new Subject();
   public todayTasks: Array<TaskModel>;
   public userId: string;
+  public selectedDateTitle = 'TITLE';
 
   constructor(
     private coreService: CoreService,
@@ -48,12 +49,23 @@ export class TodayPage implements OnInit, OnDestroy {
     this.coreService.getTodayTasks(day.date)
       .then(tasks => {
         this.todayTasks = tasks;
+        this.updateSelectedDateTitle(day);
         this.loaderService.toggleLoading();
       })
       .catch(async error => {
         await this.toastService.show('TOAST.LIST_TASKS_ERROR', { message: error, origin: 'TodayPage.getTasks' });
         this.loaderService.toggleLoading();
       });
+  }
+
+  private updateSelectedDateTitle(day: DayModel): void {
+    if (!day.monthDay || day.monthDay === new Date().getDate()) {
+      this.selectedDateTitle = 'TITLE';
+    } else if (day.date > new Date()) {
+      this.selectedDateTitle = `NEXT.${day.weekday}`;
+    } else {
+      this.selectedDateTitle = `PREV.${day.weekday}`;
+    }
   }
 
   public onTaskOptionEvent(task: TaskModel): void {

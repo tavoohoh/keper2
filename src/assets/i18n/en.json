@@ -13,18 +13,27 @@
     "CHANGE_PASSWORD": "Change password",
     "LOGOUT": "Logout"
   },
-  "DAYS": {
-    "MON": "MON",
-    "TUE": "TUE",
-    "WEN": "WEN",
-    "THU": "THU",
-    "FRI": "FRI",
-    "SAT": "SAT",
-    "SUN": "SUN"
-  },
   "TODAY": {
     "TITLE": "Today",
-    "NO_TASKS": "You don't have tasks yet, go to settings and create some."
+    "NO_TASKS": "You don't have tasks yet, go to settings and create some.",
+    "NEXT": {
+      "MON": "Next Mon.",
+      "TUE": "Next Tue.",
+      "WEN": "Next Wen.",
+      "THU": "Next Thu.",
+      "FRI": "Next Fri.",
+      "SAT": "Next Sat.",
+      "SUN": "Next Sun."
+    },
+    "PREV": {
+      "MON": "Prev. Mon.",
+      "TUE": "Prev. Tue.",
+      "WEN": "Prev. Wen.",
+      "THU": "Prev. Thu.",
+      "FRI": "Prev. Fri.",
+      "SAT": "Prev. Sat.",
+      "SUN": "Prev. Sun."
+    }
   },
   "SETTING": {
     "TITLE": "Settings"

@@ -2,9 +2,10 @@ $profile-button: 42px;
 
 .keper-header {
   display: grid;
-  grid-template-columns: auto $profile-button;
+  grid-template-columns: calc(100% - #{$profile-button} - var(--keper-padding-small)) $profile-button;
   gap: var(--keper-padding-small);
   padding: var(--keper-padding-large) var(--keper-padding-body) var(--keper-padding-body);
+  width: 100vw;
 
   .keper-header-title {
     align-self: center;
@@ -12,6 +13,10 @@ $profile-button: 42px;
     color: var(--keper-color-white);
     font-size: var(--keper-font-large);
     font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
   }
 
   .keper-header-profile-button {

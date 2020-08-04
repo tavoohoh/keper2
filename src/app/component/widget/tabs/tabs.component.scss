@@ -1,0 +1,59 @@
+@import "../../../../theme/variables.scss";
+
+$keper-tab-size: 70px;
+
+.keper-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 100%;
+
+  .keper-tab {
+    @include keper-mixin-clean-button();
+    @include keper-mixin-transition();
+    border-radius: 50%;
+    margin: auto;
+    height: $keper-tab-size;
+    width: $keper-tab-size;
+    align-self: center;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+    padding: var(--keper-padding-xsmall);
+
+    &.keper-tab-active {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    &.keper-tab-TODAY.keper-tab-name-TODAY {
+      .keper-tab-TODAY-top,
+      .keper-tab-TODAY-bottom {
+        text-align: center;
+        font-weight: bold;
+        line-height: 1;
+      }
+
+      .keper-tab-TODAY-top {
+        color: var(--keper-color-primary);
+        margin: 8px 0 4px;
+        font-size: 14px;
+      }
+
+      .keper-tab-TODAY-bottom {
+        color: var(--keper-color-white);
+        font-size: 26px;
+      }
+    }
+
+    &.keper-tab-IMAGE {
+      &.keper-tab-name-CONFIG {
+        @include keper-mixin-background-image(
+          $image: url("src/assets/app-config.png"),
+          $background-size: 42px
+        );
+      }
+    }
+  }
+}

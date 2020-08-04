@@ -16,12 +16,12 @@ export class TabsComponent implements OnInit {
   }> = [
     {
       name: TabsNameEnum.TODAY,
-      route: 'today',
+      route: '/today',
       type: TabsTypeEnum.TODAY
     },
     {
       name: TabsNameEnum.CONFIG,
-      route: 'settings',
+      route: '/settings',
       type: TabsTypeEnum.IMAGE
     }
   ];

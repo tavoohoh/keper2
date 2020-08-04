@@ -1,7 +1,7 @@
 <app-tabs>
   <app-header
     [showProfileBtn]="true"
-    [title]="'TODAY.TITLE'"></app-header>
+    [title]="'TODAY.' + selectedDateTitle"></app-header>
   <app-weekdays (selectedDayEvent)="getTasks($event)"></app-weekdays>
 
   <ng-container *ngIf="userId && todayTasks">

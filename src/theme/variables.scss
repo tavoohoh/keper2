@@ -269,10 +269,10 @@
   transition: $time ease-in-out;
 }
 
-@mixin keper-mixin-background-image($image) {
+@mixin keper-mixin-background-image($image, $background-size: contain) {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: $background-size;
   background-image: $image;
 }
 
