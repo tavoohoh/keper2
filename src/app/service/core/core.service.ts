@@ -1,4 +1,6 @@
 import {Injectable} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+
 import {TaskModel} from '../../_model';
 import {DaysEnum} from '../../_enum';
 import {UserModel} from '../../_model/user.model';
@@ -7,6 +9,10 @@ import {UserModel} from '../../_model/user.model';
   providedIn: 'root'
 })
 export class CoreService {
+
+  constructor(
+    private translateService: TranslateService
+  ) {}
 
   public async getTodayTasks(date: Date): Promise<Array<TaskModel>> {
     await setTimeout(null, 1000);

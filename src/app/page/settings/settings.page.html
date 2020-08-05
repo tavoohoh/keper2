@@ -2,4 +2,49 @@
   <app-header
     [showProfileBtn]="true"
     [title]="'SETTING.TITLE'"></app-header>
+
+  <!-- Tasks -->
+  <div class="keper-padding-body" *ngIf="tasks.length > 0; else noTasksTemplate;">
+    <div class="keper-section-title">
+      {{ 'TASKS.TITLE' | translate }}
+    </div>
+    <div class="keper-grid-2">
+      <app-item-card
+        *ngFor="let task of tasks"
+        [title]="task.name"
+        [fullSchedule]="{ days: task.days, time: task.schedule }"
+        [isSmall]="true"
+        [hasOpts]="true"
+        (optionsEvent)="onTaskOptionEvent(task)">
+      </app-item-card>
+    </div>
+  </div>
+
+  <!-- Users -->
+  <div class="keper-padding-body" *ngIf="userId && users.length > 0; else noUsersTemplate;">
+    <div class="keper-section-title">
+      {{ 'USERS.TITLE' | translate }}
+    </div>
+    <div class="keper-grid-2">
+      <app-item-card
+        *ngFor="let user of users"
+        [title]="user.name + (user.id === userId ? (' (' + ('USERS.YOU' | translate) + ')') : '')"
+        [isSmall]="true"
+        [hasOpts]="true"
+        (optionsEvent)="onUserOptionEvent(user)">
+      </app-item-card>
+    </div>
+  </div>
 </app-tabs>
+
+<ng-template #noTasksTemplate>
+  <div class="keper-empty-list">
+    {{ 'TODAY.NO_TASKS' | translate }}
+  </div>
+</ng-template>
+
+<ng-template #noUsersTemplate>
+  <div class="keper-empty-list">
+    {{ 'TODAY.NO_TASKS' | translate }}
+  </div>
+</ng-template>

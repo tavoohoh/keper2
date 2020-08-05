@@ -3,6 +3,7 @@
   "DONE": "Done",
   "EDIT": "Edit",
   "DELETE": "Delete",
+  "AT": "at",
   "AUTH": {
     "SIGN_IN": "Sign In",
     "SIGN_UP": "Sign Up",
@@ -87,7 +88,8 @@
     "UNABLE_TO_SAVE_EMAIL": "Something went wrong and your email wasn't saved. Please try again.",
     "INFO_WAS_SAVED": "Your info was saved",
     "PASSWORD_RECOVER_EMAIL": "We have sent you an email with instructions to reset your password.",
-    "LIST_TASKS_ERROR": "Something went wrong, and we can't fetch your tasks. Please try again."
+    "LIST_TASKS_ERROR": "Something went wrong, and we can't fetch tasks. Please try again.",
+    "LIST_USERS_ERROR": "Something went wrong, and we can't fetch users. Please try again."
   },
   "WEEKDAY": {
     "MON": "Mon",

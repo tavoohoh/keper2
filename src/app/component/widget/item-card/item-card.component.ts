@@ -9,6 +9,7 @@ export class ItemCardComponent {
   @Input() public title: string;
   @Input() public content1: string;
   @Input() public content2: string;
+  @Input() public fullSchedule: { days: Array<string>, time: Array<string> };
   @Input() public isSmall: boolean;
   @Input() public hasOpts: boolean;
   @Output() private optionsEvent = new EventEmitter<void>(null);

@@ -1,6 +1,7 @@
 @import "../../../../theme/variables.scss";
 
-$keper-card-option-size: 16px;
+$keper-card-option-size: 20px;
+$keper-card-option-menu-size: 12px;
 
 .keper-item-card {
   display: grid;
@@ -21,6 +22,10 @@ $keper-card-option-size: 16px;
     grid-row: 1;
     font-size: var(--keper-font-medium);
     font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
   }
 
   .keper-item-card-content {
@@ -28,9 +33,9 @@ $keper-card-option-size: 16px;
     grid-row: 2;
 
     span {
-        display: inline-block;
-      }
+      display: inline-block;
     }
+  }
 
   .keper-item-card-content span:first-child {
     font-size: var(--keper-font-normal);
@@ -39,5 +44,31 @@ $keper-card-option-size: 16px;
 
   .keper-item-card-content span:last-child {
     font-size: var(--keper-font-small);
+  }
+
+  &.keper-small {
+    padding: var(--keper-padding-xsmall) var(--keper-padding-small);
+    margin-bottom: unset;
+
+    .keper-item-card-title {
+      font-size: var(--keper-font-normal);
+    }
+  }
+
+  .keper-item-card-options {
+    display: grid;
+    background-color: var(--keper-color-black);
+    height: $keper-card-option-size;
+    width: $keper-card-option-size;
+    border-radius: 50%;
+    cursor: pointer;
+
+    svg {
+      fill: var(--keper-color-light-gray);
+      align-self: center;
+      width: $keper-card-option-menu-size;
+      height: $keper-card-option-menu-size;
+      margin: auto;
+    }
   }
 }

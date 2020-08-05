@@ -10,8 +10,7 @@
         *ngFor="let task of todayTasks"
         [title]="task.name"
         [content1]="task.users[0].name + (task.users[0].id === userId ? (' (' + ('USERS.YOU' | translate) + ')') : '')"
-        [content2]="task.schedule[0]"
-        (optionsEvent)="onTaskOptionEvent(task)">
+        [content2]="task.schedule[0]">
       </app-item-card>
     </div>
   </ng-container>

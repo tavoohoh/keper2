@@ -3,10 +3,25 @@
     {{ title }}
   </div>
 
-  <div class="keper-item-card-content">
-    <span>{{ content1 }}</span>
-    <span>{{ content2 }}</span>
+  <div class="keper-item-card-content" *ngIf="content1 || content2 || fullSchedule">
+    <span *ngIf="content1">{{ content1 }}</span>
+    <span *ngIf="content2">{{ content2 }}</span>
+    <span *ngIf="fullSchedule">
+      <ng-container *ngFor="let day of fullSchedule.days; let i = index">
+        {{ 'WEEKDAY.' + day | translate }}<ng-container *ngIf="i + 1 < fullSchedule.days.length">,</ng-container>
+      </ng-container>
+
+      <ng-container>&nbsp;{{ 'AT' | translate }}</ng-container>
+
+      <ng-container *ngFor="let time of fullSchedule.time; let i = index">
+        {{ time }}<ng-container *ngIf="i + 1 < fullSchedule.time.length">,</ng-container>
+      </ng-container>
+    </span>
   </div>
 
-  <div class="keper-item-card-options" (click)="onOption()" *ngIf="hasOpts"></div>
+  <div class="keper-item-card-options" (click)="onOption()" *ngIf="hasOpts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M6 12c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm9 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm9 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"/>
+    </svg>
+  </div>
 </div>

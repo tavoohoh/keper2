@@ -68,8 +68,4 @@ export class TodayPage implements OnInit, OnDestroy {
     }
   }
 
-  public onTaskOptionEvent(task: TaskModel): void {
-
-  }
-
 }

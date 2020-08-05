@@ -31,6 +31,7 @@ body {
   font-size: var(--keper-font-reader);
   line-height: 1.4;
   background-color: var(--keper-color-dark-gray);
+  color: var(--keper-color-white);
 }
 
 /**
@@ -58,6 +59,18 @@ body {
   text-align: center;
 }
 
+.keper-section-title {
+  font-size: var(--keper-font-medium);
+  font-weight: bold;
+  margin-bottom: var(--keper-padding-xsmall);
+}
+
+.keper-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--keper-padding-small);
+}
+
 /**
   Views
  */
@@ -70,6 +83,9 @@ body {
   .keper-app-view {
     background-color: var(--keper-color-black);
     border-radius: 0 0 var(--keper-border-radius-large) var(--keper-border-radius-large);
+    max-height: calc(100vh - 100px);
+    overflow: hidden;
+    overflow-y: auto;
   }
 
   .keper-app-footer {
