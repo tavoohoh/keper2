@@ -24,7 +24,52 @@
     </div>
 
     <!-- task schedule field -->
+    <div class="keper-field" [class.keper-field-invalid]="submitted && f.schedule.errors">
+      <label for="schedule">{{ 'FORM.TASK_SCHEDULE' | translate }}</label>
+      <input
+        type="time"
+        id="schedule"
+        [placeholder]="'FORM.TASK_SCHEDULE_P' | translate"
+        formControlName="schedule"/>
+      <div *ngIf="submitted && f.schedule.errors" class="keper-field-errors">
+        <div *ngIf="f.schedule.errors.required">
+          {{ 'FORM.TASK_SCHEDULE_R' | translate }}
+        </div>
+      </div>
+    </div>
+
     <!-- task days field -->
+    <div class="keper-field keper-field-checkbox keper-field-box-day">
+      <label>{{ 'FORM.TASK_DAYS' | translate }}</label>
+      <label
+        *ngFor="let day of formFields.days"
+        class="keper-field-box-container" [for]="'day' + day">
+        <input
+          type="checkbox"
+          [value]="day"
+          [id]="'day' + day"
+          (change)="onCheckboxChange($event, 'days')"/>
+        <span class="keper-field-box">
+          <span>{{ 'WEEKDAY.' + day | translate }}</span>
+        </span>
+      </label>
+    </div>
+
     <!-- task users field -->
+    <div class="keper-field keper-field-checkbox keper-field-box-user">
+      <label>{{ 'FORM.TASK_USERS' | translate }}</label>
+      <label
+        *ngFor="let user of formFields.users"
+        class="keper-field-box-container" [for]="'user' + user.value">
+        <input
+          type="checkbox"
+          [value]="user.value"
+          [id]="'user' + user.value"
+          (change)="onCheckboxChange($event, 'users')"/>
+        <span class="keper-field-box">
+          <span>{{ user.name }}</span>
+        </span>
+      </label>
+    </div>
   </form>
 </app-modal>

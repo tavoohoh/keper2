@@ -20,7 +20,7 @@ export class CoreService {
     return [
       {
         name: 'Cooking',
-        schedule: ['12:30 P.M.'],
+        schedule: ['12:30'],
         users: [
           {
             id: 'uVn3URVzCKXYd1BB84GACilUNet1',
@@ -30,7 +30,7 @@ export class CoreService {
       },
       {
         name: 'Do the dishes',
-        schedule: ['7:30 P.M.'],
+        schedule: ['07:30'],
         users: [
           {
             id: '2',
@@ -40,7 +40,7 @@ export class CoreService {
       },
       {
         name: 'Take out the trash',
-        schedule: ['8:00 P.M.'],
+        schedule: ['08:00'],
         users: [
           {
             id: '3',
@@ -57,7 +57,7 @@ export class CoreService {
     return [
       {
         name: 'Cooking',
-        schedule: ['12:30 P.M.'],
+        schedule: ['12:30'],
         users: [
           {
             id: 'uVn3URVzCKXYd1BB84GACilUNet1',
@@ -84,7 +84,7 @@ export class CoreService {
       },
       {
         name: 'Do the dishes',
-        schedule: ['7:30 P.M.'],
+        schedule: ['07:30'],
         users: [
           {
             id: 'uVn3URVzCKXYd1BB84GACilUNet1',
@@ -111,7 +111,7 @@ export class CoreService {
       },
       {
         name: 'Take out the trash',
-        schedule: ['8:00 P.M.'],
+        schedule: ['08:00'],
         users: [
           {
             id: 'uVn3URVzCKXYd1BB84GACilUNet1',

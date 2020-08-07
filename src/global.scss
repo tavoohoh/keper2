@@ -147,4 +147,50 @@ body {
       display: inline-block;
     }
   }
+
+  &.keper-field-checkbox {
+    grid-template-rows: 14px auto;
+
+    &.keper-field-box-day {
+      grid-template-columns: repeat(7, 1fr);
+
+      label:first-child {
+        grid-column: 1 / 8;
+      }
+    }
+
+    &.keper-field-box-user {
+      grid-template-columns: repeat(2, 1fr);
+
+      label:first-child {
+        grid-column: 1 / 3;
+      }
+    }
+
+    .keper-field-box-container {
+      input {
+        display: none;
+      }
+
+      .keper-field-box {
+        @include keper-mixin-transition(0.4s);
+        border-radius: var(--keper-border-radius-medium);
+        display: grid;
+        cursor: pointer;
+        height: var(--keper-padding-large);
+        background-color: rgba(0,0,0,0);
+
+        span {
+          align-self: center;
+          text-align: center;
+          font-weight: bold;
+        }
+      }
+
+      input:checked ~ .keper-field-box {
+        background-color: var(--keper-color-primary);
+        color: var(--keper-color-black);
+      }
+    }
+  }
 }

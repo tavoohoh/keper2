@@ -23,6 +23,8 @@ export class SettingsPage implements OnInit, OnDestroy {
   public userId: string;
   public tasks: Array<TaskModel> = [];
   public users: Array<UserModel> = [];
+  public selectedTask: TaskModel = null;
+  public selectedUser: UserModel = null;
 
   constructor(
     private coreService: CoreService,
@@ -76,13 +78,13 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   public onTaskOptionEvent(task: TaskModel): void {
+    this.selectedTask = task;
     this.modalService.currentModalValue = ModalEnum.TASK_NEW;
-    console.log('task', task);
   }
 
   public onUserOptionEvent(user: UserModel): void {
+    this.selectedUser = user;
     this.modalService.currentModalValue = ModalEnum.USER_NEW;
-    console.log('user', user);
   }
 
 }
