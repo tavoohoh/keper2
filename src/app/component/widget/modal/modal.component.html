@@ -15,6 +15,9 @@
     <div class="keper-modal-title">
       {{ title | translate }}
     </div>
+    <div class="keper-modal-subtitle" *ngIf="subtitle">
+      {{ subtitle | translate }}
+    </div>
     <ng-content></ng-content>
   </div>
 </div>

@@ -1,6 +1,6 @@
 @import "../../../theme/variables.scss";
 
-$logoSize: 150px;
+$logoSize: 138px;
 
 .auth-container {
   display: grid;
@@ -9,12 +9,11 @@ $logoSize: 150px;
   .auth-header {
     @include keper-mixin-transition();
     display: grid;
-    gap: var(--keper-padding-small);
-    grid-template-rows: $logoSize 50px 14px auto;
-    padding: var(--keper-padding-body) 0;
+    gap: var(--keper-padding-xsmall);
+    grid-template-rows: $logoSize 40px 15px auto;
     background-color: var(--keper-color-black);
     border-radius: 0 0 var(--keper-border-radius-large) var(--keper-border-radius-large);
-    height: 360px;
+    height: 289px;
 
     &.auth-header-full {
       height: 100vh;

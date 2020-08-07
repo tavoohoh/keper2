@@ -15,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+import { TaskFormComponent } from './task-form/task-form.component';
 
 const widgets = [
   TabsComponent,
@@ -27,7 +28,8 @@ const widgets = [
   HeaderComponent,
   ProfileComponent,
   ChangePasswordComponent,
-  RecoverPasswordComponent
+  RecoverPasswordComponent,
+  TaskFormComponent
 ];
 
 @NgModule({

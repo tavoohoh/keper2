@@ -75,8 +75,10 @@
     "PHONE_P": "What is the user's phone number?",
     "TASK_NAME": "Task name",
     "TASK_NAME_P": "What is the name of this task?",
-    "TASK_SCHEDULE": "Timetable",
+    "TASK_NAME_R": "The task name is required",
+    "TASK_SCHEDULE": "Task Schedule",
     "TASK_SCHEDULE_P": "At what time should this task occur?",
+    "TASK_SCHEDULE_R": "The task schedule is required",
     "TASK_DAYS": "Days",
     "TASK_USERS": "Users"
   },

@@ -1,3 +1,30 @@
-<p>
-  task-form works!
-</p>
+<app-modal
+  [smallModal]="false"
+  [openModal]="show"
+  [disabledConfirm]="noEdited"
+  (modalClose)="onModalClose()"
+  (modalConfirm)="onSubmitForm()"
+  [title]="'TASKS.NEW'"
+  [subtitle]="'TASKS.SUBTITLE'">
+
+  <form class="keper-form keper-no-padding" [formGroup]="form" (ngSubmit)="onSubmitForm()" (change)="formChange()" *ngIf="form">
+    <!-- task name field -->
+    <div class="keper-field" [class.keper-field-invalid]="submitted && f.name.errors">
+      <label for="name">{{ 'FORM.TASK_NAME' | translate }}</label>
+      <input
+        type="text"
+        id="name"
+        [placeholder]="'FORM.TASK_NAME_P' | translate"
+        formControlName="name"/>
+      <div *ngIf="submitted && f.name.errors" class="keper-field-errors">
+        <div *ngIf="f.name.errors.required">
+          {{ 'FORM.TASK_NAME_R' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <!-- task schedule field -->
+    <!-- task days field -->
+    <!-- task users field -->
+  </form>
+</app-modal>

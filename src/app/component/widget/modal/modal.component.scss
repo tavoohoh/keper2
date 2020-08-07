@@ -22,7 +22,7 @@
     display: grid;
     grid-template-columns: min-content auto min-content;
     gap: var(--keper-padding-small);
-    margin-bottom: var(--keper-padding-large);
+    margin-bottom: var(--keper-padding-xsmall);
 
     .keper-modal-header-button {
       align-self: center;
@@ -34,10 +34,17 @@
   .keper-modal-content {
     .keper-modal-title {
       align-self: center;
-      line-height: 1;
+      line-height: 1.4;
       color: var(--keper-color-white);
       font-size: var(--keper-font-large);
       font-weight: bold;
+      margin-bottom: var(--keper-padding-small);
+    }
+
+    .keper-modal-subtitle {
+      line-height: 1.3;
+      color: var(--keper-color-white);
+      font-size: var(--keper-font-reader);
       margin-bottom: var(--keper-padding-small);
     }
   }

@@ -11,6 +11,7 @@ export class ModalComponent implements OnInit {
   @Input() public smallModal: boolean;
   @Input() public openModal: boolean;
   @Input() public title: string;
+  @Input() public subtitle: string;
   @Input() public disabledCancel: boolean;
   @Input() public disabledConfirm: boolean;
   @Output() public modalClose = new EventEmitter<void>();

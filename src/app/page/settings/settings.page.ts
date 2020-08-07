@@ -9,7 +9,9 @@ import {LoaderService} from '../../service/loader/loader.service';
 
 import {TaskModel} from '../../_model';
 import {UserModel} from '../../_model/user.model';
-import {AuthService} from "../../service/auth/auth.service";
+import {AuthService} from '../../service/auth/auth.service';
+import {ModalEnum} from '../../_enum';
+import {ModalService} from '../../service/common/modal.service';
 
 @Component({
   selector: 'app-settings',
@@ -26,7 +28,8 @@ export class SettingsPage implements OnInit, OnDestroy {
     private coreService: CoreService,
     private toastService: ToastService,
     private loaderService: LoaderService,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalService: ModalService
   ) { }
 
   ngOnDestroy(): void {
@@ -73,10 +76,12 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   public onTaskOptionEvent(task: TaskModel): void {
+    this.modalService.currentModalValue = ModalEnum.TASK_NEW;
     console.log('task', task);
   }
 
   public onUserOptionEvent(user: UserModel): void {
+    this.modalService.currentModalValue = ModalEnum.USER_NEW;
     console.log('user', user);
   }
 

@@ -75,8 +75,10 @@
     "PHONE_P": "¿Cuál es el número de teléfono del usuario?",
     "TASK_NAME": "Nombre de la tarea",
     "TASK_NAME_P": "¿Cuál es el nombre de esta tarea?",
+    "TASK_NAME_R": "El nombre de la tarea es requerido",
     "TASK_SCHEDULE": "Horario",
     "TASK_SCHEDULE_P": "¿A qué hora debe ocurrir esta tarea?",
+    "TASK_SCHEDULE_R": "El horario de la tarea es requerido",
     "TASK_DAYS": "Días",
     "TASK_USERS": "Usuarios"
   },
