@@ -138,7 +138,9 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
    * Form fields
    */
   public async onCheckboxChange(e, fieldName: string): Promise<void> {
-    const checkArray: Array<string> = this.form.controls[fieldName].value.length > 0 ? this.form.controls[fieldName].value : [];
+    const checkArray: Array<string> =
+      this.form.controls[fieldName] && this.form.controls[fieldName].value &&
+      this.form.controls[fieldName].value.length > 0 ? this.form.controls[fieldName].value : [];
 
     if (e.target.checked) {
       checkArray.push(e.target.value);
@@ -151,7 +153,9 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
   }
 
   public isChecked(value: string, fieldName: string): boolean {
-    const checkArray: Array<string> = this.form.controls[fieldName].value.length > 0 ? this.form.controls[fieldName].value : [];
+    const checkArray: Array<string> =
+      this.form.controls[fieldName] && this.form.controls[fieldName].value &&
+      this.form.controls[fieldName].value.length > 0 ? this.form.controls[fieldName].value : [];
 
     return checkArray.includes(value);
   }
