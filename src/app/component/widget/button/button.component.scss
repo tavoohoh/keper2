@@ -1,5 +1,7 @@
 @import "../../../../theme/variables.scss";
 
+// GENERAL
+
 .keper-button {
   @include keper-mixin-clean-button();
   width: 100%;
@@ -9,9 +11,26 @@
   padding: var(--keper-padding-button);
 }
 
+// PADDING
+
+.keper-button-LINK {
+  padding: 0;
+}
+
+// MARGIN
+
+.keper-margin-bottom {
+  margin-bottom: var(--keper-padding-body);
+}
+
+// COLOR
+
 .keper-button-BUTTON_DARK {
   color: var(--keper-color-white);
-  background-color: var(--keper-color-black);
+}
+
+.keper-button-BUTTON_DANGER {
+  color: var(--keper-color-error);
 }
 
 .keper-button-LINK,
@@ -19,21 +38,22 @@
   color: var(--keper-color-secondary);
 }
 
-.keper-button-LINK {
-  padding: 0;
-}
-
 .keper-button-BUTTON_PRIMARY,
 .keper-button-BUTTON_SECONDARY {
   color: var(--keper-color-black);
 }
 
+// RADIUS
+
 .keper-button-BUTTON_PRIMARY,
 .keper-button-BUTTON_SECONDARY,
 .keper-button-BUTTON_SIMPLE,
-.keper-button-BUTTON_DARK {
+.keper-button-BUTTON_DARK,
+.keper-button-BUTTON_DANGER {
   border-radius: var(--keper-border-radius-normal);
 }
+
+// BACKGROUND
 
 .keper-button-BUTTON_PRIMARY {
   background-color: var(--keper-color-primary);
@@ -41,4 +61,9 @@
 
 .keper-button-BUTTON_SECONDARY {
   background-color: var(--keper-color-secondary);
+}
+
+.keper-button-BUTTON_DARK,
+.keper-button-BUTTON_DANGER {
+  background-color: var(--keper-color-black);
 }

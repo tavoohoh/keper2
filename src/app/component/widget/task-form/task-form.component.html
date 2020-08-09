@@ -46,6 +46,7 @@
         class="keper-field-box-container" [for]="'day' + day">
         <input
           type="checkbox"
+          [checked]="isChecked(day, 'days')"
           [value]="day"
           [id]="'day' + day"
           (change)="onCheckboxChange($event, 'days')"/>
@@ -60,11 +61,12 @@
       <label>{{ 'FORM.TASK_USERS' | translate }}</label>
       <label
         *ngFor="let user of formFields.users"
-        class="keper-field-box-container" [for]="'user' + user.value">
+        class="keper-field-box-container" [for]="'user' + user.id">
         <input
           type="checkbox"
-          [value]="user.value"
-          [id]="'user' + user.value"
+          [checked]="isChecked(user.id, 'users')"
+          [value]="user.id"
+          [id]="'user' + user.id"
           (change)="onCheckboxChange($event, 'users')"/>
         <span class="keper-field-box">
           <span>{{ user.name }}</span>

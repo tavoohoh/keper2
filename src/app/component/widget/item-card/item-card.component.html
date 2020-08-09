@@ -1,11 +1,11 @@
-<div class="keper-item-card" [class.keper-small]="isSmall">
+<div class="keper-item-card" [class.keper-small]="isSmall" [class.keper-button]="isAddButton">
   <div class="keper-item-card-title">
-    {{ title }}
+    {{ title | translate }}
   </div>
 
-  <div class="keper-item-card-content" *ngIf="content1 || content2 || fullSchedule">
-    <span *ngIf="content1">{{ content1 }}</span>
-    <span *ngIf="content2">{{ content2 }}</span>
+  <div class="keper-item-card-content" *ngIf="!isAddButton && (content1 || content2 || fullSchedule)">
+    <span *ngIf="content1">{{ content1 | translate }}</span>
+    <span *ngIf="content2">{{ content2 | translate }}</span>
     <span *ngIf="fullSchedule">
       <ng-container *ngFor="let day of fullSchedule.days; let i = index">
         {{ 'WEEKDAY.' + day | translate }}<ng-container *ngIf="i + 1 < fullSchedule.days.length">,</ng-container>
@@ -19,9 +19,10 @@
     </span>
   </div>
 
-  <div class="keper-item-card-options" (click)="onOption()" *ngIf="hasOpts">
+  <div class="keper-item-card-options" (click)="onOption()" *ngIf="hasOpts || isAddButton">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <path d="M6 12c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm9 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm9 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"/>
+      <path *ngIf="!isAddButton" d="M6 12c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm9 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm9 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"/>
+      <path *ngIf="isAddButton" d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
     </svg>
   </div>
 </div>

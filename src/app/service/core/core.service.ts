@@ -64,10 +64,6 @@ export class CoreService {
             name: 'Gustavo',
           },
           {
-            id: 'B84GACilUNet1uVn3URVzCKXYd1B',
-            name: 'Rachel',
-          },
-          {
             id: 'B84GACKXYd1BCilUNet1uVn3URVz',
             name: 'Nestor',
           }

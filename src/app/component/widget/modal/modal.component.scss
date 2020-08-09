@@ -1,12 +1,21 @@
 @import "../../../../theme/variables.scss";
 
+.keper-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0,0,0,0.6);
+}
+
 .keper-modal {
   @include keper-mixin-transition();
   @include keper-mixin-soft-shadow();
   position: fixed;
   bottom: 0;
   width: 100vw;
-  padding: 0;
+  padding: 0 var(--keper-padding-body);
   background-color: var(--keper-color-dark-gray);
   border-radius: var(--keper-border-radius-large) var(--keper-border-radius-large) 0 0;
   height: 0;
@@ -16,7 +25,9 @@
     padding: var(--keper-padding-body);
   }
 
-  &.keper-modal-small {}
+  &.keper-small-modal.keper-show-modal {
+    height: 280px;
+  }
 
   .keper-modal-header {
     display: grid;
@@ -39,6 +50,10 @@
       font-size: var(--keper-font-large);
       font-weight: bold;
       margin-bottom: var(--keper-padding-small);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
     }
 
     .keper-modal-subtitle {

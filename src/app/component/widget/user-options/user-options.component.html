@@ -1,0 +1,8 @@
+<app-modal
+  (modalClose)="onModalClose()"
+  [hideConfirm]="true"
+  [smallModal]="true"
+  [openModal]="show"
+  [title]="('USERS.SINGULAR' | translate) + (user ? (': ' + user.name) : '')">
+  <app-button (buttonClick)="onRemove()" [buttonText]="'REMOVE'" [buttonType]="buttonType.BUTTON_DANGER" [hasMarginBottom]="true"></app-button>
+</app-modal>

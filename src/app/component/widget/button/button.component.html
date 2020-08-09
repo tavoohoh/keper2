@@ -1,3 +1,7 @@
-<button (click)="onButtonClick()" [class]="'keper-button keper-button-' + buttonType" type="button">
+<button
+  (click)="onButtonClick()"
+  [class]="'keper-button keper-button-' + buttonType"
+  [class.keper-margin-bottom]="hasMarginBottom"
+  type="button">
   {{ buttonText | translate }}
 </button>

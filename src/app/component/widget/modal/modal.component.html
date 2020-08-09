@@ -1,3 +1,5 @@
+<div class="keper-modal-backdrop" (click)="close()" *ngIf="openModal"></div>
+
 <div class="keper-modal" [class.keper-small-modal]="smallModal" [class.keper-show-modal]="openModal">
   <div class="keper-modal-header">
     <div class="keper-modal-header-button" (click)="close()" [class.keper-disabled]="disabledCancel">
@@ -6,7 +8,7 @@
 
     <span></span>
 
-    <div class="keper-modal-header-button" (click)="confirm()" [class.keper-disabled]="disabledConfirm">
+    <div class="keper-modal-header-button" (click)="confirm()" [class.keper-disabled]="disabledConfirm" *ngIf="!hideConfirm">
       {{ 'DONE' | translate }}
     </div>
   </div>

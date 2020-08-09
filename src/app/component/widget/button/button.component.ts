@@ -10,6 +10,7 @@ export class ButtonComponent implements OnChanges {
   @Input() public buttonType: ButtonTypeEnum;
   @Input() public buttonText: string;
   @Input() public buttonContext: any;
+  @Input() public hasMarginBottom: boolean;
   @Output() private buttonClick: EventEmitter<any> = new EventEmitter(null);
 
   ngOnChanges(changes: SimpleChanges): void {

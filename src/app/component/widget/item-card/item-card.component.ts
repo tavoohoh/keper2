@@ -12,6 +12,7 @@ export class ItemCardComponent {
   @Input() public fullSchedule: { days: Array<string>, time: Array<string> };
   @Input() public isSmall: boolean;
   @Input() public hasOpts: boolean;
+  @Input() public isAddButton: boolean;
   @Output() private optionsEvent = new EventEmitter<void>(null);
 
   public onOption(): void {

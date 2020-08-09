@@ -4,7 +4,7 @@
     [title]="'SETTING.TITLE'"></app-header>
 
   <!-- Tasks -->
-  <div class="keper-padding-body" *ngIf="tasks.length > 0; else noTasksTemplate;">
+  <div class="keper-padding-body" *ngIf="tasks">
     <div class="keper-section-title">
       {{ 'TASKS.TITLE' | translate }}
     </div>
@@ -15,13 +15,19 @@
         [fullSchedule]="{ days: task.days, time: task.schedule }"
         [isSmall]="true"
         [hasOpts]="true"
-        (optionsEvent)="onTaskOptionEvent(task)">
+        (optionsEvent)="onTaskOptsEvent(task)">
+      </app-item-card>
+      <app-item-card
+        [title]="'TASKS.NEW'"
+        [isSmall]="true"
+        [isAddButton]="true"
+        (optionsEvent)="onTaskFormEvent()">
       </app-item-card>
     </div>
   </div>
 
   <!-- Users -->
-  <div class="keper-padding-body" *ngIf="userId && users.length > 0; else noUsersTemplate;">
+  <div class="keper-padding-body" *ngIf="userId && users">
     <div class="keper-section-title">
       {{ 'USERS.TITLE' | translate }}
     </div>
@@ -31,24 +37,20 @@
         [title]="user.name + (user.id === userId ? (' (' + ('USERS.YOU' | translate) + ')') : '')"
         [isSmall]="true"
         [hasOpts]="true"
-        (optionsEvent)="onUserOptionEvent(user)">
+        (optionsEvent)="onUserOptsEvent(user)">
+      </app-item-card>
+      <app-item-card
+        [title]="'USERS.NEW'"
+        [isSmall]="true"
+        [isAddButton]="true"
+        (optionsEvent)="onUserFormEvent()">
       </app-item-card>
     </div>
   </div>
 </app-tabs>
 
-<!-- templates -->
-<ng-template #noTasksTemplate>
-  <div class="keper-empty-list">
-    {{ 'TODAY.NO_TASKS' | translate }}
-  </div>
-</ng-template>
-
-<ng-template #noUsersTemplate>
-  <div class="keper-empty-list">
-    {{ 'TODAY.NO_TASKS' | translate }}
-  </div>
-</ng-template>
-
 <!-- modals -->
 <app-task-form [task]="selectedTask"></app-task-form>
+<app-task-options [task]="selectedTask" (clickDeleteTask)="onDeleteTaskEvent($event)" (clickEditTask)="onTaskFormEvent($event)"></app-task-options>
+<app-user-form></app-user-form>
+<app-user-options [user]="selectedUser" (clickRemoveUser)="onRemoveUserEvent($event)"></app-user-options>

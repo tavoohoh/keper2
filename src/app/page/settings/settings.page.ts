@@ -77,14 +77,40 @@ export class SettingsPage implements OnInit, OnDestroy {
     return users as Array<UserModel>;
   }
 
-  public onTaskOptionEvent(task: TaskModel): void {
+  /**
+   * Manage tasks
+   */
+
+  public onTaskOptsEvent(task: TaskModel): void {
+    this.selectedTask = task;
+    this.modalService.currentModalValue = ModalEnum.TASK_OPTIONS;
+  }
+
+  public onTaskFormEvent(task: TaskModel = null): void {
     this.selectedTask = task;
     this.modalService.currentModalValue = ModalEnum.TASK_NEW;
   }
 
-  public onUserOptionEvent(user: UserModel): void {
+  public async onDeleteTaskEvent(task: TaskModel): Promise<void> {
+    this.tasks = await this.getTasks();
+  }
+
+  /**
+   * Manage users
+   */
+
+  public onUserOptsEvent(user: UserModel): void {
+    this.selectedUser = user;
+    this.modalService.currentModalValue = ModalEnum.USER_OPTIONS;
+  }
+
+  public onUserFormEvent(user: UserModel = null): void {
     this.selectedUser = user;
     this.modalService.currentModalValue = ModalEnum.USER_NEW;
+  }
+
+  public async onRemoveUserEvent(user: UserModel): Promise<void> {
+    this.users = await this.getUsers();
   }
 
 }

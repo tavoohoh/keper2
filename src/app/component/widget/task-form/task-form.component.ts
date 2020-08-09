@@ -31,24 +31,24 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
     ],
     users: [
       {
+        id: 'uVn3URVzCKXYd1BB84GACilUNet1',
         name: 'Gustavo',
-        value: '1'
       },
       {
+        id: 'B84GACilUNet1uVn3URVzCKXYd1B',
         name: 'Rachel',
-        value: '2'
       },
       {
-        name: 'Yuumi',
-        value: '3'
-      },
-      {
+        id: 'B84GACKXYd1BCilUNet1uVn3URVz',
         name: 'Nestor',
-        value: '4'
       },
       {
+        id: 'B84GACKXYd1B123UNet1uVn3URVz',
         name: 'Andrea',
-        value: '5'
+      },
+      {
+        id: 'B84GACKXuu1BCilUNet1uVn3URVz',
+        name: 'Yuumy',
       }
     ]
   };
@@ -66,7 +66,6 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.task && changes.task.currentValue) {
       this.task = changes.task.currentValue;
-      console.log(this.task);
     }
 
     this.form = this.setForm();
@@ -86,10 +85,7 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
       days = this.task.days || [];
 
       users = this.task.users.map(user => {
-        return {
-          name: user.name,
-          value: user.id
-        };
+        return user.id;
       });
     }
 
@@ -152,5 +148,11 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
 
     this.form.controls[fieldName].patchValue(checkArray);
     this.form.controls[fieldName].updateValueAndValidity();
+  }
+
+  public isChecked(value: string, fieldName: string): boolean {
+    const checkArray: Array<string> = this.form.controls[fieldName].value.length > 0 ? this.form.controls[fieldName].value : [];
+
+    return checkArray.includes(value);
   }
 }

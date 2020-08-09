@@ -1,7 +1,7 @@
 @import "../../../../theme/variables.scss";
 
 $keper-card-option-size: 20px;
-$keper-card-option-menu-size: 12px;
+$keper-card-option-menu-size: 11px;
 
 .keper-item-card {
   display: grid;
@@ -11,6 +11,7 @@ $keper-card-option-menu-size: 12px;
   background-color: var(--keper-color-dark-gray);
   border-radius: var(--keper-border-radius-medium);
   margin-bottom: var(--keper-padding-body);
+  height: 100%;
 
   .keper-item-card-title,
   .keper-item-card-content {
@@ -46,15 +47,6 @@ $keper-card-option-menu-size: 12px;
     font-size: var(--keper-font-small);
   }
 
-  &.keper-small {
-    padding: var(--keper-padding-xsmall) var(--keper-padding-small);
-    margin-bottom: unset;
-
-    .keper-item-card-title {
-      font-size: var(--keper-font-normal);
-    }
-  }
-
   .keper-item-card-options {
     display: grid;
     background-color: var(--keper-color-black);
@@ -71,4 +63,29 @@ $keper-card-option-menu-size: 12px;
       margin: auto;
     }
   }
+
+  &.keper-small {
+    padding: var(--keper-padding-xsmall) var(--keper-padding-small);
+    margin-bottom: unset;
+
+    .keper-item-card-title {
+      font-size: var(--keper-font-normal);
+    }
+  }
+
+  &.keper-button {
+    background-color: var(--keper-color-primary);
+
+    .keper-item-card-title {
+      align-self: end;
+      color: var(--keper-color-black);
+    }
+
+    .keper-item-card-options {
+      svg {
+        fill: var(--keper-color-primary);
+      }
+    }
+  }
+
 }
