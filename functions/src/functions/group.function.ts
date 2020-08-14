@@ -1,4 +1,4 @@
-import {GroupModel} from '../model/group.model';
+import {GroupModel} from '../models/group.model';
 
 const getGroup = (authUser: any, id: string) => {
   return {

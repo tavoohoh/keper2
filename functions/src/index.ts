@@ -1,5 +1,5 @@
-import {methodEnum} from './enum/method.enum';
-import {groupFunctions} from './function/group.function';
+import {methodEnum} from './enums/method.enum';
+import {groupFunctions} from './functions/group.function';
 import * as functions from 'firebase-functions';
 
 const cors = require('cors')({

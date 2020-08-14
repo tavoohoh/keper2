@@ -1,5 +1,5 @@
 import {UserModel} from './user.model';
-import {DayEnum} from '../enum/day.enum';
+import {DayEnum} from '../enums/day.enum';
 
 export interface TaskModel {
   name: string;
