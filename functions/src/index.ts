@@ -2,6 +2,8 @@ import {methodEnum} from './enums/method.enum';
 import {groupFunctions} from './functions/group.function';
 import * as functions from 'firebase-functions';
 
+// TODO: delete hateno app and update keper to Blaze
+
 const cors = require('cors')({
   origin: true,
   allowedHeaders: [
