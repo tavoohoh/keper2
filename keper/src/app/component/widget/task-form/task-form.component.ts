@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ModalMethods} from '../../../_shared/modal.methods';
 import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
