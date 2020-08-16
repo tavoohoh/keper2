@@ -10,6 +10,8 @@ const db = admin.firestore();
 // About queries https://firebase.google.com/docs/firestore/query-data/queries
 
 const getGroup = async (user: UserAuthModel, uid: string) => {
+  // TODO: Validate that the user is owner or part of the group to get it
+
   try {
     const groupService = () => {
       return db.collection(CollectionEnum.GROUPS)
@@ -51,6 +53,8 @@ const getGroup = async (user: UserAuthModel, uid: string) => {
 };
 
 const listGroup = async (user: UserAuthModel) => {
+  // TODO: Query the groups that the user is owner or part of it
+
   try {
     const groupsService = async () => {
       return db.collection(CollectionEnum.GROUPS)
@@ -107,6 +111,8 @@ const createGroup = async (user: UserAuthModel, group: GroupModel) => {
 }
 
 const updateGroup = async (user: UserAuthModel, uid: string, group: GroupModel) => {
+  // TODO: Validate that the user is the owner of the group to updated it
+
   try {
     await db.collection(CollectionEnum.GROUPS).doc(uid).update(group);
 
@@ -129,6 +135,8 @@ const updateGroup = async (user: UserAuthModel, uid: string, group: GroupModel) 
 }
 
 const deleteGroup = async (user: UserAuthModel, uid: string) => {
+  // TODO: Validate that the user is the owner of the group to delete it
+
   try {
     await db.collection(CollectionEnum.GROUPS).doc(uid).delete();
 
