@@ -1,5 +1,9 @@
-// TODO: delete hateno app and update keper to Blaze
+import * as admin from 'firebase-admin';
 
-export { groups } from './routes/group.route';
+admin.initializeApp();
+
 export { health } from './routes/health.route';
+export { groups } from './routes/group.route';
 export { tasks } from './routes/task.route';
+
+// TODO: delete hateno app and update keper to Blaze

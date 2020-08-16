@@ -1,4 +1,5 @@
 import {GroupModel} from '../models/group.model';
+import {UserAuthModel} from '../models/user.model';
 
 const getGroup = (authUser: any, id: string) => {
   return {
@@ -18,11 +19,12 @@ const listGroup = (authUser: any) => {
   };
 }
 
-const createGroup = (authUser: any, group: GroupModel) => {
+const createGroup = (user: UserAuthModel, group: GroupModel) => {
   return {
     status: 200,
     body: {
-      message: 'Create group is not yet implemented'
+      message: 'Create group is not yet implemented',
+      user
     }
   };
 }
