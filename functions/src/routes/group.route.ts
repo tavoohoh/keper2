@@ -13,54 +13,54 @@ export const groups = functions.https.onRequest(async (request, response) => {
 
     switch (request.method) {
       case methodEnum.GET:
-        if (request.query && request.query.id) {
+        if (request.query && request.query.uid) {
           // get group by id
-          responseValue = groupFunctions.get(user, request.query.id.toString());
+          responseValue = await groupFunctions.get(user, request.query.uid.toString());
         } else {
           // get a list of groups
-          responseValue = groupFunctions.list(user);
+          responseValue = await groupFunctions.list(user);
         }
 
         break;
 
       case methodEnum.POST:
         // create a group
-        responseValue = groupFunctions.create(user, request.body);
+        responseValue = await groupFunctions.create(user, request.body);
 
         break;
 
       case methodEnum.PUT:
         // update a group
-        if (request.query.id) {
-          responseValue = groupFunctions.update(user, request.query.id.toString(), request.body);
+        if (request.query.uid) {
+          responseValue = await groupFunctions.update(user, request.query.uid.toString(), request.body);
         } else {
           responseValue = {
             status: 400,
             body: {
-              error: 'Bad requestuest',
-              message: '`id` is a query param requestuired'
+              error: 'Bad request',
+              message: '`uid` is a required query param'
             }
           };
 
-          functions.logger.error(`Bad requestuest. Can not update without group id.`, {structuredData: true});
+          functions.logger.error(`Bad request. Can not update without group uid.`, {structuredData: true});
         }
 
         break;
 
       case methodEnum.DELETE:
         // delete a group
-        if (request.query.id) {
-          responseValue = groupFunctions.delete(user, request.query.id.toString());
+        if (request.query.uid) {
+          responseValue = await groupFunctions.delete(user, request.query.uid.toString());
         } else {
           responseValue = {
             status: 400,
             body: {
               error: 'Bad requestuest',
-              message: '`id` is a query param requestuired'
+              message: '`uid` is a required query param'
             }
           };
 
-          functions.logger.error(`Bad requestuest. Can not delete without group id.`, {structuredData: true});
+          functions.logger.error(`Bad request. Can not delete without group uid.`, {structuredData: true});
         }
 
         break;
