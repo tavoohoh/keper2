@@ -1,45 +1,44 @@
 import * as admin from 'firebase-admin';
 
-import {GroupModel} from '../models/group.model';
+import {FullGroupModel, GroupModel} from '../models/group.model';
 import {UserAuthModel} from '../models/user.model';
 import {CollectionEnum} from '../enums/colletion.enum';
 import {DbDocumentModel} from '../models/db-document.model';
+import {groupService} from '../services/group.service';
 
 const db = admin.firestore();
 
 // About queries https://firebase.google.com/docs/firestore/query-data/queries
 
-const getGroup = async (user: UserAuthModel, uid: string) => {
+const get = async (user: UserAuthModel, uid: string) => {
   // TODO: Validate that the user is owner or part of the group to get it
 
   try {
-    const groupService = () => {
-      return db.collection(CollectionEnum.GROUPS)
-        .doc(uid)
-        .get()
-        .then(document => {
-          return {
-            uid: document.id,
-            ...document.data()
+    const group = new FullGroupModel(await groupService.get(uid) as DbDocumentModel);
+
+    if (user.uid === group.ownerId || group.users.some(el => el.uid === user.uid)) {
+      if (group && group.name) {
+        return {
+          status: 200,
+          body: group
+        };
+      } else {
+        return {
+          status: 404,
+          body: {
+            message: 'group not found'
           }
-        });
-    }
-
-    const group = new GroupModel(await groupService() as DbDocumentModel);
-
-    if (group && group.name) {
-      return {
-        status: 200,
-        body: group
-      };
+        };
+      }
     } else {
       return {
-        status: 404,
+        status: 403,
         body: {
-          message: 'group not found'
+          message: 'Unauthorized'
         }
       };
     }
+
   } catch (error) {
     return {
       status: 500,
@@ -52,7 +51,7 @@ const getGroup = async (user: UserAuthModel, uid: string) => {
   }
 };
 
-const listGroup = async (user: UserAuthModel) => {
+const list = async (user: UserAuthModel) => {
   // TODO: Query the groups that the user is owner or part of it
 
   try {
@@ -86,7 +85,7 @@ const listGroup = async (user: UserAuthModel) => {
   }
 }
 
-const createGroup = async (user: UserAuthModel, group: GroupModel) => {
+const create = async (user: UserAuthModel, group: GroupModel) => {
   try {
     group.ownerId = user.uid;
 
@@ -110,7 +109,7 @@ const createGroup = async (user: UserAuthModel, group: GroupModel) => {
   }
 }
 
-const updateGroup = async (user: UserAuthModel, uid: string, group: GroupModel) => {
+const update = async (user: UserAuthModel, uid: string, group: GroupModel) => {
   // TODO: Validate that the user is the owner of the group to updated it
 
   try {
@@ -158,10 +157,16 @@ const deleteGroup = async (user: UserAuthModel, uid: string) => {
   }
 }
 
+// additional
+// const addUserToGroup = async (groupUid: string, userUid: string) => {
+//   const group = new FullGroupModel(await groupService.get(groupUid) as DbDocumentModel);
+//   const user = null;
+// }
+
 export const groupFunctions = {
-  get: getGroup,
-  list: listGroup,
-  create: createGroup,
-  update: updateGroup,
+  get,
+  list,
+  create,
+  update,
   delete: deleteGroup
 };
