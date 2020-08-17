@@ -15,14 +15,14 @@ export const tasks = functions.https.onRequest(async (request, response) => {
       case methodEnum.GET:
         if (request.query && request.query.id) {
           // get task by id
-          responseValue = taskFunctions.get(user, request.query.id.toString());
+          responseValue = await taskFunctions.get(user, request.query.id.toString());
         } else if (request.query && request.query.groupId) {
           if (request.query.date) {
             // get a list of tasks by date
-            responseValue = taskFunctions.listByDate(user, request.query.groupId.toString(), request.query.date.toString());
+            responseValue = await taskFunctions.listByDate(user, request.query.groupId.toString(), request.query.date.toString());
           } else {
             // get a list of tasks
-            responseValue = taskFunctions.list(user, request.query.groupId.toString());
+            responseValue = await taskFunctions.list(user, request.query.groupId.toString());
           }
         } else {
           responseValue = {
@@ -40,14 +40,14 @@ export const tasks = functions.https.onRequest(async (request, response) => {
 
       case methodEnum.POST:
         // create a task
-        responseValue = taskFunctions.create(user, request.body);
+        responseValue = await taskFunctions.create(user, request.body);
 
         break;
 
       case methodEnum.PUT:
         // update a task
         if (request.query.id) {
-          responseValue = taskFunctions.update(user, request.query.id.toString(), request.body);
+          responseValue = await taskFunctions.update(user, request.query.id.toString(), request.body);
         } else {
           responseValue = {
             status: 400,
@@ -65,7 +65,7 @@ export const tasks = functions.https.onRequest(async (request, response) => {
       case methodEnum.DELETE:
         // delete a task
         if (request.query.id) {
-          responseValue = taskFunctions.delete(user, request.query.id.toString());
+          responseValue = await taskFunctions.delete(user, request.query.id.toString());
         } else {
           responseValue = {
             status: 400,

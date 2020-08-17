@@ -9,7 +9,7 @@ const get = (uid: string): Promise<FullGroupModel> => {
     .get()
     .then(document => {
       return new FullGroupModel(document);
-    });
+    })
 }
 
 export const groupService = {

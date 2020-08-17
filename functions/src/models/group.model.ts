@@ -15,8 +15,8 @@ export class GroupModel {
 }
 
 export class FullGroupModel extends GroupModel {
-  readonly users: Array<string>;
-  readonly tasks: Array<string>;
+  users: Array<string>;
+  tasks: Array<string>;
 
   constructor(response: DbDocumentModel) {
     super(response);

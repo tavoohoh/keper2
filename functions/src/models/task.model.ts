@@ -4,6 +4,7 @@ import {DayEnum} from '../enums/day.enum';
 export interface TaskModel {
   name: string;
   schedule: Array<string>;
-  users: Array<UserModel>;
-  days?: Array<DayEnum>;
+  users: Array<string | UserModel>;
+  group: string;
+  days: Array<DayEnum>;
 }
