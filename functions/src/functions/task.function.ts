@@ -73,6 +73,10 @@ const list = async (authUser: any, groupId: string) => {
 }
 
 // TODO: list tasks by date
+// This means that every task should have the following structure:
+// [ { name: string; user: <assigned user of this task>; schedule: Array<string>; group: string; } ]
+// @<assigned user of this task> The user that is responsible for the task for the selected date
+// The selected day weekday must match be included in the `days` array in order to by fetched
 const listByDate = (authUser: any, groupId: string, date: string) => {
   return {
     status: 200,
