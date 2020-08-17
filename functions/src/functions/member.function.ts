@@ -4,14 +4,24 @@ import {UserAuthModel} from '../models/user.model';
 import {CollectionEnum} from '../enums/colletion.enum';
 import {groupService} from '../services/group.service';
 import {usersService} from '../services/user.service';
+import {permissionValidator} from '../commons/permission-validator';
 
 const db = admin.firestore();
 
 // About queries https://firebase.google.com/docs/firestore/query-data/queries
 
-const list = async (user: UserAuthModel, groupUid: string) => {
-  // TODO: Validate that user is part of group
+const list = async (authUser: UserAuthModel, groupUid: string) => {
   try {
+    if (!await permissionValidator.canReadGroup(authUser.uid, groupUid)) {
+      return {
+        status: 403,
+        body: {
+          error: 'Unauthorized',
+          message: 'You have to are not a member of this group',
+        }
+      };
+    }
+
     const groupMembers = await usersService.list({
       fieldPath: 'groups',
       opStr: 'array-contains',
@@ -34,38 +44,22 @@ const list = async (user: UserAuthModel, groupUid: string) => {
   }
 }
 
-const add = async (groupUid: string, userUid: string) => {
-  // TODO: Validate that user is part of group
+const add = async (authUser: UserAuthModel, groupUid: string, userUid: string) => {
   try {
+    if (!await permissionValidator.canReadGroup(authUser.uid, groupUid)) {
+      return {
+        status: 403,
+        body: {
+          error: 'Unauthorized',
+          message: 'You are not member of this group',
+        }
+      };
+    }
+
     const group = await groupService.get(groupUid);
+    const user = await usersService.getByUid(userUid);
 
-    if (!group.uid) {
-      return {
-        status: 404,
-        body: {
-          error: 'Not found',
-          message: 'Group not found'
-        }
-      }
-    }
-
-    const user = await usersService.get({
-      fieldPath: 'fk',
-      opStr: '==',
-      value: userUid
-    });
-
-    if (!user.uid) {
-      return {
-        status: 404,
-        body: {
-          error: 'Not found',
-          message: 'User not found'
-        }
-      }
-    }
-
-    if ((group.users && group.users.includes(user.uid)) && (user.groups && user.groups.includes(groupUid))) {
+    if (group.users?.includes(<string>user.uid) && user.groups?.includes(groupUid)) {
       return {
         status: 400,
         body: {
@@ -75,22 +69,22 @@ const add = async (groupUid: string, userUid: string) => {
       }
     }
 
-    if (user.groups && !user.groups.includes(groupUid)) {
+    if (!user.groups?.includes(groupUid)) {
       const kpUser = {
         groups: user.groups
       };
 
-      kpUser.groups.push(groupUid);
+      kpUser.groups?.push(groupUid);
 
-      await db.collection(CollectionEnum.USERS).doc(user.uid).update(kpUser);
+      await db.collection(CollectionEnum.USERS).doc(<string>user.uid).update(kpUser);
     }
 
-    if (!group.users.includes(user.uid)) {
+    if (!group.users.includes(<string>user.uid)) {
       const groupValue = {
         users: group.users
       };
 
-      groupValue.users.push(user.uid);
+      groupValue.users.push(<string>user.uid);
 
       await db.collection(CollectionEnum.GROUPS).doc(groupUid).update(groupValue);
     }
@@ -113,38 +107,33 @@ const add = async (groupUid: string, userUid: string) => {
   }
 }
 
-const remove = async (groupUid: string, userUid: string) => {
-  // TODO: Validate that user is part of group
+const remove = async (authUser: UserAuthModel, groupUid: string, userUid: string) => {
   try {
+    if (!await permissionValidator.canWriteGroup(authUser.uid, groupUid)) {
+      return {
+        status: 403,
+        body: {
+          error: 'Unauthorized',
+          message: 'You have have to be the owner of this group',
+        }
+      };
+    }
+
     const group = await groupService.get(groupUid);
 
-    if (!group.uid) {
+    if (group.ownerId === userUid) {
       return {
-        status: 404,
+        status: 400,
         body: {
-          error: 'Not found',
-          message: 'Group not found'
+          error: 'Bad request',
+          message: 'You hare the owner of this group, can not remove your self',
         }
-      }
+      };
     }
 
-    const user = await usersService.get({
-      fieldPath: 'fk',
-      opStr: '==',
-      value: userUid
-    });
+    const user = await usersService.getByUid(userUid);
 
-    if (!user.uid) {
-      return {
-        status: 404,
-        body: {
-          error: 'Not found',
-          message: 'User not found'
-        }
-      }
-    }
-
-    if ((group.users && !group.users.includes(user.uid)) && (user.groups && !user.groups.includes(groupUid))) {
+    if (!group.users?.includes(<string>user.uid) && !user.groups?.includes(groupUid)) {
       return {
         status: 400,
         body: {
@@ -154,23 +143,21 @@ const remove = async (groupUid: string, userUid: string) => {
       }
     }
 
-    if (user.groups && user.groups.includes(groupUid)) {
+    if (user.groups?.includes(groupUid)) {
       const kpUser = {
         groups: user.groups.filter(e => e !== groupUid)
       };
 
-      await db.collection(CollectionEnum.USERS).doc(user.uid).update(kpUser);
+      await db.collection(CollectionEnum.USERS).doc(<string>user.uid).update(kpUser);
     }
 
-    if (group.users.includes(user.uid)) {
+    if (group.users?.includes(<string>user.uid)) {
       const groupValue = {
         users: group.users.filter(e => e !== user.uid)
       };
 
       await db.collection(CollectionEnum.GROUPS).doc(groupUid).update(groupValue);
     }
-
-    console.log('removed');
 
     return {
       status: 200,

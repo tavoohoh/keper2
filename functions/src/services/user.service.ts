@@ -24,6 +24,24 @@ const get = (querySet: QuerySetModel): Promise<KpUserModel> => {
     });
 };
 
+const getByUid = (uid: string): Promise<KpUserModel> => {
+  return db.collection(CollectionEnum.USERS)
+    .doc(uid)
+    .get()
+    .then(user => {
+      const kpUser: KpUserModel = {
+        uid: user.id,
+        fk: user.data()?.fk,
+        email: user.data()?.email,
+        displayName: user.data()?.displayName,
+        groups: user.data()?.groups,
+        tasks: user.data()?.tasks
+      };
+
+      return kpUser;
+    });
+};
+
 const list = (querySet: QuerySetModel): Promise<Array<KpUserModel>> => {
   return db.collection(CollectionEnum.USERS)
     .where(querySet.fieldPath, querySet.opStr, querySet.value)
@@ -70,6 +88,7 @@ const update = async (userId: string, user: UserModel): Promise<any> => {
 
 export const usersService = {
   get,
+  getByUid,
   list,
   update
 }

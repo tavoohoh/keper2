@@ -11,19 +11,6 @@ const get = (uid: string): Promise<FullGroupModel> => {
       return new FullGroupModel(document);
     });
 }
-//
-// const list = async (userId) => {
-//   // get user groups
-//   return db.collection(CollectionEnum.GROUPS)
-//     .where('ownerId', '==', user.uid)
-//     .get()
-//     .then(querySnapshot => querySnapshot.docs.map(doc => {
-//       return {
-//         ...doc.data(),
-//         uid: doc.id,
-//       }
-//     }))
-// };
 
 export const groupService = {
   get

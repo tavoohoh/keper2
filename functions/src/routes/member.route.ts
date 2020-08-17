@@ -32,7 +32,7 @@ export const members = functions.https.onRequest(async (request, response) => {
       case methodEnum.PUT:
         // Add a member to a group
         if (request.body && request.body.groupId && request.body.userId) {
-          responseValue = await memberFunctions.add(request.body.groupId, request.body.userId);
+          responseValue = await memberFunctions.add(user, request.body.groupId, request.body.userId);
         } else {
           responseValue = {
             status: 400,
@@ -50,7 +50,7 @@ export const members = functions.https.onRequest(async (request, response) => {
       case methodEnum.POST:
         // remove member from group
         if (request.body && request.body.groupId && request.body.userId) {
-          responseValue = await memberFunctions.remove(request.body.groupId, request.body.userId);
+          responseValue = await memberFunctions.remove(user, request.body.groupId, request.body.userId);
         } else {
           responseValue = {
             status: 400,
