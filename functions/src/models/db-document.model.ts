@@ -1,4 +1,4 @@
 export interface DbDocumentModel {
-  uid: string;
+  id: string;
   data: () => any;
 }

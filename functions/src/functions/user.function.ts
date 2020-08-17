@@ -7,6 +7,7 @@ import {usersService} from '../services/user.service';
 const db = admin.firestore();
 
 // About queries https://firebase.google.com/docs/firestore/query-data/queries
+// About user management https://firebase.google.com/docs/auth/admin/manage-users
 
 const get = async (user: UserAuthModel, query: { email?: string, uid?: string }) => {
   try {
@@ -35,7 +36,7 @@ const get = async (user: UserAuthModel, query: { email?: string, uid?: string })
         status: 404,
         body: {
           error: 'User not found',
-          message: 'Unable to found a user with the provided `uid`'
+          message: 'Unable to found a user with the provided `uid` or `email`'
         }
       }
     }
@@ -85,30 +86,7 @@ const create = async (user: UserModel) => {
 
 const update = async (authUser: UserAuthModel, user: UserModel) => {
   try {
-    if (user.password) {
-      return {
-        status: 404,
-        body: {
-          message: 'Do not include password property in the body'
-        }
-      };
-    }
-
-    const fbUser = await admin.auth().updateUser(authUser.uid, user);
-
-    const kpUserValue: KpUserModel = {
-      fk: fbUser.uid,
-      email: fbUser.email || '',
-      displayName: fbUser.displayName || ''
-    };
-
-    const kpUser: any = await usersService.get({
-      fieldPath: 'fk',
-      opStr: '==',
-      value: authUser.uid
-    });
-
-    await db.collection(CollectionEnum.USERS).doc(kpUser.uid).update(kpUserValue);
+    await usersService.update(authUser.uid, user);
 
     return {
       status: 200,
@@ -127,7 +105,6 @@ const update = async (authUser: UserAuthModel, user: UserModel) => {
       }
     };
   }
-
 };
 
 const deleteUser = async (user: UserModel) => {

@@ -1,9 +1,8 @@
 import * as admin from 'firebase-admin';
 
-import {FullGroupModel, GroupModel} from '../models/group.model';
+import {GroupModel} from '../models/group.model';
 import {UserAuthModel} from '../models/user.model';
 import {CollectionEnum} from '../enums/colletion.enum';
-import {DbDocumentModel} from '../models/db-document.model';
 import {groupService} from '../services/group.service';
 
 const db = admin.firestore();
@@ -14,9 +13,9 @@ const get = async (user: UserAuthModel, uid: string) => {
   // TODO: Validate that the user is owner or part of the group to get it
 
   try {
-    const group = new FullGroupModel(await groupService.get(uid) as DbDocumentModel);
+    const group = await groupService.get(uid);
 
-    if (user.uid === group.ownerId || group.users.some(el => el.uid === user.uid)) {
+    // if (user.uid === group.ownerId || group.users.some(el => el === user.uid)) {
       if (group && group.name) {
         return {
           status: 200,
@@ -30,14 +29,14 @@ const get = async (user: UserAuthModel, uid: string) => {
           }
         };
       }
-    } else {
-      return {
-        status: 403,
-        body: {
-          message: 'Unauthorized'
-        }
-      };
-    }
+    // } else {
+    //   return {
+    //     status: 403,
+    //     body: {
+    //       message: 'Unauthorized'
+    //     }
+    //   };
+    // }
 
   } catch (error) {
     return {
@@ -156,12 +155,6 @@ const deleteGroup = async (user: UserAuthModel, uid: string) => {
     };
   }
 }
-
-// additional
-// const addUserToGroup = async (groupUid: string, userUid: string) => {
-//   const group = new FullGroupModel(await groupService.get(groupUid) as DbDocumentModel);
-//   const user = null;
-// }
 
 export const groupFunctions = {
   get,

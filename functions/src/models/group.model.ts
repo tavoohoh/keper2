@@ -1,5 +1,3 @@
-import {UserModel} from './user.model';
-import {TaskModel} from './task.model';
 import {DbDocumentModel} from './db-document.model';
 
 export class GroupModel {
@@ -12,13 +10,13 @@ export class GroupModel {
 
     this.ownerId = groupData.ownerId;
     this.name = groupData.name;
-    this.uid = response.uid;
+    this.uid = response.id;
   }
 }
 
 export class FullGroupModel extends GroupModel {
-  readonly users: Array<UserModel>;
-  readonly tasks: Array<TaskModel>;
+  readonly users: Array<string>;
+  readonly tasks: Array<string>;
 
   constructor(response: DbDocumentModel) {
     super(response);

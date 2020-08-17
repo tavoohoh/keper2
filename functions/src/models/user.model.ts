@@ -1,6 +1,6 @@
 export interface UserModel {
-  readonly uid: string;
   readonly email: string;
+  readonly uid: string;
   readonly displayName?: string;
   readonly photoURL?: string;
   readonly phoneNumber?: string;
@@ -23,9 +23,10 @@ export interface UserAuthModel {
 }
 
 export interface KpUserModel {
-  fk: string;
-  email: string;
-  displayName: string;
+  uid?: string;
+  fk?: string;
+  email?: string;
+  displayName?: string;
   tasks?: Array<string>;
   groups?: Array<string>;
 }

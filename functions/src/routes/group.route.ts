@@ -34,16 +34,16 @@ export const groups = functions.https.onRequest(async (request, response) => {
         if (request.query.uid) {
           responseValue = await groupFunctions.update(user, request.query.uid.toString(), request.body);
         } else {
-          responseValue = {
-            status: 400,
-            body: {
-              error: 'Bad request',
-              message: '`uid` is a required query param'
-            }
-          };
+        responseValue = {
+          status: 400,
+          body: {
+            error: 'Bad request',
+            message: '`uid` is a required query param'
+          }
+        };
 
-          functions.logger.error(`Bad request. Can not update without group uid.`, {structuredData: true});
-        }
+        functions.logger.error(`Bad request. Can not update without group uid.`, {structuredData: true});
+      }
 
         break;
 
