@@ -1,30 +1,78 @@
+import * as admin from 'firebase-admin';
+
 import {TaskModel} from '../models/task.model';
 import {UserAuthModel} from '../models/user.model';
-import {permissionValidator} from '../commons/permission-validator';
 import {CollectionEnum} from '../enums/colletion.enum';
-import * as admin from 'firebase-admin';
-import {groupService} from "../services/group.service";
+import {permissionValidator} from '../commons/permission-validator';
+import {groupService} from '../services/group.service';
+import {taskService} from '../services/task.service';
 
 const db = admin.firestore();
 
-const get = (authUser: any, id: string) => {
-  return {
-    status: 200,
-    body: {
-      message: 'Get task by id is not yet implemented'
+const get = async (authUser: any, taskUid: string) => {
+  try {
+    const task = await taskService.get(taskUid);
+
+    // check if user has permissions over this task's group
+    if (!await permissionValidator.canReadGroup(authUser.uid, task.group)) {
+      return {
+        status: 403,
+        body: {
+          error: 'Unauthorized',
+          message: 'You are not member of this task\'s group',
+        }
+      };
     }
-  };
+
+    return {
+      status: 201,
+      body: task
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      body: {
+        error: 'Internal server error',
+        message: 'Unable to fetch this task from database',
+        detail: error
+      }
+    };
+  }
 };
 
-const list = (authUser: any, groupId: string) => {
-  return {
-    status: 200,
-    body: {
-      message: 'Get task list is not yet implemented'
+const list = async (authUser: any, groupId: string) => {
+  try {
+    // check if user has permissions over this group
+    if (!await permissionValidator.canReadGroup(authUser.uid, groupId)) {
+      return {
+        status: 403,
+        body: {
+          error: 'Unauthorized',
+          message: 'You are not member of this group',
+        }
+      };
     }
-  };
+
+    // Query tasks by group id
+    const tasks = await taskService.list(groupId);
+
+    return {
+      status: 200,
+      body: tasks
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      body: {
+        error: 'Internal server error',
+        message: 'Unable to fetch tasks from database',
+        detail: error
+      }
+    };
+  }
 }
 
+// TODO: list tasks by date
 const listByDate = (authUser: any, groupId: string, date: string) => {
   return {
     status: 200,
@@ -79,22 +127,85 @@ const create = async (authUser: UserAuthModel, task: TaskModel) => {
   }
 }
 
-const update = (authUser: any, id: string, task: TaskModel) => {
-  return {
-    status: 200,
-    body: {
-      message: 'Update task is not yet implemented'
+const update = async (authUser: any, taskUid: string, task: TaskModel) => {
+  try {
+    const { group: kpTaskGroup } = await taskService.get(taskUid);
+
+    // check if user has permissions over this group
+    if (!await permissionValidator.canReadGroup(authUser.uid, kpTaskGroup)) {
+      return {
+        status: 403,
+        body: {
+          error: 'Unauthorized',
+          message: 'You are not member of this group',
+        }
+      };
     }
-  };
+
+    // Update task
+    await db.collection(CollectionEnum.TASKS).doc(taskUid).update(task);
+
+    return {
+      status: 200,
+      body: {
+        message: 'Task was successfully updated'
+      }
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      body: {
+        error: 'Internal server error',
+        message: 'Unable to update task from database',
+        detail: error
+      }
+    };
+  }
 }
 
-const deleteTask = (authUser: any, id: string) => {
-  return {
-    status: 200,
-    body: {
-      message: 'Delete task is not yet implemented'
+const deleteTask = async (authUser: any, taskUid: string) => {
+  try {
+    const { group: kpTaskGroup } = await taskService.get(taskUid);
+
+    // check if user has permissions over this group
+    if (!await permissionValidator.canReadGroup(authUser.uid, kpTaskGroup)) {
+      return {
+        status: 403,
+        body: {
+          error: 'Unauthorized',
+          message: 'You are not member of this group',
+        }
+      };
     }
-  };
+
+    // get group and remove task from it before deleting te task
+    let { tasks: kpGroupTasks } = await groupService.get(kpTaskGroup);
+
+    if (kpGroupTasks?.includes(taskUid)) {
+      kpGroupTasks = kpGroupTasks.filter(e => e !== taskUid);
+
+      await db.collection(CollectionEnum.GROUPS).doc(<string>kpTaskGroup).update({ tasks: kpGroupTasks });
+    }
+
+    // Delete task
+    await db.collection(CollectionEnum.TASKS).doc(taskUid).delete();
+
+    return {
+      status: 200,
+      body: {
+        message: 'Task was successfully deleted'
+      }
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      body: {
+        error: 'Internal server error',
+        message: 'Unable to delete task from database',
+        detail: error
+      }
+    };
+  }
 }
 
 export const taskFunctions = {

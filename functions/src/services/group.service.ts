@@ -7,11 +7,17 @@ const get = (uid: string): Promise<FullGroupModel> => {
   return db.collection(CollectionEnum.GROUPS)
     .doc(uid)
     .get()
-    .then(document => {
-      return new FullGroupModel(document);
-    })
+    .then(document => new FullGroupModel(document));
 }
 
+const list = async (userUid: string): Promise<Array<FullGroupModel>> => {
+  return db.collection(CollectionEnum.GROUPS)
+    .where('users', 'array-contains', userUid)
+    .get()
+    .then(querySnapshot => querySnapshot.docs.map(doc => new FullGroupModel(doc)));
+};
+
 export const groupService = {
-  get
+  get,
+  list
 }

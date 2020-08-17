@@ -41,26 +41,14 @@ const get = async (user: UserAuthModel, groupUid: string) => {
 };
 
 const list = async (user: UserAuthModel) => {
-  const kpUser = await usersService.get({
+  const { uid: userUid } = await usersService.get({
     fieldPath: 'fk',
     opStr: '==',
     value: user.uid
   });
 
   try {
-    const groupsService = async () => {
-      return db.collection(CollectionEnum.GROUPS)
-        .where('users', 'array-contains', kpUser.uid)
-        .get()
-        .then(querySnapshot => querySnapshot.docs.map(doc => {
-          return {
-            ...doc.data(),
-            uid: doc.id,
-          }
-        }))
-    };
-
-    const groups = await groupsService();
+    const groups = await groupService.list(<string>userUid);
 
     return {
       status: 200,
