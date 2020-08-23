@@ -1,11 +1,11 @@
 import {DayEnum} from '../enums/day.enum';
 
-export const DaysDateEnum = [
+export const WeekDaysArray = [
+  DayEnum.SUN,
   DayEnum.MON,
   DayEnum.TUE,
   DayEnum.WEN,
-  DayEnum.TUE,
+  DayEnum.THU,
   DayEnum.FRI,
-  DayEnum.SAT,
-  DayEnum.SUN,
+  DayEnum.SAT
 ]

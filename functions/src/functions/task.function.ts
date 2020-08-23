@@ -7,7 +7,7 @@ import {CollectionEnum} from '../enums/colletion.enum';
 import {permissionValidator} from '../commons/permission-validator';
 import {groupService} from '../services/group.service';
 import {taskService} from '../services/task.service';
-import {DaysDateEnum} from '../constants/days-date.constant';
+import {WeekDaysArray} from '../constants/days-date.constant';
 
 const db = admin.firestore();
 
@@ -81,12 +81,12 @@ const list = async (authUser: any, groupId: string) => {
 // The selected day weekday must match be included in the `days` array in order to by fetched
 const listByDate = async (authUser: any, groupId: string, date: string) => {
   const tasksDate = new Date(date);
-  const tasks = await taskService.listByDate(groupId, DaysDateEnum[tasksDate.getDay()]);
+  const tasks = await taskService.listByDate(groupId, WeekDaysArray[tasksDate.getDay()], date);
   const dateTasks = {
     date: {
       fullDate: tasksDate.toLocaleDateString(),
       monthDay: tasksDate.getDate(),
-      weekday: DaysDateEnum[tasksDate.getDay()]
+      weekday: WeekDaysArray[tasksDate.getDay()]
     },
     tasks
   };
