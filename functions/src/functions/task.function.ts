@@ -1,11 +1,13 @@
 import * as admin from 'firebase-admin';
 
+// import {DateTasksModel, TaskModel, DateTaskModel} from '../models/task.model';
 import {TaskModel} from '../models/task.model';
 import {UserAuthModel} from '../models/user.model';
 import {CollectionEnum} from '../enums/colletion.enum';
 import {permissionValidator} from '../commons/permission-validator';
 import {groupService} from '../services/group.service';
 import {taskService} from '../services/task.service';
+import {DaysDateEnum} from '../constants/days-date.constant';
 
 const db = admin.firestore();
 
@@ -77,11 +79,22 @@ const list = async (authUser: any, groupId: string) => {
 // [ { name: string; user: <assigned user of this task>; schedule: Array<string>; group: string; } ]
 // @<assigned user of this task> The user that is responsible for the task for the selected date
 // The selected day weekday must match be included in the `days` array in order to by fetched
-const listByDate = (authUser: any, groupId: string, date: string) => {
+const listByDate = async (authUser: any, groupId: string, date: string) => {
+  const tasksDate = new Date(date);
+  const tasks = await taskService.listByDate(groupId, DaysDateEnum[tasksDate.getDay()]);
+  const dateTasks = {
+    date: {
+      fullDate: tasksDate.toLocaleDateString(),
+      monthDay: tasksDate.getDate(),
+      weekday: DaysDateEnum[tasksDate.getDay()]
+    },
+    tasks
+  };
+
   return {
     status: 200,
     body: {
-      message: 'Get task list by date is not yet implemented'
+      message: dateTasks
     }
   };
 }

@@ -45,7 +45,7 @@ const get = async (user: UserAuthModel, query: { email?: string, uid?: string })
       status: 500,
       body: {
         error: 'Internal server error',
-        message: 'Unable to create user',
+        message: 'Unable to fetch user',
         detail: error
       }
     };
@@ -100,7 +100,7 @@ const update = async (authUser: UserAuthModel, user: UserModel) => {
       status: 500,
       body: {
         error: 'Internal server error',
-        message: 'Unable to create user',
+        message: 'Unable to update user',
         detail: error
       }
     };
@@ -130,7 +130,7 @@ const deleteUser = async (user: UserModel) => {
       status: 500,
       body: {
         error: 'Internal server error',
-        message: 'Unable to delete user from database',
+        message: 'Unable to delete user',
         detail: error
       }
     };
