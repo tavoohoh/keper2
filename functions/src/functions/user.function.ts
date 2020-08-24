@@ -1,4 +1,5 @@
 import * as admin from 'firebase-admin';
+import * as firebase from 'firebase';
 import {KpUserModel, UserAuthModel, UserModel} from '../models/user.model';
 import {CollectionEnum} from '../enums/colletion.enum';
 import {QuerySetModel} from '../models/query-set.model';
@@ -65,6 +66,7 @@ const create = async (user: UserModel) => {
     };
 
     await db.collection(CollectionEnum.USERS).add(kpUserValue);
+    await firebase.auth().sendPasswordResetEmail(user.email);
 
     return {
       status: 201,
