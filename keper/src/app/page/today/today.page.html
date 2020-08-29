@@ -2,22 +2,51 @@
   <app-header
     [showProfileBtn]="true"
     [title]="'TODAY.' + selectedDateTitle"></app-header>
-  <app-weekdays (selectedDayEvent)="getTasks($event)"></app-weekdays>
 
-  <ng-container *ngIf="userId && todayTasks">
-    <div class="keper-padding-body" *ngIf="todayTasks.length > 0; else noTasksTemplate;">
-      <app-item-card
-        *ngFor="let task of todayTasks"
-        [title]="task.name"
-        [content1]="task.users[0].name + (task.users[0].id === userId ? (' (' + ('USERS.YOU' | translate) + ')') : '')"
-        [content2]="task.schedule[0]">
-      </app-item-card>
-    </div>
+  <ng-container *ngIf="userId">
+    <ng-container *ngIf="group; else noGroupTemplate">
+      <div class="keper-padding-body" *ngIf="todayTasks; else noTasksTemplate;">
+        <app-weekdays (selectedDayEvent)="getTasks($event)"></app-weekdays>
+        <app-item-card
+          *ngFor="let task of todayTasks"
+          [title]="task.name"
+          [content1]="task.user.name + (task.users[0].id === userId ? (' (' + ('USERS.YOU' | translate) + ')') : '')"
+          [content2]="task.schedule[0]">
+        </app-item-card>
+      </div>
+    </ng-container>
   </ng-container>
+
 </app-tabs>
 
 <ng-template #noTasksTemplate>
   <div class="keper-empty-list">
-    {{ 'TODAY.NO_TASKS' | translate }}
+    <span class="keper-empty-list-message">
+      {{ 'TODAY.NO_TASKS' | translate }}
+    </span>
+
+    <app-item-card
+      [title]="'TODAY.NO_TASKS_NEW'"
+      [isAddButton]="true"
+      [isSingle]="true"
+      [isClickable]="true"
+      (clickedEvent)="goToSettings()">
+    </app-item-card>
+  </div>
+</ng-template>
+
+<ng-template #noGroupTemplate>
+  <div class="keper-empty-list">
+    <span class="keper-empty-list-message">
+      {{ 'GROUP.NO_SELECTED' | translate }}
+    </span>
+
+    <app-item-card
+      [title]="'GROUP.SELECT'"
+      [isAddButton]="true"
+      [isSingle]="true"
+      [isClickable]="true"
+      (clickedEvent)="toggleGroupSelector()">
+    </app-item-card>
   </div>
 </ng-template>

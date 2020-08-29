@@ -19,6 +19,7 @@ import {TaskFormComponent} from './task-form/task-form.component';
 import {UserFormComponent} from './user-form/user-form.component';
 import {TaskOptionsComponent} from './task-options/task-options.component';
 import {UserOptionsComponent} from './user-options/user-options.component';
+import {GroupSelectorComponent} from './group-selector/group-selector.component';
 
 const widgets = [
   TabsComponent,
@@ -35,7 +36,8 @@ const widgets = [
   TaskFormComponent,
   UserFormComponent,
   TaskOptionsComponent,
-  UserOptionsComponent
+  UserOptionsComponent,
+  GroupSelectorComponent
 ];
 
 @NgModule({

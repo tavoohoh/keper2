@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User} from 'firebase';
+import {User as FirebaseUser} from 'firebase';
 import {takeUntil} from 'rxjs/operators';
 
 import {ButtonTypeEnum, ModalEnum} from '../../../_enum';
@@ -22,7 +22,7 @@ export class ProfileComponent extends ModalMethods implements OnInit {
   public form: FormGroup;
   public buttonType = ButtonTypeEnum;
   public userInfo: UserModel;
-  private user: User;
+  private firebaseUser: FirebaseUser;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,8 +40,8 @@ export class ProfileComponent extends ModalMethods implements OnInit {
       .pipe(takeUntil(this.$destroyed))
       .subscribe(user => {
         if (user) {
-          this.user = this.authService.user;
-          this.userInfo = new UserModel(user);
+          this.firebaseUser = this.authService.firebaseUserValue;
+          this.userInfo = this.authService.userValue;
           this.form = this.setProfileForm();
           this.loaderService.toggleLoading();
         }
@@ -69,7 +69,7 @@ export class ProfileComponent extends ModalMethods implements OnInit {
       error: null
     };
 
-    await this.authService.updateUserProfile(this.user, this.form.value.name)
+    await this.authService.updateUserProfile(this.firebaseUser, this.form.value.name)
       .catch(error => {
         toast.message = 'TOAST.UNABLE_TO_SAVE_NAME';
         toast.error = {
@@ -78,7 +78,7 @@ export class ProfileComponent extends ModalMethods implements OnInit {
         };
     });
 
-    await this.authService.changeUserEmail(this.user, this.form.value.email)
+    await this.authService.changeUserEmail(this.firebaseUser, this.form.value.email)
       .catch(error => {
         toast.message = 'TOAST.UNABLE_TO_SAVE_EMAIL';
         toast.error = {

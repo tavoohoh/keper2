@@ -8,7 +8,9 @@ export const cors = require('cors')({
     'Content-Type',
     'Origin',
     'X-Requested-With',
-    'Accept'
+    'Accept',
+    'Authorization'
   ],
+
   methods: [methodEnum.OPTIONS, methodEnum.GET, methodEnum.POST, methodEnum.PUT, methodEnum.DELETE]
 });

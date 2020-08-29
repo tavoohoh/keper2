@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
-import {User} from 'firebase';
+import {User as FirebaseUser} from 'firebase';
 
 import {ChangePasswordAndModalMethods} from '../../../_shared/password-input.methods';
 import {LoaderService} from '../../../service/loader/loader.service';
@@ -18,7 +18,7 @@ import {ToastService} from '../../../service/common/toast.service';
 export class ChangePasswordComponent extends ChangePasswordAndModalMethods implements OnInit {
   public submitted: boolean;
   public form: FormGroup;
-  private user: User;
+  private firebaseUser: FirebaseUser;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +37,7 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
       .pipe(takeUntil(this.$destroyed))
       .subscribe(user => {
         if (user) {
-          this.user = this.authService.user;
+          this.firebaseUser = this.authService.firebaseUserValue;
           this.form = this.setForm();
           this.loaderService.toggleLoading();
         }
@@ -64,7 +64,7 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
       error: null
     };
 
-    this.authService.changeUserPassword(this.user, this.form.value.password)
+    this.authService.changeUserPassword(this.firebaseUser, this.form.value.password)
       .then(async () => {
         this.submitted = false;
         this.onModalClose();

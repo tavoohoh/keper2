@@ -4,8 +4,37 @@ $profile-button: 42px;
   display: grid;
   grid-template-columns: calc(100% - #{$profile-button} - var(--keper-padding-small)) $profile-button;
   gap: var(--keper-padding-small);
-  padding: var(--keper-padding-large) var(--keper-padding-body) var(--keper-padding-body);
+  padding: var(--keper-padding-body);
   width: 100vw;
+
+  .keper-header-group {
+    grid-column: 1 / 4;
+    grid-row: 1;
+    align-self: center;
+    padding: 4px var(--keper-padding-xsmall);
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: var(--keper-border-radius-medium);
+    width: max-content;
+    display: grid;
+    grid-template-columns: auto min-content;
+    gap: 4px;
+    margin: 0 auto;
+    cursor: pointer;
+
+    span {
+      color: var(--keper-color-white);
+      font-size: var(--keper-font-small);
+      font-weight: bold;
+      text-align: center;
+    }
+
+    svg {
+      fill: var(--keper-color-white);
+      height: 8px;
+      width: 8px;
+      align-self: center;
+    }
+  }
 
   .keper-header-title {
     align-self: center;

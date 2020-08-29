@@ -1,9 +1,9 @@
-<div class="keper-item-card" [class.keper-small]="isSmall" [class.keper-button]="isAddButton">
+<div class="keper-item-card {{ cardDesign }}" [class.keper-small]="isSmall" [class.keper-button]="isAddButton" (click)="onClicked()">
   <div class="keper-item-card-title">
     {{ title | translate }}
   </div>
 
-  <div class="keper-item-card-content" *ngIf="!isAddButton && (content1 || content2 || fullSchedule)">
+  <div class="keper-item-card-content" *ngIf="!isSingle || (!isAddButton && (content1 || content2 || fullSchedule))">
     <span *ngIf="content1">{{ content1 | translate }}</span>
     <span *ngIf="content2">{{ content2 | translate }}</span>
     <span *ngIf="fullSchedule">
@@ -19,10 +19,20 @@
     </span>
   </div>
 
-  <div class="keper-item-card-options" (click)="onOption()" *ngIf="hasOpts || isAddButton">
+  <div
+    *ngIf="!isClickable && (hasOpts || isAddButton)"
+    class="keper-item-card-options"
+    (click)="onOption()"
+    [class.keper-align-center]="isAddButton">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
       <path *ngIf="!isAddButton" d="M6 12c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm9 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm9 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"/>
       <path *ngIf="isAddButton" d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
+    </svg>
+  </div>
+
+  <div *ngIf="isClickable" class="keper-item-card-options keper-align-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
     </svg>
   </div>
 </div>

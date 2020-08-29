@@ -25,7 +25,7 @@ export class DateTaskModel {
   uid: string;
   name: string;
   schedule: Array<string>;
-  user: string;
+  user: KpUserModel;
   group: string;
 
   constructor(props: DbDocumentModel, user: KpUserModel) {
@@ -33,7 +33,7 @@ export class DateTaskModel {
     this.name = props.data().name;
     this.schedule = props.data().schedule;
     this.group = props.data().group;
-    this.user = user.displayName || '';
+    this.user = user;
   }
 }
 

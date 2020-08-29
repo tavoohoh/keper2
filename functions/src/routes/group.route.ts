@@ -9,6 +9,7 @@ export const groups = functions.https.onRequest(async (request, response) => {
     functions.logger.info(`Group says: Hello!`, {structuredData: true});
 
     const { user } = await authorization(request, response);
+    console.log('user', user);
     let responseValue: { status: number; body: {} };
 
     switch (request.method) {

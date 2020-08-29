@@ -1,1 +1,1 @@
-export { TaskModel } from './task.model';
+export { TaskModel, TasksByDateModel } from './task.model';

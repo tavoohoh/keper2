@@ -1,22 +1,25 @@
 export class UserModel {
   id: string;
   name: string;
+  token?: string
   email?: string;
   phone?: string;
   nameFirstLetter?: string;
 
-  constructor(response: UserBackendModel) {
-    this.id = response.uid;
-    this.name = response.displayName;
-    this.email = response.email || null;
-    this.phone = response.phoneNumber || null;
-    this.nameFirstLetter = (response.displayName || response.email).charAt(0) || null;
+  constructor(user: UserBackendModel, userToken: string) {
+    this.id = user.uid;
+    this.name = user.displayName;
+    this.email = user.email || null;
+    this.phone = user.phoneNumber || null;
+    this.nameFirstLetter = (user.displayName || user.email).charAt(0) || null;
+    this.token = userToken;
   }
 }
 
 export interface UserBackendModel {
   uid: string;
   email: string;
+  getIdToken: () => Promise<string>;
   displayName?: string;
   photoURL?: string;
   phoneNumber?: string;

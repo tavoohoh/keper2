@@ -66,7 +66,10 @@ const create = async (user: UserModel) => {
     };
 
     await db.collection(CollectionEnum.USERS).add(kpUserValue);
-    await firebase.auth().sendPasswordResetEmail(user.email);
+
+    if (!user.password) {
+      await firebase.auth().sendPasswordResetEmail(user.email);
+    }
 
     return {
       status: 201,

@@ -45,18 +45,24 @@ body {
   padding: var(--keper-padding-body);
 }
 
+.keper-align-center {
+  align-self: center;
+}
+
 .keper-disabled {
   opacity: 0.5;
   pointer-events: none;
 }
 
 .keper-empty-list {
-  background-color: var(--keper-color-light-gray);
-  margin: 0 var(--keper-padding-large);
-  padding: 4px;
-  color: var(--keper-color-black);
-  border-radius: var(--keper-border-radius-normal);
-  text-align: center;
+  margin: 0 auto;
+  padding: var(--keper-padding-body);
+
+  .keper-empty-list-message {
+    display: block;
+    color: var(--keper-color-white);
+    padding-bottom: var(--keper-padding-xsmall);
+  }
 }
 
 .keper-section-title {

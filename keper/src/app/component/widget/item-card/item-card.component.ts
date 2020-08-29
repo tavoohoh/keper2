@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {CardDesignEnum} from '../../../_enum/card-design.enum';
 
 @Component({
   selector: 'app-item-card',
@@ -13,9 +14,21 @@ export class ItemCardComponent {
   @Input() public isSmall: boolean;
   @Input() public hasOpts: boolean;
   @Input() public isAddButton: boolean;
+  @Input() public isSingle: boolean;
+  @Input() public isClickable: boolean;
+  @Input() public cardDesign: CardDesignEnum;
   @Output() private optionsEvent = new EventEmitter<void>(null);
+  @Output() private clickedEvent = new EventEmitter<void>(null);
 
   public onOption(): void {
-    this.optionsEvent.emit();
+    if (!this.isClickable) {
+      this.optionsEvent.emit();
+    }
+  }
+
+  public onClicked(): void {
+    if (this.isClickable) {
+      this.clickedEvent.emit();
+    }
   }
 }

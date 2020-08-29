@@ -18,6 +18,7 @@
   "TODAY": {
     "TITLE": "Hoy",
     "NO_TASKS": "Aún no tiene tareas, ve a Configuraciones y crea algunas.",
+    "NO_TASKS_NEW": "Crear tareas en la configuración",
     "NEXT": {
       "MON": "Próx. Lun.",
       "TUE": "Próx. Mar.",
@@ -102,5 +103,13 @@
     "FRI": "Vie",
     "SAT": "Sáb",
     "SUN": "Dom"
+  },
+  "GROUP": {
+    "NO_SELECTED": "¡Seleccione un grupo para comenzar!",
+    "SELECT": "Seleccionar grupo",
+    "NEW": "Crear un grupo",
+    "TITLE": "Grupos",
+    "SUBTITLE": "Un grupo es donde conviven usuarios y tareas. Por ejemplo, un grupo podría ser su casa con su familia o su oficina con sus compañeros de de hogar"
+
   }
 }

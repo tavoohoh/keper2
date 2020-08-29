@@ -18,6 +18,7 @@
   "TODAY": {
     "TITLE": "Today",
     "NO_TASKS": "You don't have tasks yet, go to settings and create some.",
+    "NO_TASKS_NEW": "Create tasks in settings",
     "NEXT": {
       "MON": "Next Mon.",
       "TUE": "Next Tue.",
@@ -102,5 +103,12 @@
     "FRI": "Fri",
     "SAT": "Sat",
     "SUN": "Sun"
+  },
+  "GROUP": {
+    "NO_SELECTED": "Select a group to start!",
+    "SELECT": "Select group",
+    "NEW": "Create a group",
+    "TITLE": "Home groups",
+    "SUBTITLE": "A group is where users and tasks coexists. For example a group could be you home with your family or your office with your coworkers."
   }
 }

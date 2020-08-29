@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Subject} from 'rxjs';
 
 import {ButtonTypeEnum, ModalEnum} from '../../_enum';
 import {AuthService} from '../../service/auth/auth.service';
@@ -8,18 +9,20 @@ import {LoaderService} from '../../service/loader/loader.service';
 import {ChangePasswordMethods} from '../../_shared/password-input.methods';
 import {ModalService} from '../../service/common/modal.service';
 import {ToastService} from '../../service/common/toast.service';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './auth-form.page.html',
   styleUrls: ['./auth-form.page.scss'],
 })
-export class AuthFormPage extends ChangePasswordMethods implements OnInit {
+export class AuthFormPage extends ChangePasswordMethods implements OnDestroy, OnInit {
   public loading: boolean;
   public submitted: boolean;
   public isSignIn: boolean;
   public buttonType = ButtonTypeEnum;
   public form: FormGroup;
+  private destroyed$ = new Subject();
 
   constructor(
     private authService: AuthService,
@@ -30,6 +33,11 @@ export class AuthFormPage extends ChangePasswordMethods implements OnInit {
     private modalService: ModalService
   ) {
     super();
+  }
+
+  ngOnDestroy() {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   ngOnInit(): void {
@@ -67,7 +75,7 @@ export class AuthFormPage extends ChangePasswordMethods implements OnInit {
   }
 
   private updateUserProfile(): void {
-    this.authService.updateUserProfile(this.authService.user, this.form.value.name)
+    this.authService.updateUserProfile(this.authService.firebaseUserValue, this.form.value.name)
       .then(() => null)
       .catch(error => this.toastService.show('TOAST.CREATE_PROFILE', { message: error, origin: 'AuthFormPage.updateUserProfile' })
       .finally(() => this.loader.toggleLoading()));
@@ -82,9 +90,11 @@ export class AuthFormPage extends ChangePasswordMethods implements OnInit {
 
   private submitSignUp(): void {
     this.authService.registerUser(this.form.value)
-      .then(() => this.authService.signIn(this.form.value).then(() => this.updateUserProfile()))
-      .catch(error => this.toastService.show('TOAST.SIGN_UP_ERROR', { message: error, origin: 'AuthFormPage.submitSignUp' })
-      .finally(() => this.loader.toggleLoading()));
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(
+        () => this.authService.signIn(this.form.value).then(() => this.updateUserProfile(),
+        error => this.toastService.show('TOAST.SIGN_UP_ERROR', { message: error, origin: 'AuthFormPage.submitSignUp' })
+      ).finally(() => this.loader.toggleLoading()));
   }
 
   get f() { return this.form.controls; }

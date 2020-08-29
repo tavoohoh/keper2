@@ -1,0 +1,26 @@
+<app-modal
+  [smallModal]="false"
+  [openModal]="show"
+  [hideConfirm]="true"
+  (modalClose)="onModalClose()"
+  [title]="'GROUP.TITLE'"
+  [subtitle]="'GROUP.SUBTITLE'">
+
+  <div class="keper-profile" *ngIf="groups">
+    <app-item-card
+      *ngFor="let group of groups"
+      [title]="group.name"
+      [hasOpts]="true"
+      [isSingle]="true"
+      [isClickable]="true"
+      [cardDesign]="cardDesignType.LIST"
+      (clickedEvent)="selectGroup(group)"></app-item-card>
+
+    <app-item-card
+      [title]="'GROUP.NEW'"
+      [isAddButton]="true"
+      [isSingle]="true"
+      (click)="openAddGroupModal()">
+    </app-item-card>
+  </div>
+</app-modal>

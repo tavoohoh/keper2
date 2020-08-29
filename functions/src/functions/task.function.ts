@@ -93,9 +93,7 @@ const listByDate = async (authUser: any, groupId: string, date: string) => {
 
   return {
     status: 200,
-    body: {
-      message: dateTasks
-    }
+    body: dateTasks
   };
 }
 

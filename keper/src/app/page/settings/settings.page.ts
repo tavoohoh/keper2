@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
-import {User} from 'firebase';
 
 import {CoreService} from '../../service/core/core.service';
 import {ToastService} from '../../service/common/toast.service';
@@ -42,9 +41,9 @@ export class SettingsPage implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this.authService.userDataAsObservable()
       .pipe(takeUntil(this.$destroyed))
-      .subscribe(async (user: User) => {
+      .subscribe(async (user: UserModel) => {
         if (user) {
-          this.userId = user.uid;
+          this.userId = user.id;
           this.tasks = await this.getTasks();
           this.users = await this.getUsers();
         }
@@ -61,7 +60,7 @@ export class SettingsPage implements OnInit, OnDestroy {
       });
 
     this.loaderService.toggleLoading();
-    return tasks as Array<TaskModel>;
+    return tasks as any;
   }
 
   private async getUsers(): Promise<Array<UserModel>> {

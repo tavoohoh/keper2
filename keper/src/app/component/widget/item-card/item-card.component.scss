@@ -1,7 +1,7 @@
 @import "../../../../theme/variables.scss";
 
 $keper-card-option-size: 20px;
-$keper-card-option-menu-size: 11px;
+$keper-card-option-menu-size: 10px;
 
 .keper-item-card {
   display: grid;
@@ -12,6 +12,16 @@ $keper-card-option-menu-size: 11px;
   border-radius: var(--keper-border-radius-medium);
   margin-bottom: var(--keper-padding-body);
   height: 100%;
+
+  &.OUTLINED {
+    background-color: transparent;
+    border: 3px solid var(--keper-color-white);
+  }
+
+  &.LIST {
+    background-color: var(--keper-color-black);
+    cursor: pointer;
+  }
 
   .keper-item-card-title,
   .keper-item-card-content {
