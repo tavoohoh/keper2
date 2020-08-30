@@ -1,13 +1,15 @@
 export class UserModel {
   id: string;
+  fk: string;
   name: string;
-  token?: string
+  token?: string;
   email?: string;
   phone?: string;
   nameFirstLetter?: string;
 
-  constructor(user: UserBackendModel, userToken: string) {
-    this.id = user.uid;
+  constructor(user: UserBackendModel, userToken: string, userUid: string) {
+    this.id = userUid;
+    this.fk = user.uid;
     this.name = user.displayName;
     this.email = user.email || null;
     this.phone = user.phoneNumber || null;
@@ -24,4 +26,12 @@ export interface UserBackendModel {
   photoURL?: string;
   phoneNumber?: string;
   emailVerified?: boolean;
+}
+
+
+export interface UserDbModel {
+  uid: string;
+  fk: string;
+  email: string;
+  displayName: string;
 }

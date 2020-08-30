@@ -33,9 +33,7 @@ export class HeaderComponent implements OnInit {
     });
 
     this.groupService.getGroupAsObservable().subscribe(group => {
-      if (group) {
-        this.group = group;
-      }
+      this.group = group ? group : null;
     });
   }
 

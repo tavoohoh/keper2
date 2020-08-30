@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {UserModel} from '../../_model/user.model';
+import {UserDbModel, UserModel} from '../../_model';
 import {User as FirebaseUser} from 'firebase';
 import {environment} from '../../../environments/environment';
 
@@ -26,12 +26,13 @@ export class AuthService {
     private afStore: AngularFirestore,
     private ngFireAuth: AngularFireAuth,
     private router: Router,
-    private http: HttpClient,
+    private http: HttpClient
   ) {
     this.ngFireAuth.authState.subscribe(async (firebaseUser: FirebaseUser) => {
       if (firebaseUser) {
         const userToken = await firebaseUser.getIdToken();
-        const user = new UserModel(firebaseUser, userToken);
+        const userDb = await this.getUserDb(userToken).toPromise();
+        const user = new UserModel(firebaseUser, userToken, userDb.uid);
         this.$user.next(user);
         this.$firebaseUser.next(firebaseUser);
         localStorage.setItem('user', JSON.stringify(user));
@@ -97,5 +98,22 @@ export class AuthService {
     await this.ngFireAuth.signOut();
     localStorage.removeItem('user');
     await this.router.navigate(['']);
+  }
+
+  public getUserDb(token = null): Observable<UserDbModel> {
+    return this.http.get<UserDbModel>(
+      API_URL,
+      {
+        headers: this.getBasicAuthHeaders(token)
+      });
+  }
+
+  public getBasicAuthHeaders(userToken = null): HttpHeaders {
+    const user: UserModel = this.userValue || null;
+
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${userToken || user.token}`
+    });
   }
 }

@@ -6,15 +6,16 @@
   [title]="'GROUP.TITLE'"
   [subtitle]="'GROUP.SUBTITLE'">
 
-  <div class="keper-profile" *ngIf="groups">
+  <div class="keper-profile" *ngIf="groups && userInfo">
     <app-item-card
       *ngFor="let group of groups"
       [title]="group.name"
-      [hasOpts]="true"
+      [hasOpts]="group.ownerId === userInfo.id"
       [isSingle]="true"
       [isClickable]="true"
       [cardDesign]="cardDesignType.LIST"
-      (clickedEvent)="selectGroup(group)"></app-item-card>
+      (optionsEvent)="openGroupOptionModal(group)"
+      (clickedEvent)="onSelectGroup(group)"></app-item-card>
 
     <app-item-card
       [title]="'GROUP.NEW'"
@@ -24,3 +25,22 @@
     </app-item-card>
   </div>
 </app-modal>
+
+<!-- modals -->
+<app-group-form [group]="groupValueForm" (modalClose)="toGetGroup($event)"></app-group-form>
+
+<app-options
+  [entity]="groupValueForm"
+  [optionTitle]="'GROUP.SINGULAR'"
+  [afterModalCloseOpen]="modalType.GROUP_SELECTOR"
+  (clickDelete)="openDeleteGroupModal()"
+  (clickEdit)="openAddGroupModal()"
+></app-options>
+
+<app-confirm-delete
+  *ngIf="groupValueForm"
+  [entityUid]="groupValueForm.uid"
+  [entityType]="entityType.GROUP"
+  (modalClose)="toGetGroup($event)"
+  [afterModalCloseOpen]="modalType.GROUP_SELECTOR"
+></app-confirm-delete>

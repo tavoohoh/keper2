@@ -20,13 +20,18 @@ export class ItemCardComponent {
   @Output() private optionsEvent = new EventEmitter<void>(null);
   @Output() private clickedEvent = new EventEmitter<void>(null);
 
-  public onOption(): void {
-    if (!this.isClickable) {
-      this.optionsEvent.emit();
-    }
+  public onOption($event: Event): void {
+    this.optionsEvent.emit();
   }
 
-  public onClicked(): void {
+  public onClicked($event: MouseEvent): void {
+    const eventTarget = $event.target as Element;
+    const optBtn = 'optBtn';
+
+    if (eventTarget.id === optBtn || eventTarget.parentElement.id === optBtn || eventTarget.parentElement.parentElement.id === optBtn) {
+      return this.onOption($event);
+    }
+
     if (this.isClickable) {
       this.clickedEvent.emit();
     }

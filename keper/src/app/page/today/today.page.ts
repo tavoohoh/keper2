@@ -1,7 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 
+import {takeUntil} from 'rxjs/operators';
 import {CoreService} from '../../service/core/core.service';
 import {CoreGroupService} from '../../service/core/group.service';
 import {TaskModel} from '../../_model';
@@ -13,7 +14,6 @@ import {UserModel} from '../../_model/user.model';
 import {ModalEnum} from '../../_enum';
 import {ModalService} from '../../service/common/modal.service';
 import {GroupModel} from '../../_model/group.model';
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-today',
@@ -53,9 +53,7 @@ export class TodayPage implements OnInit, OnDestroy {
       });
 
     this.groupService.getGroupAsObservable().subscribe(group => {
-      if (group) {
-        this.group = group;
-      }
+      this.group = group ? group : null;
     });
   }
 

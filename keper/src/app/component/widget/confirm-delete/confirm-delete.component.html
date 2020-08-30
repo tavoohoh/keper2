@@ -1,0 +1,9 @@
+<app-modal
+  (modalClose)="onModalClose()"
+  [hideConfirm]="true"
+  [smallModal]="true"
+  [openModal]="show"
+  [title]="'CONFIRM' | translate">
+  <app-button (buttonClick)="onDelete()" [buttonText]="'DELETE'" [buttonType]="buttonType.BUTTON_DANGER" [hasMarginBottom]="true"></app-button>
+  <app-button (buttonClick)="onModalClose()" [buttonText]="'CANCEL'" [buttonType]="buttonType.BUTTON_DARK"></app-button>
+</app-modal>

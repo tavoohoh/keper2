@@ -8,7 +8,9 @@ export class ModalMethods implements OnDestroy {
   public $destroyed = new Subject();
   public show = false;
 
-  @Output() public modalClose = new EventEmitter<void>();
+  @Output() public modalClose = new EventEmitter<{
+    refresh?: boolean;
+  } | null>();
 
   constructor(
     public modalService: ModalService,
@@ -27,7 +29,7 @@ export class ModalMethods implements OnDestroy {
     this.$destroyed.complete();
   }
 
-  public onModalClose(): void {
-    this.modalService.currentModalValue = null;
+  public onModalClose(newModalValue: ModalEnum | undefined = null): void {
+    this.modalService.currentModalValue = newModalValue;
   }
 }

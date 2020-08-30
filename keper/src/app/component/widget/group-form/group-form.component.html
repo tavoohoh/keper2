@@ -1,0 +1,28 @@
+<app-modal
+  [smallModal]="false"
+  [openModal]="show"
+  [disabledConfirm]="noEdited"
+  (modalClose)="onModalClose()"
+  (modalConfirm)="onSubmitForm()"
+  [title]="'GROUP.NEW'"
+  [subtitle]="'GROUP.SUBTITLE'">
+
+  <form class="keper-form keper-no-padding" [formGroup]="form" (ngSubmit)="onSubmitForm()" *ngIf="form">
+    <!-- group name field -->
+    <div class="keper-field" [class.keper-field-invalid]="submitted && f.name.errors">
+      <label for="name">{{ 'FORM.GROUP_NAME' | translate }}</label>
+      <input
+        (keyup)="formChange()"
+        type="text"
+        id="name"
+        [placeholder]="'FORM.GROUP_NAME_P' | translate"
+        formControlName="name"/>
+      <div *ngIf="submitted && f.name.errors" class="keper-field-errors">
+        <div *ngIf="f.name.errors.required">
+          {{ 'FORM.GROUP_NAME_R' | translate }}
+        </div>
+      </div>
+    </div>
+
+  </form>
+</app-modal>

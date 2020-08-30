@@ -1,0 +1,9 @@
+<app-modal
+  (modalClose)="onModalClose()"
+  [hideConfirm]="true"
+  [smallModal]="true"
+  [openModal]="show"
+  [title]="(optionTitle | translate) + (entity ? (': ' + entity.name) : '')">
+  <app-button *ngIf="showDelete" (buttonClick)="onDelete()" [buttonText]="'DELETE'" [buttonType]="buttonType.BUTTON_DANGER" [hasMarginBottom]="true"></app-button>
+  <app-button *ngIf="showEdit" (buttonClick)="onEdit()" [buttonText]="'EDIT'" [buttonType]="buttonType.BUTTON_PRIMARY"></app-button>
+</app-modal>

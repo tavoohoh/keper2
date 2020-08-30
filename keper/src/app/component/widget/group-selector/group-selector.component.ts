@@ -1,15 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 
-import {ButtonTypeEnum, ModalEnum} from '../../../_enum';
+import {ButtonTypeEnum, EntityEnum, ModalEnum} from '../../../_enum';
 import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
-import {UserModel} from '../../../_model/user.model';
+import {UserModel, GroupModel} from '../../../_model';
 import {ModalMethods} from '../../../_shared/modal.methods';
 import {ModalService} from '../../../service/common/modal.service';
 import {ToastService} from '../../../service/common/toast.service';
 import {CoreGroupService} from '../../../service/core/group.service';
-import {GroupModel} from '../../../_model/group.model';
 import {CardDesignEnum} from '../../../_enum/card-design.enum';
 
 @Component({
@@ -22,6 +21,9 @@ export class GroupSelectorComponent extends ModalMethods implements OnInit {
   public cardDesignType = CardDesignEnum;
   public userInfo: UserModel;
   public groups: Array<GroupModel>;
+  public groupValueForm: GroupModel;
+  public modalType = ModalEnum;
+  public entityType = EntityEnum;
 
   constructor(
     private groupService: CoreGroupService,
@@ -54,12 +56,27 @@ export class GroupSelectorComponent extends ModalMethods implements OnInit {
       });
   }
 
-  public selectGroup(group): void {
+  public toGetGroup($event: { refresh?: boolean }): void {
+    if ($event.refresh) {
+      this.getGroups();
+    }
+  }
+
+  public onSelectGroup(group): void {
     this.groupService.setGroup(group);
     this.onModalClose();
   }
 
+  public openGroupOptionModal(group): void {
+    this.groupValueForm = group;
+    this.modalService.currentModalValue = ModalEnum.OPTIONS;
+  }
+
   public openAddGroupModal(): void {
-    console.log('create group');
+    this.modalService.currentModalValue = ModalEnum.GROUP_FORM;
+  }
+
+  public openDeleteGroupModal(): void {
+    this.modalService.currentModalValue = ModalEnum.CONFIRM_DELETE;
   }
 }

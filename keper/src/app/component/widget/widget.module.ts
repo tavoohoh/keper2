@@ -20,6 +20,9 @@ import {UserFormComponent} from './user-form/user-form.component';
 import {TaskOptionsComponent} from './task-options/task-options.component';
 import {UserOptionsComponent} from './user-options/user-options.component';
 import {GroupSelectorComponent} from './group-selector/group-selector.component';
+import {GroupFormComponent} from './group-form/group-form.component';
+import {OptionsComponent} from './options/options.component';
+import {ConfirmDeleteComponent} from './confirm-delete/confirm-delete.component';
 
 const widgets = [
   TabsComponent,
@@ -37,7 +40,10 @@ const widgets = [
   UserFormComponent,
   TaskOptionsComponent,
   UserOptionsComponent,
-  GroupSelectorComponent
+  GroupSelectorComponent,
+  GroupFormComponent,
+  OptionsComponent,
+  ConfirmDeleteComponent
 ];
 
 @NgModule({

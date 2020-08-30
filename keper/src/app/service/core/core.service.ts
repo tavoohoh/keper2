@@ -112,19 +112,6 @@ export class CoreService {
   public async listUsers(): Promise<Array<UserModel>> {
     await setTimeout(null, 1000);
 
-    return [
-      {
-        id: 'uVn3URVzCKXYd1BB84GACilUNet1',
-        name: 'Gustavo',
-      },
-      {
-        id: 'B84GACilUNet1uVn3URVzCKXYd1B',
-        name: 'Rachel',
-      },
-      {
-        id: 'B84GACKXYd1BCilUNet1uVn3URVz',
-        name: 'Nestor',
-      }
-    ];
+    return [];
   }
 }
