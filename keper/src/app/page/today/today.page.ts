@@ -1,19 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
-
 import {takeUntil} from 'rxjs/operators';
-import {CoreService} from '../../service/core/core.service';
+
+import {CoreTaskService} from '../../service/core/task.service';
 import {CoreGroupService} from '../../service/core/group.service';
-import {TaskModel} from '../../_model';
 import {ToastService} from '../../service/common/toast.service';
 import {LoaderService} from '../../service/loader/loader.service';
 import {AuthService} from '../../service/auth/auth.service';
-import {DayModel} from '../../_model/day.model';
-import {UserModel} from '../../_model/user.model';
+import {UserModel, GroupModel, DayModel, TaskModel} from '../../_model';
 import {ModalEnum} from '../../_enum';
 import {ModalService} from '../../service/common/modal.service';
-import {GroupModel} from '../../_model/group.model';
 
 @Component({
   selector: 'app-today',
@@ -28,7 +25,7 @@ export class TodayPage implements OnInit, OnDestroy {
   public group: GroupModel;
 
   constructor(
-    private coreService: CoreService,
+    private coreTaskService: CoreTaskService,
     private groupService: CoreGroupService,
     private authService: AuthService,
     private toastService: ToastService,
@@ -48,28 +45,32 @@ export class TodayPage implements OnInit, OnDestroy {
       .subscribe((user: UserModel) => {
         if (user) {
           this.userId = user.id;
-          // this.getTasks();
+
+          this.groupService.getGroupAsObservable()
+            .pipe(takeUntil(this.$destroyed))
+            .subscribe(group => {
+              this.group = group ? group : null;
+              // this.getTasks();
+            });
+        } else {
+          this.userId = null;
         }
       });
-
-    this.groupService.getGroupAsObservable().subscribe(group => {
-      this.group = group ? group : null;
-    });
   }
 
   public getTasks(day: DayModel = { weekday: null, monthDay: null, date: new Date() }): void {
-    this.loaderService.toggleLoading(true);
-    this.coreService.getTodayTasks(day.date)
-      .subscribe(
-        tasksByDate => {
-          this.todayTasks = tasksByDate.tasks;
-          this.updateSelectedDateTitle(day);
-          this.loaderService.toggleLoading();
-        },
-        async error => {
-          await this.toastService.show('TOAST.LIST_TASKS_ERROR', { message: error, origin: 'TodayPage.getTasks' });
-          this.loaderService.toggleLoading();
-        });
+    // this.loaderService.toggleLoading(true);
+    // this.coreTaskService.listTaskByDate(day.date.toLocaleDateString())
+    //   .subscribe(
+    //     tasksByDate => {
+    //       this.todayTasks = tasksByDate.tasks;
+    //       this.updateSelectedDateTitle(day);
+    //       this.loaderService.toggleLoading();
+    //     },
+    //     async error => {
+    //       await this.toastService.show('TOAST.LIST_TASKS_ERROR', { message: error, origin: 'TodayPage.getTasks' });
+    //       this.loaderService.toggleLoading();
+    //     });
   }
 
   private updateSelectedDateTitle(day: DayModel): void {
@@ -87,7 +88,7 @@ export class TodayPage implements OnInit, OnDestroy {
   }
 
   public async goToSettings(): Promise<void> {
-    await this.router.navigate(['/settings']);
+    await this.router.navigateByUrl('/settings');
   }
 
 }

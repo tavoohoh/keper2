@@ -17,8 +17,6 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
 import {RecoverPasswordComponent} from './recover-password/recover-password.component';
 import {TaskFormComponent} from './task-form/task-form.component';
 import {UserFormComponent} from './user-form/user-form.component';
-import {TaskOptionsComponent} from './task-options/task-options.component';
-import {UserOptionsComponent} from './user-options/user-options.component';
 import {GroupSelectorComponent} from './group-selector/group-selector.component';
 import {GroupFormComponent} from './group-form/group-form.component';
 import {OptionsComponent} from './options/options.component';
@@ -38,8 +36,6 @@ const widgets = [
   RecoverPasswordComponent,
   TaskFormComponent,
   UserFormComponent,
-  TaskOptionsComponent,
-  UserOptionsComponent,
   GroupSelectorComponent,
   GroupFormComponent,
   OptionsComponent,

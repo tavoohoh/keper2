@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Observable, BehaviorSubject} from 'rxjs';
+import {Observable, BehaviorSubject, throwError} from 'rxjs';
 import {UserDbModel, UserModel} from '../../_model';
 import {User as FirebaseUser} from 'firebase';
 import {environment} from '../../../environments/environment';
@@ -83,11 +83,8 @@ export class AuthService {
   }
 
   public userDataAsObservable(): Observable<UserModel> {
-    if (!this.$user.value) {
-      console.warn('event.$userDataAsObservable is not defined');
-      if (!this.isLoggedIn) {
-        this.signOut();
-      }
+    if (!this.$user.value && !this.isLoggedIn) {
+      this.signOut();
     }
 
     return this.$user.asObservable();
@@ -110,6 +107,10 @@ export class AuthService {
 
   public getBasicAuthHeaders(userToken = null): HttpHeaders {
     const user: UserModel = this.userValue || null;
+
+    if (!userToken && !user) {
+      throwError('No token was provided. At `authService.getBasicAuthHeaders`');
+    }
 
     return new HttpHeaders({
       'Content-Type': 'application/json',

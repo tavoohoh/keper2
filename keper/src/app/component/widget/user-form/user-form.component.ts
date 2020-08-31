@@ -24,7 +24,7 @@ export class UserFormComponent extends ModalMethods implements OnInit {
     private toastService: ToastService,
     public modalService: ModalService,
   ) {
-    super(modalService, ModalEnum.USER_NEW);
+    super(modalService, ModalEnum.USER_FORM);
   }
 
   ngOnInit(): void {

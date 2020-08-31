@@ -36,7 +36,6 @@ export class GroupSelectorComponent extends ModalMethods implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loaderService.toggleLoading(true);
     this.authService.userDataAsObservable()
       .pipe(takeUntil(this.$destroyed))
       .subscribe(user => {
@@ -48,8 +47,12 @@ export class GroupSelectorComponent extends ModalMethods implements OnInit {
   }
 
   private getGroups(): void {
+    this.loaderService.toggleLoading(true);
     this.groupService.getGroups().subscribe(
-      (groups: Array<GroupModel>) => this.groups = groups,
+      (groups: Array<GroupModel>) => {
+        this.groups = groups;
+        this.loaderService.toggleLoading();
+      },
       async error => {
         await this.toastService.show('TOAST.LIST_GROUPS_ERROR', { message: error, origin: 'GroupSelector.getGroups' });
         this.loaderService.toggleLoading();

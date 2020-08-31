@@ -13,8 +13,12 @@
 
       <ng-container>&nbsp;{{ 'AT' | translate }}</ng-container>
 
-      <ng-container *ngFor="let time of fullSchedule.time; let i = index">
-        {{ time }}<ng-container *ngIf="i + 1 < fullSchedule.time.length">,</ng-container>
+<!--      <ng-container *ngFor="let time of fullSchedule.time; let i = index">-->
+<!--        {{ time }}<ng-container *ngIf="i + 1 < fullSchedule.time.length">,</ng-container>-->
+<!--      </ng-container>-->
+
+      <ng-container>
+        {{ fullSchedule.time }}
       </ng-container>
     </span>
   </div>

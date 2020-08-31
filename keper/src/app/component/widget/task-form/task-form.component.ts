@@ -1,12 +1,15 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
 import {ModalMethods} from '../../../_shared/modal.methods';
 import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
 import {ToastService} from '../../../service/common/toast.service';
 import {ModalService} from '../../../service/common/modal.service';
 import {DaysEnum, ModalEnum} from '../../../_enum';
-import {TaskModel} from '../../../_model';
+import {MemberModel, TaskModel} from '../../../_model';
+import {CoreTaskService} from '../../../service/core/task.service';
+import {CoreMemberService} from '../../../service/core/member.service';
 
 @Component({
   selector: 'app-task-form',
@@ -14,12 +17,16 @@ import {TaskModel} from '../../../_model';
   styleUrls: ['./task-form.component.scss'],
 })
 export class TaskFormComponent extends ModalMethods implements OnChanges {
-  @Input() private task: TaskModel;
+  @Input() private task: TaskModel = null;
 
   public submitted: boolean;
   public noEdited = true;
   public form: FormGroup;
-  public formFields = {
+
+  public formFields: {
+    days: Array<DaysEnum>;
+    users: Array<MemberModel>;
+  } = {
     days: [
       DaysEnum.MON,
       DaysEnum.TUE,
@@ -29,28 +36,7 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
       DaysEnum.SAT,
       DaysEnum.SUN,
     ],
-    users: [
-      {
-        id: 'uVn3URVzCKXYd1BB84GACilUNet1',
-        name: 'Gustavo',
-      },
-      {
-        id: 'B84GACilUNet1uVn3URVzCKXYd1B',
-        name: 'Rachel',
-      },
-      {
-        id: 'B84GACKXYd1BCilUNet1uVn3URVz',
-        name: 'Nestor',
-      },
-      {
-        id: 'B84GACKXYd1B123UNet1uVn3URVz',
-        name: 'Andrea',
-      },
-      {
-        id: 'B84GACKXuu1BCilUNet1uVn3URVz',
-        name: 'Yuumy',
-      }
-    ]
+    users: []
   };
 
   constructor(
@@ -59,21 +45,30 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
     private authService: AuthService,
     private toastService: ToastService,
     public modalService: ModalService,
+    private coreTaskService: CoreTaskService,
+    private coreMemberService: CoreMemberService
   ) {
-    super(modalService, ModalEnum.TASK_NEW);
+    super(modalService, ModalEnum.TASK_FORM);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.task && changes.task.currentValue) {
+    if (changes && changes.task && changes.task.currentValue) {
       this.task = changes.task.currentValue;
     }
 
-    this.form = this.setForm();
+    this.getGroupUsers();
   }
 
   get f() { return this.form.controls; }
 
-  private setForm(): FormGroup {
+  private getGroupUsers(): void {
+    this.coreMemberService.list().subscribe(members => {
+      this.formFields.users = members;
+      this.setForm();
+    });
+  }
+
+  private setForm(): void {
     let name = '';
     let schedule = '';
     let days = [];
@@ -81,15 +76,15 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
 
     if (this.task) {
       name = this.task.name || '';
-      schedule = this.task.schedule[0] || '';
+      schedule = this.task.schedule || '';
       days = this.task.days || [];
 
       users = this.task.users.map(user => {
-        return user.id;
+        return user;
       });
     }
 
-    return this.formBuilder.group({
+    this.form = this.formBuilder.group({
       name: [name, Validators.required],
       schedule: [schedule, Validators.required],
       days: [days],
@@ -101,10 +96,8 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
     this.noEdited = false;
   }
 
-  public async onSubmitForm(): Promise<void> {
+  public onSubmitForm(): void {
     this.submitted = true;
-
-    console.log('form', this.form.value);
 
     if (this.form.invalid) {
       return;
@@ -117,21 +110,29 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
       error: null
     };
 
-    // await this.authService.updateUserProfile(this.user, this.form.value.name)
-    //   .catch(error => {
-    //     toast.message = 'TOAST.UNABLE_TO_SAVE_NAME';
-    //     toast.error = {
-    //       message: error,
-    //       origin: 'ProfileComponent.onSubmitForm.updateUserProfile'
-    //     };
-    //   });
+    const apiMethodName = this.task ? 'updateTask' : 'createTask';
 
-    await this.toastService.show(toast.message, toast.error);
-    this.loaderService.toggleLoading();
-    this.noEdited = true;
-    this.submitted = false;
-    this.form.reset();
-    this.onModalClose();
+    this.coreTaskService[apiMethodName](this.form.value, this.task ? this.task.uid : null)
+      .subscribe(
+        async () => {
+          this.modalClose.emit({ refresh: true });
+          this.noEdited = true;
+          this.submitted = false;
+          await this.form.reset();
+          this.onModalClose();
+          await this.toastService.show(toast.message);
+          this.loaderService.toggleLoading();
+        },
+        async error => {
+          toast.message = 'TOAST.UNABLE_TO_SAVE';
+          toast.error = {
+            message: error,
+            origin: `GroupFormComponent.onSubmitForm.${apiMethodName}`
+          };
+          await this.toastService.show(toast.message, toast.error);
+          this.loaderService.toggleLoading();
+        }
+      );
   }
 
   /**

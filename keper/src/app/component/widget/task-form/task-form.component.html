@@ -61,15 +61,15 @@
       <label>{{ 'FORM.TASK_USERS' | translate }}</label>
       <label
         *ngFor="let user of formFields.users"
-        class="keper-field-box-container" [for]="'user' + user.id">
+        class="keper-field-box-container" [for]="'user' + user.fk">
         <input
           type="checkbox"
-          [checked]="isChecked(user.id, 'users')"
-          [value]="user.id"
-          [id]="'user' + user.id"
+          [checked]="isChecked(user.fk, 'users')"
+          [value]="user.fk"
+          [id]="'user' + user.fk"
           (change)="onCheckboxChange($event, 'users')"/>
         <span class="keper-field-box">
-          <span>{{ user.name }}</span>
+          <span>{{ user.displayName }}</span>
         </span>
       </label>
     </div>

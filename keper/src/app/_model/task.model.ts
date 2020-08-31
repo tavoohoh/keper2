@@ -3,7 +3,7 @@ import {UserModel} from './user.model';
 
 export interface TaskModel {
   name: string;
-  schedule: Array<string>;
+  schedule: string;
   group: string;
   days?: Array<DaysEnum>;
   uid?: string;
@@ -18,4 +18,9 @@ export interface TasksByDateModel {
     weekday: DaysEnum;
   };
   tasks: Array<TaskModel>;
+}
+
+export interface TaskFormResponse {
+  message: string;
+  task?: string;
 }

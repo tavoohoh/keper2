@@ -1,9 +1,0 @@
-<app-modal
-  (modalClose)="onModalClose()"
-  [hideConfirm]="true"
-  [smallModal]="true"
-  [openModal]="show"
-  [title]="('TASKS.SINGULAR' | translate) + (task ? (': ' + task.name) : '')">
-  <app-button (buttonClick)="onDelete()" [buttonText]="'DELETE'" [buttonType]="buttonType.BUTTON_DANGER" [hasMarginBottom]="true"></app-button>
-  <app-button (buttonClick)="onEdit()" [buttonText]="'EDIT'" [buttonType]="buttonType.BUTTON_PRIMARY"></app-button>
-</app-modal>
