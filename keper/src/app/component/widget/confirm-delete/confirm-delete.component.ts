@@ -3,7 +3,6 @@ import {ModalMethods} from '../../../_shared/modal.methods';
 import {ModalService} from '../../../service/common/modal.service';
 import {ButtonTypeEnum, EntityEnum, ModalEnum} from '../../../_enum';
 import {CoreGroupService} from '../../../service/core/group.service';
-import {LoaderService} from '../../../service/loader/loader.service';
 import {ToastService} from '../../../service/common/toast.service';
 import {CoreTaskService} from '../../../service/core/task.service';
 
@@ -22,7 +21,6 @@ export class ConfirmDeleteComponent extends ModalMethods implements OnChanges {
     public modalService: ModalService,
     private coreGroupService: CoreGroupService,
     private coreTaskService: CoreTaskService,
-    private loaderService: LoaderService,
     private toastService: ToastService,
   ) {
     super(modalService, ModalEnum.CONFIRM_DELETE);
@@ -63,8 +61,6 @@ export class ConfirmDeleteComponent extends ModalMethods implements OnChanges {
         break;
     }
 
-    this.loaderService.toggleLoading(true);
-
     await this[apiMethodService][apiMethodName](this.entityUid)
       .subscribe(
         async () => {
@@ -75,7 +71,6 @@ export class ConfirmDeleteComponent extends ModalMethods implements OnChanges {
           this.modalClose.emit({ refresh: true });
           this.onModalClose();
           await this.toastService.show(toast.message);
-          this.loaderService.toggleLoading();
         },
         async error => {
           toast.message = 'TOAST.UNABLE_TO_SAVE';
@@ -84,7 +79,6 @@ export class ConfirmDeleteComponent extends ModalMethods implements OnChanges {
             origin: `ConfirmDeleteComponent.onModalDelete.${apiMethodService}.${apiMethodName}`
           };
           await this.toastService.show(toast.message, toast.error);
-          this.loaderService.toggleLoading();
         }
       );
   }

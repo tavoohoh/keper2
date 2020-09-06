@@ -5,7 +5,6 @@ import {Subject} from 'rxjs';
 
 import {ButtonTypeEnum, ModalEnum} from '../../_enum';
 import {AuthService} from '../../service/auth/auth.service';
-import {LoaderService} from '../../service/loader/loader.service';
 import {ChangePasswordMethods} from '../../_shared/password-input.methods';
 import {ModalService} from '../../service/common/modal.service';
 import {ToastService} from '../../service/common/toast.service';
@@ -29,7 +28,6 @@ export class AuthFormPage extends ChangePasswordMethods implements OnDestroy, On
     private formBuilder: FormBuilder,
     private router: Router,
     private toastService: ToastService,
-    private loader: LoaderService,
     private modalService: ModalService
   ) {
     super();
@@ -77,15 +75,13 @@ export class AuthFormPage extends ChangePasswordMethods implements OnDestroy, On
   private updateUserProfile(): void {
     this.authService.updateUserProfile(this.authService.firebaseUserValue, this.form.value.name)
       .then(() => null)
-      .catch(error => this.toastService.show('TOAST.CREATE_PROFILE', { message: error, origin: 'AuthFormPage.updateUserProfile' })
-      .finally(() => this.loader.toggleLoading()));
+      .catch(error => this.toastService.show('TOAST.CREATE_PROFILE', { message: error, origin: 'AuthFormPage.updateUserProfile' }));
   }
 
   private submitSignIn(): void {
     this.authService.signIn(this.form.value)
       .then(() => null)
-      .catch(error => this.toastService.show('TOAST.SIGN_IN_ERROR', { message: error, origin: 'AuthFormPage.submitSignIn' })
-      .finally(() => this.loader.toggleLoading()));
+      .catch(error => this.toastService.show('TOAST.SIGN_IN_ERROR', { message: error, origin: 'AuthFormPage.submitSignIn' }));
   }
 
   private submitSignUp(): void {
@@ -94,7 +90,7 @@ export class AuthFormPage extends ChangePasswordMethods implements OnDestroy, On
       .subscribe(
         () => this.authService.signIn(this.form.value).then(() => this.updateUserProfile(),
         error => this.toastService.show('TOAST.SIGN_UP_ERROR', { message: error, origin: 'AuthFormPage.submitSignUp' })
-      ).finally(() => this.loader.toggleLoading()));
+      ));
   }
 
   get f() { return this.form.controls; }
@@ -105,8 +101,6 @@ export class AuthFormPage extends ChangePasswordMethods implements OnDestroy, On
     if (this.form.invalid) {
       return;
     }
-
-    this.loader.toggleLoading(true);
 
     if (this.isSignIn) {
       this.submitSignIn();

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ModalMethods} from '../../../_shared/modal.methods';
-import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
 import {ToastService} from '../../../service/common/toast.service';
 import {ModalService} from '../../../service/common/modal.service';
@@ -19,7 +18,6 @@ export class UserFormComponent extends ModalMethods implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private loaderService: LoaderService,
     private authService: AuthService,
     private toastService: ToastService,
     public modalService: ModalService,
@@ -53,8 +51,6 @@ export class UserFormComponent extends ModalMethods implements OnInit {
       return;
     }
 
-    this.loaderService.toggleLoading(true);
-
     const toast = {
       message: 'TOAST.INFO_WAS_SAVED',
       error: null
@@ -70,7 +66,6 @@ export class UserFormComponent extends ModalMethods implements OnInit {
     //   });
 
     await this.toastService.show(toast.message, toast.error);
-    this.loaderService.toggleLoading();
     this.noEdited = true;
     this.submitted = false;
     this.form.reset();

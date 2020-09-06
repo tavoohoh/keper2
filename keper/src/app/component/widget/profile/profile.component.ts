@@ -4,9 +4,8 @@ import {User as FirebaseUser} from 'firebase';
 import {takeUntil} from 'rxjs/operators';
 
 import {ButtonTypeEnum, ModalEnum} from '../../../_enum';
-import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
-import {UserModel} from '../../../_model/user.model';
+import {UserModel} from '../../../_model';
 import {ModalMethods} from '../../../_shared/modal.methods';
 import {ModalService} from '../../../service/common/modal.service';
 import {ToastService} from '../../../service/common/toast.service';
@@ -26,7 +25,6 @@ export class ProfileComponent extends ModalMethods implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private loaderService: LoaderService,
     private authService: AuthService,
     private toastService: ToastService,
     public modalService: ModalService,
@@ -35,7 +33,6 @@ export class ProfileComponent extends ModalMethods implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loaderService.toggleLoading(true);
     this.authService.userDataAsObservable()
       .pipe(takeUntil(this.$destroyed))
       .subscribe(user => {
@@ -43,7 +40,6 @@ export class ProfileComponent extends ModalMethods implements OnInit {
           this.firebaseUser = this.authService.firebaseUserValue;
           this.userInfo = this.authService.userValue;
           this.form = this.setProfileForm();
-          this.loaderService.toggleLoading();
         }
     });
   }
@@ -61,8 +57,6 @@ export class ProfileComponent extends ModalMethods implements OnInit {
     if (this.form.invalid) {
       return;
     }
-
-    this.loaderService.toggleLoading(true);
 
     const toast = {
       message: 'TOAST.INFO_WAS_SAVED',
@@ -88,7 +82,6 @@ export class ProfileComponent extends ModalMethods implements OnInit {
     });
 
     await this.toastService.show(toast.message, toast.error);
-    this.loaderService.toggleLoading();
     this.noEdited = true;
     this.submitted = false;
     this.ngOnInit();

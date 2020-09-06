@@ -30,8 +30,8 @@ export interface UserBackendModel {
 
 
 export interface UserDbModel {
-  uid: string;
-  fk: string;
+  uid?: string;
+  fk?: string;
   email: string;
   displayName: string;
 }

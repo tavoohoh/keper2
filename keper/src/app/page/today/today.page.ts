@@ -6,7 +6,6 @@ import {takeUntil} from 'rxjs/operators';
 import {CoreTaskService} from '../../service/core/task.service';
 import {CoreGroupService} from '../../service/core/group.service';
 import {ToastService} from '../../service/common/toast.service';
-import {LoaderService} from '../../service/loader/loader.service';
 import {AuthService} from '../../service/auth/auth.service';
 import {UserModel, GroupModel, DayModel, TaskModel} from '../../_model';
 import {ModalEnum} from '../../_enum';
@@ -29,7 +28,6 @@ export class TodayPage implements OnInit, OnDestroy {
     private groupService: CoreGroupService,
     private authService: AuthService,
     private toastService: ToastService,
-    private loaderService: LoaderService,
     private modalService: ModalService,
     private router: Router
   ) { }
@@ -59,17 +57,14 @@ export class TodayPage implements OnInit, OnDestroy {
   }
 
   public getTasks(day: DayModel = { weekday: null, monthDay: null, date: new Date() }): void {
-    // this.loaderService.toggleLoading(true);
     // this.coreTaskService.listTaskByDate(day.date.toLocaleDateString())
     //   .subscribe(
     //     tasksByDate => {
     //       this.todayTasks = tasksByDate.tasks;
     //       this.updateSelectedDateTitle(day);
-    //       this.loaderService.toggleLoading();
     //     },
     //     async error => {
     //       await this.toastService.show('TOAST.LIST_TASKS_ERROR', { message: error, origin: 'TodayPage.getTasks' });
-    //       this.loaderService.toggleLoading();
     //     });
   }
 

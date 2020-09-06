@@ -2,7 +2,6 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {ModalMethods} from '../../../_shared/modal.methods';
-import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
 import {ToastService} from '../../../service/common/toast.service';
 import {ModalService} from '../../../service/common/modal.service';
@@ -41,7 +40,6 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
 
   constructor(
     private formBuilder: FormBuilder,
-    private loaderService: LoaderService,
     private authService: AuthService,
     private toastService: ToastService,
     public modalService: ModalService,
@@ -103,8 +101,6 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
       return;
     }
 
-    this.loaderService.toggleLoading(true);
-
     const toast = {
       message: 'TOAST.INFO_WAS_SAVED',
       error: null
@@ -121,7 +117,6 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
           await this.form.reset();
           this.onModalClose();
           await this.toastService.show(toast.message);
-          this.loaderService.toggleLoading();
         },
         async error => {
           toast.message = 'TOAST.UNABLE_TO_SAVE';
@@ -130,7 +125,6 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
             origin: `GroupFormComponent.onSubmitForm.${apiMethodName}`
           };
           await this.toastService.show(toast.message, toast.error);
-          this.loaderService.toggleLoading();
         }
       );
   }

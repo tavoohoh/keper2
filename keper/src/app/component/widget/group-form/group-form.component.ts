@@ -1,11 +1,10 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ModalMethods} from '../../../_shared/modal.methods';
-import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
 import {ToastService} from '../../../service/common/toast.service';
 import {ModalService} from '../../../service/common/modal.service';
-import {EntityEnum, ModalEnum} from '../../../_enum';
+import {ModalEnum} from '../../../_enum';
 import {GroupModel} from '../../../_model';
 import {CoreGroupService} from '../../../service/core/group.service';
 
@@ -24,7 +23,6 @@ export class GroupFormComponent extends ModalMethods implements OnChanges {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private loaderService: LoaderService,
     private toastService: ToastService,
     private coreGroupService: CoreGroupService,
     public modalService: ModalService,
@@ -65,8 +63,6 @@ export class GroupFormComponent extends ModalMethods implements OnChanges {
       return;
     }
 
-    this.loaderService.toggleLoading(true);
-
     const toast = {
       message: 'TOAST.INFO_WAS_SAVED',
       error: null
@@ -82,13 +78,11 @@ export class GroupFormComponent extends ModalMethods implements OnChanges {
             this.coreGroupService.setGroup(this.group);
           }
 
-          this.modalClose.emit({ refresh: true });
           this.noEdited = true;
           this.submitted = false;
           await this.form.reset();
           this.onModalClose();
           await this.toastService.show(toast.message);
-          this.loaderService.toggleLoading();
         },
         async error => {
           toast.message = 'TOAST.UNABLE_TO_SAVE';
@@ -97,7 +91,6 @@ export class GroupFormComponent extends ModalMethods implements OnChanges {
             origin: `GroupFormComponent.onSubmitForm.${apiMethodName}`
           };
           await this.toastService.show(toast.message, toast.error);
-          this.loaderService.toggleLoading();
         }
       );
   }

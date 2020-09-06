@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
 import {ModalService} from '../../../service/common/modal.service';
 import {ModalEnum} from '../../../_enum';
@@ -18,7 +17,6 @@ export class RecoverPasswordComponent extends ChangePasswordAndModalMethods impl
 
   constructor(
     private formBuilder: FormBuilder,
-    private loaderService: LoaderService,
     private authService: AuthService,
     public modalService: ModalService,
     private toastService: ToastService
@@ -44,8 +42,6 @@ export class RecoverPasswordComponent extends ChangePasswordAndModalMethods impl
       return;
     }
 
-    this.loaderService.toggleLoading(true);
-
     const toast = {
       message: 'TOAST.PASSWORD_RECOVER_EMAIL',
       error: null
@@ -63,7 +59,6 @@ export class RecoverPasswordComponent extends ChangePasswordAndModalMethods impl
           origin: 'RecoverPasswordComponent.onSubmitForm'
         };
       }).finally(async () => {
-        this.loaderService.toggleLoading();
         await this.toastService.show(toast.message, toast.error);
       });
   }

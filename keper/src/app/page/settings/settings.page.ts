@@ -6,12 +6,12 @@ import {Subject} from 'rxjs';
 import {CoreTaskService} from '../../service/core/task.service';
 import {ToastService} from '../../service/common/toast.service';
 
-import {LoaderService} from '../../service/loader/loader.service';
 import {MemberModel, TaskModel, UserModel} from '../../_model';
 import {AuthService} from '../../service/auth/auth.service';
 import {EntityEnum, ModalEnum} from '../../_enum';
 import {ModalService} from '../../service/common/modal.service';
 import {CoreGroupService} from '../../service/core/group.service';
+import {CoreUserService} from '../../service/core/user.service';
 
 @Component({
   selector: 'app-settings',
@@ -20,7 +20,7 @@ import {CoreGroupService} from '../../service/core/group.service';
 })
 export class SettingsPage implements OnInit, OnDestroy {
   private $destroyed = new Subject();
-  public userId: string;
+  public userId = '';
   public tasks: Array<TaskModel> = [];
   public users: Array<MemberModel> = [];
   public entityType: EntityEnum;
@@ -30,9 +30,9 @@ export class SettingsPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private coreTaskService: CoreTaskService,
+    private coreUsersService: CoreUserService,
     private groupService: CoreGroupService,
     private toastService: ToastService,
-    private loaderService: LoaderService,
     private authService: AuthService,
     private modalService: ModalService
   ) { }
@@ -54,7 +54,7 @@ export class SettingsPage implements OnInit, OnDestroy {
         if (user) {
           this.userId = user.id;
           this.getTasks();
-          // this.getUsers();
+          this.getUsers();
         } else {
           this.userId = null;
         }
@@ -67,25 +67,18 @@ export class SettingsPage implements OnInit, OnDestroy {
       .subscribe(() => {
         if (this.userId) {
           this.getTasks();
-          // this.getUsers();
+          this.getUsers();
         }
       });
   }
 
   private getTasks(): void {
-    this.loaderService.toggleLoading(true);
-
     this.coreTaskService.listTask()
       .pipe(takeUntil(this.$destroyed))
       .subscribe(
-        tasks => {
-          this.tasks = tasks;
-          this.loaderService.toggleLoading();
-        }, async error => {
-          await this.toastService.show('TOAST.LIST_TASKS_ERROR', { message: error, origin: 'SettingsPage.getTasks' });
-          this.loaderService.toggleLoading();
-        }
-      );
+      tasks =>  this.tasks = tasks,
+      async error => await this.toastService.show('TOAST.LIST_TASKS_ERROR', { message: error, origin: 'SettingsPage.getTasks' }
+      ));
   }
 
   public toGetTasks($event: { refresh?: boolean }): void {
@@ -94,18 +87,14 @@ export class SettingsPage implements OnInit, OnDestroy {
     }
   }
 
-  // private async getUsers(): Promise<Array<UserModel>> {
-  //   this.loaderService.toggleLoading(true);
-  //
-  //   const users = await this.coreService.listUsers()
-  //     .catch(async error => {
-  //       await this.toastService.show('TOAST.LIST_USERS_ERROR', { message: error, origin: 'SettingsPage.getUsers' });
-  //       this.loaderService.toggleLoading();
-  //     });
-  //
-  //   this.loaderService.toggleLoading();
-  //   return users as Array<UserModel>;
-  // }
+  private getUsers(): void {
+    this.coreUsersService.listMembers()
+      .pipe(takeUntil(this.$destroyed))
+      .subscribe(
+      users => this.users = users,
+      async error => await this.toastService.show('TOAST.LIST_TASKS_ERROR', { message: error, origin: 'SettingsPage.getTasks' }
+      ));
+  }
 
   /**
    * Manage tasks

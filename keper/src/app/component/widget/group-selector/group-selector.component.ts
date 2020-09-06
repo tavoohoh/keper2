@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 
 import {ButtonTypeEnum, EntityEnum, ModalEnum} from '../../../_enum';
-import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
 import {UserModel, GroupModel} from '../../../_model';
 import {ModalMethods} from '../../../_shared/modal.methods';
@@ -27,7 +26,6 @@ export class GroupSelectorComponent extends ModalMethods implements OnInit {
 
   constructor(
     private groupService: CoreGroupService,
-    private loaderService: LoaderService,
     private authService: AuthService,
     private toastService: ToastService,
     public modalService: ModalService,
@@ -47,15 +45,12 @@ export class GroupSelectorComponent extends ModalMethods implements OnInit {
   }
 
   private getGroups(): void {
-    this.loaderService.toggleLoading(true);
     this.groupService.getGroups().subscribe(
       (groups: Array<GroupModel>) => {
         this.groups = groups;
-        this.loaderService.toggleLoading();
       },
       async error => {
         await this.toastService.show('TOAST.LIST_GROUPS_ERROR', { message: error, origin: 'GroupSelector.getGroups' });
-        this.loaderService.toggleLoading();
       });
   }
 

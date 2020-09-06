@@ -4,7 +4,6 @@ import {takeUntil} from 'rxjs/operators';
 import {User as FirebaseUser} from 'firebase';
 
 import {ChangePasswordAndModalMethods} from '../../../_shared/password-input.methods';
-import {LoaderService} from '../../../service/loader/loader.service';
 import {AuthService} from '../../../service/auth/auth.service';
 import {ModalService} from '../../../service/common/modal.service';
 import {ModalEnum} from '../../../_enum';
@@ -23,7 +22,6 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private loaderService: LoaderService,
     public modalService: ModalService,
     private toastService: ToastService
   ) {
@@ -31,7 +29,6 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
   }
 
   ngOnInit(): void {
-    this.loaderService.toggleLoading(true);
     this.formFieldSetting.passwordType = 'password';
     this.authService.userDataAsObservable()
       .pipe(takeUntil(this.$destroyed))
@@ -39,7 +36,6 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
         if (user) {
           this.firebaseUser = this.authService.firebaseUserValue;
           this.form = this.setForm();
-          this.loaderService.toggleLoading();
         }
     });
   }
@@ -56,8 +52,6 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
     if (this.form.invalid) {
       return;
     }
-
-    this.loaderService.toggleLoading(true);
 
     const toast = {
       message: 'TOAST.INFO_WAS_SAVED',
@@ -76,7 +70,6 @@ export class ChangePasswordComponent extends ChangePasswordAndModalMethods imple
           origin: 'ChangePasswordComponent.onSubmitForm'
         };
       }).finally(async () => {
-        this.loaderService.toggleLoading();
         await this.toastService.show(toast.message, toast.error);
       });
   }

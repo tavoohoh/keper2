@@ -1,84 +1,82 @@
-<ng-container *ngIf="userId">
-  <app-tabs>
-    <app-header
-      [showProfileBtn]="true"
-      [title]="'SETTING.TITLE'"></app-header>
+<app-tabs>
+  <app-header
+    [showProfileBtn]="true"
+    [title]="'SETTING.TITLE'"></app-header>
 
-    <!-- Tasks -->
-    <div class="keper-padding-body">
-      <div class="keper-section-title">
-        {{ 'TASKS.TITLE' | translate }}
-      </div>
-      <div class="keper-grid-2">
-        <ng-container *ngIf="tasks">
-          <app-item-card
-            *ngFor="let task of tasks"
-            [title]="task.name"
-            [fullSchedule]="{ days: task.days, time: task.schedule }"
-            [isSmall]="true"
-            [hasOpts]="true"
-            (optionsEvent)="onTaskOptsEvent(task)">
-          </app-item-card>
-        </ng-container>
-        <app-item-card
-          [title]="'TASKS.NEW'"
-          [isSmall]="true"
-          [isSingle]="true"
-          [isClickable]="true"
-          [isAddButton]="true"
-          (click)="onTaskFormEvent()">
-        </app-item-card>
-      </div>
+  <!-- Tasks -->
+  <div class="keper-padding-body">
+    <div class="keper-section-title">
+      {{ 'TASKS.TITLE' | translate }}
     </div>
-
-    <!-- Users -->
-    <div class="keper-padding-body" *ngIf="userId">
-      <div class="keper-section-title">
-        {{ 'USERS.TITLE' | translate }}
-      </div>
-      <div class="keper-grid-2">
-        <ng-container *ngIf="users">
-          <app-item-card
-            *ngFor="let user of users"
-            [title]="user.displayName + (user.fk === userId ? (' (' + ('USERS.YOU' | translate) + ')') : '')"
-            [isSmall]="true"
-            [hasOpts]="true"
-            (optionsEvent)="onUserOptsEvent(user)">
-          </app-item-card>
-        </ng-container>
+    <div class="keper-grid-2">
+      <ng-container *ngIf="tasks">
         <app-item-card
-          [title]="'USERS.NEW'"
+          *ngFor="let task of tasks"
+          [title]="task.name"
+          [fullSchedule]="{ days: task.days, time: task.schedule }"
           [isSmall]="true"
-          [isClickable]="true"
-          [isAddButton]="true"
-          [isSingle]="true"
-          (click)="onUserFormEvent()">
+          [hasOpts]="true"
+          (optionsEvent)="onTaskOptsEvent(task)">
         </app-item-card>
-      </div>
+      </ng-container>
+      <app-item-card
+        [title]="'TASKS.NEW'"
+        [isSmall]="true"
+        [isSingle]="true"
+        [isClickable]="true"
+        [isAddButton]="true"
+        (click)="onTaskFormEvent()">
+      </app-item-card>
     </div>
-  </app-tabs>
+  </div>
 
-  <!-- modals -->
-  <app-user-form>
-  </app-user-form>
+  <!-- Users -->
+  <div class="keper-padding-body">
+    <div class="keper-section-title">
+      {{ 'USERS.TITLE' | translate }}
+    </div>
+    <div class="keper-grid-2">
+      <ng-container *ngIf="users">
+        <app-item-card
+          *ngFor="let user of users"
+          [title]="user.displayName + (user.fk === userId ? (' (' + ('USERS.YOU' | translate) + ')') : '')"
+          [isSmall]="true"
+          [hasOpts]="true"
+          (optionsEvent)="onUserOptsEvent(user)">
+        </app-item-card>
+      </ng-container>
+      <app-item-card
+        [title]="'USERS.NEW'"
+        [isSmall]="true"
+        [isClickable]="true"
+        [isAddButton]="true"
+        [isSingle]="true"
+        (click)="onUserFormEvent()">
+      </app-item-card>
+    </div>
+  </div>
+</app-tabs>
 
-  <app-task-form
-    [task]="entityValue"
-    (modalClose)="toGetTasks($event)">
-  </app-task-form>
+<!-- modals -->
+<app-user-form>
+</app-user-form>
 
-  <app-options
-    [entity]="entityValue"
-    [optionTitle]="'TASKS.SINGULAR'"
-    [showEdit]="entityType === 'TASKS'"
-    (clickDelete)="onDeleteTaskEvent()"
-    (clickEdit)="onTaskFormEvent()"
-  ></app-options>
+<app-task-form
+  [task]="entityValue"
+  (modalClose)="toGetTasks($event)">
+</app-task-form>
 
-  <app-confirm-delete
-    *ngIf="entityValue"
-    [entityUid]="entityValue.uid"
-    [entityType]="entityType"
-    (modalClose)="toGetTasks($event)"
-  ></app-confirm-delete>
-</ng-container>
+<app-options
+  [entity]="entityValue"
+  [optionTitle]="'TASKS.SINGULAR'"
+  [showEdit]="entityType === 'TASKS'"
+  (clickDelete)="onDeleteTaskEvent()"
+  (clickEdit)="onTaskFormEvent()"
+></app-options>
+
+<app-confirm-delete
+  *ngIf="entityValue"
+  [entityUid]="entityValue.uid"
+  [entityType]="entityType"
+  (modalClose)="toGetTasks($event)"
+></app-confirm-delete>
