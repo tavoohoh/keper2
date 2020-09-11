@@ -16,7 +16,6 @@ export class ToastService {
   /**
    * Custom and easy to implement toast service
    * @param message text to display
-   * @param color the color type
    * @param error object with debug information
    */
   public async show(
@@ -31,7 +30,7 @@ export class ToastService {
     })).present();
 
     if (error) {
-      console.error(`Error at ${error.origin}. ${error.message}`);
+      console.error(`Error at ${error.origin} | ${JSON.stringify(error.message)}`);
     }
   }
 }

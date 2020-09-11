@@ -15,6 +15,7 @@
         type="text"
         id="email"
         [placeholder]="'FORM.EMAIL_P_ALT' | translate"
+        (change)="checkUsersEmail()"
         formControlName="email"/>
       <div *ngIf="submitted && f.email.errors" class="keper-field-errors">
         <div *ngIf="f.email.errors.required">
@@ -27,15 +28,17 @@
     </div>
 
     <!-- name field -->
-    <div class="keper-field" [class.keper-field-invalid]="submitted && f.name.errors" *ngIf="f.name">
-      <label for="name">{{ 'FORM.NAME' | translate }}</label>
+    <div class="keper-field"
+       [class.keper-field-invalid]="submitted && f.name.errors"
+       [class.keper-field-disabled]="memberId">
+      <label for="displayName">{{ 'FORM.NAME' | translate }}</label>
       <input
         type="text"
-        id="name"
+        id="displayName"
         [placeholder]="'FORM.NAME_P_ALT' | translate"
-        formControlName="name"/>
-      <div *ngIf="submitted && f.name.errors" class="keper-field-errors">
-        <div *ngIf="f.name.errors.required">
+        formControlName="displayName"/>
+      <div *ngIf="submitted && f.displayName.errors" class="keper-field-errors">
+        <div *ngIf="f.displayName.errors.required">
           {{ 'FORM.NAME_R' | translate }}
         </div>
       </div>

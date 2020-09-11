@@ -58,19 +58,21 @@
 </app-tabs>
 
 <!-- modals -->
-<app-user-form>
+<app-user-form
+  (modalClose)="toGetUsers($event)">
 </app-user-form>
 
 <app-task-form
-  [task]="entityValue"
+  [entity]="entityValue"
   (modalClose)="toGetTasks($event)">
 </app-task-form>
 
 <app-options
+  *ngIf="entityValue"
   [entity]="entityValue"
-  [optionTitle]="'TASKS.SINGULAR'"
+  [optionTitle]="entityType + '.SINGULAR'"
   [showEdit]="entityType === 'TASKS'"
-  (clickDelete)="onDeleteTaskEvent()"
+  (clickDelete)="entityType === 'TASKS' ? onDeleteTaskEvent() : onRemoveUserEvent()"
   (clickEdit)="onTaskFormEvent()"
 ></app-options>
 
@@ -78,5 +80,5 @@
   *ngIf="entityValue"
   [entityUid]="entityValue.uid"
   [entityType]="entityType"
-  (modalClose)="toGetTasks($event)"
+  (modalClose)="entityType === 'TASKS' ? toGetTasks($event) : toGetUsers($event)"
 ></app-confirm-delete>

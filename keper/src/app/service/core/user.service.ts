@@ -80,4 +80,11 @@ export class CoreUserService {
     });
   }
 
+  public getByEmail(email: string): Observable<UserDbModel> {
+    return this.http.get<UserDbModel>(API_URL, {
+      headers: this.authService.getBasicAuthHeaders(),
+      params: new HttpParams().set('email', email)
+    });
+  }
+
 }

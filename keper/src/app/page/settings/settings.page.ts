@@ -6,7 +6,7 @@ import {Subject} from 'rxjs';
 import {CoreTaskService} from '../../service/core/task.service';
 import {ToastService} from '../../service/common/toast.service';
 
-import {MemberModel, TaskModel, UserModel} from '../../_model';
+import {EntityModel, MemberModel, TaskModel, UserModel} from '../../_model';
 import {AuthService} from '../../service/auth/auth.service';
 import {EntityEnum, ModalEnum} from '../../_enum';
 import {ModalService} from '../../service/common/modal.service';
@@ -24,7 +24,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   public tasks: Array<TaskModel> = [];
   public users: Array<MemberModel> = [];
   public entityType: EntityEnum;
-  public entityValue: TaskModel | MemberModel = null;
+  public entityValue: EntityModel = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -82,6 +82,9 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   public toGetTasks($event: { refresh?: boolean }): void {
+    this.entityValue = null;
+    this.entityType = null;
+
     if ($event.refresh) {
       this.getTasks();
     }
@@ -96,18 +99,26 @@ export class SettingsPage implements OnInit, OnDestroy {
       ));
   }
 
+  public toGetUsers($event: { refresh?: boolean }): void {
+    this.entityValue = null;
+    this.entityType = null;
+
+    if ($event.refresh) {
+      this.getUsers();
+    }
+  }
+
   /**
    * Manage tasks
    */
 
   public onTaskOptsEvent(task: TaskModel): void {
-    this.entityValue = task;
-    this.entityType = EntityEnum.TASKS;
-    this.modalService.currentModalValue = ModalEnum.OPTIONS;
+    this.entityValue = new EntityModel(task.name, task.uid, task);
+    this.setEntityType(EntityEnum.TASKS, ModalEnum.OPTIONS);
   }
 
   public onTaskFormEvent(): void {
-    this.modalService.currentModalValue = ModalEnum.TASK_FORM;
+    this.setEntityType(EntityEnum.TASKS, ModalEnum.TASK_FORM);
   }
 
   public async onDeleteTaskEvent(): Promise<void> {
@@ -119,16 +130,21 @@ export class SettingsPage implements OnInit, OnDestroy {
    */
 
   public onUserOptsEvent(user: MemberModel): void {
-    this.entityValue = user;
-    this.entityType = EntityEnum.USERS;
-    this.modalService.currentModalValue = ModalEnum.OPTIONS;
+    this.entityValue = new EntityModel(user.displayName, user.fk, user);
+    this.setEntityType(EntityEnum.USERS, ModalEnum.OPTIONS);
   }
 
   public onUserFormEvent(): void {
-    this.modalService.currentModalValue = ModalEnum.USER_FORM;
+    this.setEntityType(EntityEnum.USERS, ModalEnum.USER_FORM);
   }
 
-  public async onRemoveUserEvent(user: UserModel): Promise<void> {
+  public async onRemoveUserEvent(): Promise<void> {
+    this.modalService.currentModalValue = ModalEnum.CONFIRM_DELETE;
+  }
+
+  private setEntityType(entityType: EntityEnum, modalType: ModalEnum): void {
+    this.entityType = entityType;
+    setTimeout(() => this.modalService.currentModalValue = modalType, 100);
   }
 
 }

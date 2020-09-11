@@ -5,6 +5,7 @@ import {ButtonTypeEnum, EntityEnum, ModalEnum} from '../../../_enum';
 import {CoreGroupService} from '../../../service/core/group.service';
 import {ToastService} from '../../../service/common/toast.service';
 import {CoreTaskService} from '../../../service/core/task.service';
+import {CoreMemberService} from '../../../service/core/member.service';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -21,6 +22,7 @@ export class ConfirmDeleteComponent extends ModalMethods implements OnChanges {
     public modalService: ModalService,
     private coreGroupService: CoreGroupService,
     private coreTaskService: CoreTaskService,
+    private coreMembersService: CoreMemberService,
     private toastService: ToastService,
   ) {
     super(modalService, ModalEnum.CONFIRM_DELETE);
@@ -58,6 +60,11 @@ export class ConfirmDeleteComponent extends ModalMethods implements OnChanges {
       case EntityEnum.TASKS:
         apiMethodService = 'coreTaskService';
         apiMethodName = 'deleteTask';
+        break;
+
+      case EntityEnum.USERS:
+        apiMethodService = 'coreMembersService';
+        apiMethodName = 'remove';
         break;
     }
 

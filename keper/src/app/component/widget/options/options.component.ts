@@ -1,10 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {ModalMethods} from '../../../_shared/modal.methods';
 import {ModalService} from '../../../service/common/modal.service';
-import {GroupModel, TaskModel, UserModel} from '../../../_model';
+import {EntityModel} from '../../../_model';
 import {ButtonTypeEnum, ModalEnum} from '../../../_enum';
-
-type EntityModel = TaskModel | GroupModel | UserModel;
 
 @Component({
   selector: 'app-options',

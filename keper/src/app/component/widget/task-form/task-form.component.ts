@@ -6,7 +6,7 @@ import {AuthService} from '../../../service/auth/auth.service';
 import {ToastService} from '../../../service/common/toast.service';
 import {ModalService} from '../../../service/common/modal.service';
 import {DaysEnum, ModalEnum} from '../../../_enum';
-import {MemberModel, TaskModel} from '../../../_model';
+import {EntityModel, MemberModel, TaskModel} from '../../../_model';
 import {CoreTaskService} from '../../../service/core/task.service';
 import {CoreMemberService} from '../../../service/core/member.service';
 
@@ -16,7 +16,8 @@ import {CoreMemberService} from '../../../service/core/member.service';
   styleUrls: ['./task-form.component.scss'],
 })
 export class TaskFormComponent extends ModalMethods implements OnChanges {
-  @Input() private task: TaskModel = null;
+  @Input() private entity: EntityModel = null;
+  private task: TaskModel = null;
 
   public submitted: boolean;
   public noEdited = true;
@@ -50,8 +51,8 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes.task && changes.task.currentValue) {
-      this.task = changes.task.currentValue;
+    if (changes && changes.entity && changes.entity.currentValue) {
+      this.task = changes.entity.currentValue;
     }
 
     this.getGroupUsers();
