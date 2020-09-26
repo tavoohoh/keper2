@@ -108,7 +108,7 @@ export class AuthService {
   public getBasicAuthHeaders(userToken = null): HttpHeaders {
     const user: UserModel = this.userValue || null;
 
-    if (!userToken && !user) {
+    if (!userToken && !user || (user && !user.token)) {
       throwError('No token was provided. At `authService.getBasicAuthHeaders`');
     }
 

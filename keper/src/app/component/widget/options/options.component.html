@@ -1,4 +1,5 @@
 <app-modal
+  *ngIf="optionTitle && entity"
   (modalClose)="onModalClose()"
   [hideConfirm]="true"
   [smallModal]="true"

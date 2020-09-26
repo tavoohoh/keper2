@@ -1,23 +1,39 @@
-import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent implements OnChanges, OnInit {
   @ViewChild('modalContainer') modalContainer: ElementRef;
 
-  @Input() public smallModal: boolean;
-  @Input() public openModal: boolean;
   @Input() public title: string;
   @Input() public subtitle: string;
+  @Input() public smallModal: boolean;
+  @Input() public openModal: boolean;
   @Input() public disabledCancel: boolean;
   @Input() public disabledConfirm: boolean;
   @Input() public hideCancel: boolean;
   @Input() public hideConfirm: boolean;
   @Output() public modalClose = new EventEmitter<void>();
   @Output() public modalConfirm = new EventEmitter<void>();
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes && changes.openModal && changes.openModal.currentValue) {
+      this.openModal = changes.openModal.currentValue;
+    }
+  }
 
   ngOnInit(): void {
     // TODO: Add gesture to close the modal

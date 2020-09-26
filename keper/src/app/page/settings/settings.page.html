@@ -25,7 +25,7 @@
         [isSingle]="true"
         [isClickable]="true"
         [isAddButton]="true"
-        (click)="onTaskFormEvent()">
+        (click)="onTaskFormEvent(null)">
       </app-item-card>
     </div>
   </div>
@@ -57,16 +57,19 @@
   </div>
 </app-tabs>
 
-<!-- modals -->
-<app-user-form
-  (modalClose)="toGetUsers($event)">
-</app-user-form>
-
+<!-- task form modal -->
 <app-task-form
+  *ngIf="entityType === 'TASKS'"
   [entity]="entityValue"
   (modalClose)="toGetTasks($event)">
 </app-task-form>
 
+<!-- user form modal -->
+<app-user-form
+  (modalClose)="toGetUsers($event)">
+</app-user-form>
+
+<!-- options modal -->
 <app-options
   *ngIf="entityValue"
   [entity]="entityValue"
@@ -74,8 +77,10 @@
   [showEdit]="entityType === 'TASKS'"
   (clickDelete)="entityType === 'TASKS' ? onDeleteTaskEvent() : onRemoveUserEvent()"
   (clickEdit)="onTaskFormEvent()"
+  (modalClose)="clearEntity()"
 ></app-options>
 
+<!-- delete modal -->
 <app-confirm-delete
   *ngIf="entityValue"
   [entityUid]="entityValue.uid"

@@ -50,15 +50,17 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
     super(modalService, ModalEnum.TASK_FORM);
   }
 
+  get f() { return this.form.controls; }
+
   ngOnChanges(changes: SimpleChanges): void {
+    this.task = null;
+
     if (changes && changes.entity && changes.entity.currentValue) {
-      this.task = changes.entity.currentValue;
+      this.task = changes.entity.currentValue.value;
     }
 
     this.getGroupUsers();
   }
-
-  get f() { return this.form.controls; }
 
   private getGroupUsers(): void {
     this.coreMemberService.list().subscribe(members => {
@@ -68,27 +70,26 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
   }
 
   private setForm(): void {
-    let name = '';
-    let schedule = '';
-    let days = [];
-    let users = [];
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      schedule: ['', Validators.required],
+      days: [[]],
+      users: [[]]
+    });
 
     if (this.task) {
-      name = this.task.name || '';
-      schedule = this.task.schedule || '';
-      days = this.task.days || [];
-
-      users = this.task.users.map(user => {
-        return user;
+      this.form.patchValue({
+        name: this.task.name || '',
+        schedule: this.task.schedule || '',
+        days: this.task.days || [],
+        users: this.task.users?.map(user => {
+          return user;
+        }) || []
       });
+      this.form.updateValueAndValidity();
+    } else {
+      this.form.reset();
     }
-
-    this.form = this.formBuilder.group({
-      name: [name, Validators.required],
-      schedule: [schedule, Validators.required],
-      days: [days],
-      users: [users]
-    });
   }
 
   public formChange(): void {
@@ -154,5 +155,10 @@ export class TaskFormComponent extends ModalMethods implements OnChanges {
       this.form.controls[fieldName].value.length > 0 ? this.form.controls[fieldName].value : [];
 
     return checkArray.includes(value);
+  }
+
+  public onModalClose(newModalValue: ModalEnum | undefined = null): void {
+    this.modalService.currentModalValue = newModalValue;
+    this.form.reset();
   }
 }

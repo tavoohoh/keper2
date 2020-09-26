@@ -7,7 +7,7 @@
   [title]="'TASKS.NEW'"
   [subtitle]="'TASKS.SUBTITLE'">
 
-  <form class="keper-form keper-no-padding" [formGroup]="form" (ngSubmit)="onSubmitForm()" (change)="formChange()" *ngIf="form">
+  <form class="keper-form keper-no-padding" [formGroup]="form" (ngSubmit)="onSubmitForm()" (change)="formChange()" *ngIf="form && formFields">
     <!-- task name field -->
     <div class="keper-field" [class.keper-field-invalid]="submitted && f.name.errors">
       <label for="name">{{ 'FORM.TASK_NAME' | translate }}</label>

@@ -1,10 +1,10 @@
-import { EventEmitter, OnDestroy, Output } from '@angular/core';
+import {AfterViewInit, EventEmitter, OnDestroy, Output} from '@angular/core';
 import { ModalService } from '../service/common/modal.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ModalEnum } from '../_enum/modal.enum';
 
-export class ModalMethods implements OnDestroy {
+export class ModalMethods implements OnDestroy, AfterViewInit {
   public $destroyed = new Subject();
   public show = false;
 
@@ -15,12 +15,16 @@ export class ModalMethods implements OnDestroy {
   constructor(
     public modalService: ModalService,
     public modalName: ModalEnum
-  ) {
-    this.modalService.currentModalAsObservable()
-      .pipe(takeUntil(this.$destroyed))
-      .subscribe(modal => {
-        this.show = modalName === modal;
-      });
+  ) {}
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.modalService.currentModalAsObservable()
+        .pipe(takeUntil(this.$destroyed))
+        .subscribe(modal => {
+          this.show = this.modalName === modal;
+        });
+    });
   }
 
   ngOnDestroy() {

@@ -31,7 +31,9 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.loader.getLoadingAsObservable().pipe(takeUntil(this.$destroyed)).subscribe((loading: boolean) => this.loading = loading);
+    this.loader.getLoadingAsObservable().pipe(takeUntil(this.$destroyed)).subscribe((loading: boolean) => {
+      setTimeout(() => this.loading = loading);
+    });
   }
 
   ngOnDestroy() {

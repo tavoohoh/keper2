@@ -58,6 +58,7 @@ export class OptionsComponent extends ModalMethods implements OnChanges {
 
   public onModalClose(): void {
     this.modalService.currentModalValue = this.afterModalCloseOpen || null;
+    this.entity = null;
   }
 
 }

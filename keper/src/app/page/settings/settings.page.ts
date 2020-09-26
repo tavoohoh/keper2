@@ -44,7 +44,6 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAuthUser();
-    this.getGroups();
   }
 
   private getAuthUser(): void {
@@ -53,8 +52,7 @@ export class SettingsPage implements OnInit, OnDestroy {
       .subscribe(async (user: UserModel) => {
         if (user) {
           this.userId = user.id;
-          this.getTasks();
-          this.getUsers();
+          this.getGroups();
         } else {
           this.userId = null;
         }
@@ -65,10 +63,8 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.groupService.getGroupAsObservable()
       .pipe(takeUntil(this.$destroyed))
       .subscribe(() => {
-        if (this.userId) {
-          this.getTasks();
-          this.getUsers();
-        }
+        this.getTasks();
+        this.getUsers();
       });
   }
 
@@ -111,14 +107,15 @@ export class SettingsPage implements OnInit, OnDestroy {
   /**
    * Manage tasks
    */
-
   public onTaskOptsEvent(task: TaskModel): void {
     this.entityValue = new EntityModel(task.name, task.uid, task);
     this.setEntityType(EntityEnum.TASKS, ModalEnum.OPTIONS);
   }
 
-  public onTaskFormEvent(): void {
-    this.setEntityType(EntityEnum.TASKS, ModalEnum.TASK_FORM);
+  public onTaskFormEvent(entityValue = this.entityValue): void {
+    this.entityValue = entityValue;
+
+    setTimeout(() => this.setEntityType(EntityEnum.TASKS, ModalEnum.TASK_FORM));
   }
 
   public async onDeleteTaskEvent(): Promise<void> {
@@ -128,7 +125,6 @@ export class SettingsPage implements OnInit, OnDestroy {
   /**
    * Manage users
    */
-
   public onUserOptsEvent(user: MemberModel): void {
     this.entityValue = new EntityModel(user.displayName, user.fk, user);
     this.setEntityType(EntityEnum.USERS, ModalEnum.OPTIONS);
@@ -144,7 +140,10 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   private setEntityType(entityType: EntityEnum, modalType: ModalEnum): void {
     this.entityType = entityType;
-    setTimeout(() => this.modalService.currentModalValue = modalType, 100);
+    this.modalService.currentModalValue = modalType;
   }
 
+  public clearEntity(): void {
+    this.entityValue = null;
+  }
 }
