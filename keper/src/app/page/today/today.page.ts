@@ -48,7 +48,7 @@ export class TodayPage implements OnInit, OnDestroy {
             .pipe(takeUntil(this.$destroyed))
             .subscribe(group => {
               this.group = group ? group : null;
-              // this.getTasks();
+              this.getTasks();
             });
         } else {
           this.userId = null;
@@ -57,15 +57,15 @@ export class TodayPage implements OnInit, OnDestroy {
   }
 
   public getTasks(day: DayModel = { weekday: null, monthDay: null, date: new Date() }): void {
-    // this.coreTaskService.listTaskByDate(day.date.toLocaleDateString())
-    //   .subscribe(
-    //     tasksByDate => {
-    //       this.todayTasks = tasksByDate.tasks;
-    //       this.updateSelectedDateTitle(day);
-    //     },
-    //     async error => {
-    //       await this.toastService.show('TOAST.LIST_TASKS_ERROR', { message: error, origin: 'TodayPage.getTasks' });
-    //     });
+    this.coreTaskService.listTaskByDate(day.date.toISOString())
+      .subscribe(
+        tasksByDate => {
+          this.todayTasks = tasksByDate.tasks;
+          this.updateSelectedDateTitle(day);
+        },
+        async error => {
+          await this.toastService.show('TOAST.LIST_TASKS_ERROR', { message: error, origin: 'TodayPage.getTasks' });
+        });
   }
 
   private updateSelectedDateTitle(day: DayModel): void {

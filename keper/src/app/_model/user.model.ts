@@ -6,6 +6,8 @@ export class UserModel {
   email?: string;
   phone?: string;
   nameFirstLetter?: string;
+  displayName?: string;
+  uid?: string;
 
   constructor(user: UserBackendModel, userToken: string, userUid: string) {
     this.id = userUid;

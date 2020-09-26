@@ -10,8 +10,8 @@
         <app-item-card
           *ngFor="let task of todayTasks"
           [title]="task.name"
-          [content1]="task.user.name + (task.users[0].id === userId ? (' (' + ('USERS.YOU' | translate) + ')') : '')"
-          [content2]="task.schedule[0]">
+          [content1]="task.user.displayName + (task.user.uid === userId ? (' (' + ('USERS.YOU' | translate) + ')') : '')"
+          [content2]="task.schedule">
         </app-item-card>
       </div>
     </ng-container>
